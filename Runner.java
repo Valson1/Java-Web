@@ -11,7 +11,7 @@ public class Runner {
 		int maxTotalCost =  businessTrips[0].getTotal();
 		for  (BusinessTrip businessTrip : businessTrips) {
 			if(businessTrip != null) {
-				businessTrip.show();
+			       	businessTrip.show();
 				if (maxTotalCost < businessTrip.getTotal()) {
 					maxTotalCost = businessTrip.getTotal();
 				}

@@ -57,8 +57,8 @@ public class BusinessTrip {
 	}
 	public String toRubles(int value) {
 		int valueBefore = value / 100;
-		int valueAfter1 = value / 10 % 10;
-		int valueAfter2 = value % 10;
-		return valueBefore + "." + valueAfter1 + valueAfter2;
+		int valueTenthPart = value / 10 % 10;
+		int valueHundredthPart = value % 10;
+		return value + "." + valueTenthPart + valueHundredthPart;
 	}
 }
