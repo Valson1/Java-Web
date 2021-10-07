@@ -1,14 +1,13 @@
-
-import by.gsu.epamlab.*;
+import by.gsu.epamlab.BusinessTrip;
 public class Runner {
 	public static void main(String[] args) {
 		BusinessTrip[] businessTrips = {
-								new BusinessTrip("Ivan Ivanov",4000,10),
-								null,
-								new BusinessTrip("Kirill Meshkov",3500,12),
-								new BusinessTrip("Alexandr Medvedev",5000,14),
-								new BusinessTrip()
-									 	};
+				new BusinessTrip("Ivan Ivanov",4000,10),
+				new BusinessTrip("Kirill Meshkov",3500,12),
+				null,
+				new BusinessTrip("Alexandr Medvedev",5000,14),
+				new BusinessTrip()
+				};
 		int maxTotalCost =  businessTrips[0].getTotal();
 		for  (BusinessTrip businessTrip : businessTrips) {
 			if(businessTrip != null) {
@@ -29,7 +28,8 @@ public class Runner {
 			}
 		}
 		businessTrips[businessTrips.length - 1].setTransportationExpences(5500);
-		System.out.println("Duration = "+ (businessTrips[0].getNumberOfDays() + businessTrips[2].getNumberOfDays()));
+		System.out.println("Duration = "+ (businessTrips[0].getNumberOfDays() 
+				+ businessTrips[1].getNumberOfDays()));
 		for (BusinessTrip businessTrip : businessTrips) {
 			System.out.println(businessTrip);
 		}
