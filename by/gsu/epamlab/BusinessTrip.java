@@ -59,6 +59,6 @@ public class BusinessTrip {
 		int valueBefore = value / 100;
 		int valueTenthPart = value / 10 % 10;
 		int valueHundredthPart = value % 10;
-		return value + "." + valueTenthPart + valueHundredthPart;
+		return valueBefore + "." + valueTenthPart + valueHundredthPart;
 	}
 }
