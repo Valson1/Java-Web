@@ -19,7 +19,7 @@ hello.cpp
 Источник: https://docs.oracle.com/javase/tutorial/getStarted/index.html
 
 Перечислите группы примитивных типов данных и состав каждой группы.
- Ответ: Целые числа - byte, short, int, long.
+Ответ: Целые числа - byte, short, int, long.
 Числа с плавающей точкой (иначе вещественные) - float, double.
 Логический – boolean.
 Символьный – char.
@@ -48,7 +48,7 @@ hello.cpp
 Источник: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html
 
 В какой области памяти хранятся аргументы метода?
- Ответ: stack(стек).
+Ответ: stack(стек).
 Истчоник: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html
 
 В какой области памяти хранятся объекты?
@@ -56,15 +56,15 @@ hello.cpp
 Источник: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html
 
 В какой области памяти хранятся ссылки на объекты?
- Ответ: stack(стек).
+Ответ: stack(стек).
 Источник: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html
 
 В какой области памяти хранятся массивы?
- Ответ: heap(куча).
+Ответ: heap(куча).
 Источник: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html
 
 Дайте определение массива.
- Ответ: Массив представляет собой объект контейнера , который содержит определенное количество значений одного типа
+Ответ: Массив представляет собой объект контейнера , который содержит определенное количество значений одного типа
 Источник: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html
 
 Назовите 3 этапа создания массива. Какие действия выполняет JVM на каждом этапе?
@@ -122,7 +122,7 @@ type name [] []
 
 Как выглядит полное имя класса?
 Ответ:
- package.имя_класса
+package.имя_класса
 где package – имя пакета, где находится класс;
 Источник: https://docs.oracle.com/javase/tutorial/java/package/managingfiles.html
 
@@ -163,7 +163,7 @@ public static void main(String args[]){
 
 Можно ли определить метод main() с другими модификаторами?
 Ответ: нет. 
- Источник:
+Источник:
 
 Может ли в классе быть два и более метода main()?
 Ответ: да. Перегрузка возможна
@@ -184,7 +184,7 @@ public class Main{
 
 В корне проекта имеется файл HelloWorld.java, пути к необходимым ресурсам открыты.
 Создайте bat-файл для запуска приложения на выполнение.
- Ответ: cd путь к файлу
+Ответ: cd путь к файлу
 javac HelloWorld.java
 java HelloWorld
 pause
@@ -195,14 +195,14 @@ pause
 2. папка bin для class-файлов.
 Пути к компилятору и JVM открыты, переменная CLASSPATH не установлена.
 Создайте bat-файл для запуска приложения с двумя аргументами командной строки clever и 25007 на выполнение.
- Ответ: cd путь к файлу
+Ответ: cd путь к файлу
 javac HelloArgs.java 
 java  HelloArgs clever 25007
 Источник:
 
 Имеется корректный файл helloWorld.jar.
 Создайте bat-файл для запуска приложения на выполнение.
-  Ответ: cd путь к файлу
+Ответ: cd путь к файлу
 java – jar helloWorld.jar 
 Источник:
 
