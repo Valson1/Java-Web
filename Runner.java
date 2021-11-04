@@ -1,38 +1,49 @@
-
 import by.gsu.epamlab.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Scanner;
+
 public class Runner {
-	public static void main(String[] args) {
-		BusinessTrip[] businessTrips = {
-								new BusinessTrip("Ivan Ivanov",4000,10),
-								null,
-								new BusinessTrip("Kirill Meshkov",3500,12),
-								new BusinessTrip("Alexandr Medvedev",5000,14),
-								new BusinessTrip()
-									 	};
-		int maxTotalCost =  businessTrips[0].getTotal();
-		for  (BusinessTrip businessTrip : businessTrips) {
-			if(businessTrip != null) {
-				businessTrip.show();
-				if (maxTotalCost < businessTrip.getTotal()) {
-					maxTotalCost = businessTrip.getTotal();
+    public static void main(String[] args) {    	
+		try(Scanner file = new Scanner(new FileReader("src/in.txt"))) {
+			final int PURCHASES_NUMBER = file.nextInt();
+			Purchase []purchases = new Purchase[PURCHASES_NUMBER];
+			for (int i = 0; i < purchases.length; i++){
+				file.useLocale(Locale.ENGLISH);
+			    purchases[i] = new Purchase(file.nextInt(),
+			    		file.nextInt(), WeekDay.values()[file.nextInt()]);
+			    System.out.println(purchases[i]);
+		    }
+			Purchase maxCostOfPurchase = purchases[0];
+			int sumOfPurchasesCost = 0;
+			int sumOfPurchasesCostOnMonday = 0;
+			for (Purchase purchase : purchases) {
+				sumOfPurchasesCost += purchase.getCost();
+				if(purchase.getWeekDay() == WeekDay.MONDAY) {
+					sumOfPurchasesCostOnMonday += purchase.getCost();
 				}
-			}else {
-				System.out.println("null");
-			}
-		}
-		for (BusinessTrip businessTrip : businessTrips) {
-			if(businessTrip != null) {
-				if(businessTrip.getTotal() == maxTotalCost) {
-					System.out.println("The business trip with maximum cost: ");
-					businessTrip.show();
+				if(maxCostOfPurchase.getCost() < purchase.getCost()) {
+					maxCostOfPurchase = purchase;
 				}
 			}
+			System.out.println("Mean cost " + sumOfPurchasesCost / 1000 + "." 
+					+ sumOfPurchasesCost % 1000);
+			System.out.println("Total cost on Monday " + sumOfPurchasesCostOnMonday / 100 + "."
+					+ sumOfPurchasesCostOnMonday / 10 % 10 
+					+ sumOfPurchasesCostOnMonday % 10);
+			System.out.println("The day with the maximum cost purchase "
+					+ maxCostOfPurchase.getWeekDay());
+			Arrays.sort(purchases);
+			for (Purchase purchase : purchases) {
+				System.out.println(purchase);
+			}
+			System.out.println(Arrays.binarySearch(purchases,purchases[4]));
+		} catch (FileNotFoundException e) {
+		    System.err.println("Input file is not found");
 		}
-		businessTrips[businessTrips.length - 1].setTransportationExpences(5500);
-		System.out.println("Duration = "+ (businessTrips[0].getNumberOfDays() + businessTrips[2].getNumberOfDays()));
-		for (BusinessTrip businessTrip : businessTrips) {
-			System.out.println(businessTrip);
-		}
-	}
+    }
 }
 
