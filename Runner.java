@@ -13,12 +13,8 @@ public class Runner {
 			Purchase []purchases = new Purchase[PURCHASES_NUMBER];
 			for (int i = 0; i < purchases.length; i++){
 				file.useLocale(Locale.ENGLISH);
-			    int numberOfPurchaseUnits = file.nextInt();
-			    int discountPercent = file.nextInt();
-			    int day = file.nextInt();
-			    WeekDay weekDay = WeekDay.values()[day];
-			    purchases[i] = new Purchase(numberOfPurchaseUnits,
-				    discountPercent,weekDay);
+			    purchases[i] = new Purchase(file.nextInt(),
+			    		file.nextInt(), WeekDay.values()[file.nextInt()]);
 			    System.out.println(purchases[i]);
 		    }
 			Purchase maxCostOfPurchase = purchases[0];
