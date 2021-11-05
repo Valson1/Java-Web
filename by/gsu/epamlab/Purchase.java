@@ -1,7 +1,7 @@
 package by.gsu.epamlab;
 public class Purchase implements Comparable<Purchase> {
-    private final static String NAME = "Milk";
-    private final static int PRICE = 120;
+    public final static String NAME = "Milk";
+    public final static int PRICE = 120;
     private int numberOfPurchaseUnits;
     private int disountPercent;
     private WeekDay weekDay;
@@ -15,15 +15,6 @@ public class Purchase implements Comparable<Purchase> {
     public Purchase() {
     	
     }
-
-    public String getName() {
-        return NAME;
-    }
-    
-    public int getPrice() {
-        return PRICE;
-    }
-    
     public int getNumberOfPurchaseUnits() {
         return numberOfPurchaseUnits;
     }
@@ -53,7 +44,7 @@ public class Purchase implements Comparable<Purchase> {
     
     @Override
     public String toString() {
-	return NAME + ";" + toRubles(PRICE) + ";" + numberOfPurchaseUnits + ";" 
+	return numberOfPurchaseUnits + ";" 
 		+ disountPercent + ";" + weekDay + ";" + roundtoRuble(getCost());
     }
     
@@ -62,10 +53,6 @@ public class Purchase implements Comparable<Purchase> {
 	return this.numberOfPurchaseUnits > o.numberOfPurchaseUnits ? 
 		(this.numberOfPurchaseUnits == o.numberOfPurchaseUnits ? 0 : 1) : -1;
     }    
-    private String toRubles(int value) {
-    	return value / 100 + "." + value / 10 % 10 + value % 10;	
-	}
-    
     private int roundtoRuble(int value) {
 		int valueBefore = value / 100;
 		int valueTenthPart = value / 10 % 10;
