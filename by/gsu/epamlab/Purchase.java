@@ -53,8 +53,8 @@ public class Purchase implements Comparable<Purchase> {
     }
     
     @Override
-    public int compareTo(Purchase o) {
-	return this.numberOfPurchaseUnits > o.numberOfPurchaseUnits ? 
-		(this.numberOfPurchaseUnits == o.numberOfPurchaseUnits ? 0 : 1) : -1;
+    public int compareTo(Purchase purchase) {
+	return numberOfPurchaseUnits < purchase.numberOfPurchaseUnits ? 
+		1 : (numberOfPurchaseUnits == purchase.numberOfPurchaseUnits ? 0 : -1);
     }    
 }

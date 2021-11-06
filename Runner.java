@@ -46,7 +46,8 @@ public class Runner {
 			for (Purchase purchase : purchases) {
 				System.out.println(purchase);
 			}
-			System.out.println(purchases[Arrays.binarySearch(purchases, purchases[4])]);
+			System.out.println("Requried purchase is " 
+					+ purchases[Arrays.binarySearch(purchases,purchases[5])]);
 		} catch (FileNotFoundException e) {
 		    System.err.println("Input file is not found");
 		}
