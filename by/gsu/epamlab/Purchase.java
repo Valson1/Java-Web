@@ -49,11 +49,11 @@ public class Purchase implements Comparable<Purchase> {
     @Override
     public String toString() {
     	return numberOfPurchaseUnits + ";" 
-			+ disountPercent + ";" + weekDay + ";" + getCost();
+			+ disountPercent + ";" + weekDay + ";" + UtilityClass.toRubles(getCost());
     }
     
     @Override
     public int compareTo(Purchase purchase) {
-    	return numberOfPurchaseUnits - purchase.numberOfPurchaseUnits;
+    	return this.numberOfPurchaseUnits - purchase.numberOfPurchaseUnits;
     }    
 }
