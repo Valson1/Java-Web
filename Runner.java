@@ -1,4 +1,4 @@
-import by.gsu.epamlab.*;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Arrays;
@@ -6,12 +6,15 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Scanner;
 
+import by.gsu.epamlab.*;
 public class Runner {
-	private static String toRubles(int value) {
-		return value / 100 + "." + value / 10 % 10 + value % 10;
-	}
 	private static void showConst() {
-		System.out.println(Purchase.NAME + ";" + toRubles(Purchase.PRICE));
+		System.out.println(Purchase.NAME + ";" + FinancialAction.toRubles(Purchase.PRICE));
+	}
+	private static void showPurchases(Purchase []purchases) {
+		for (Purchase purchase : purchases) {
+			System.out.println(purchase);
+		}
 	}
     public static void main(String[] args) {    	
 		try(Scanner file = new Scanner(new FileReader("src/in.txt"))) {
@@ -22,32 +25,44 @@ public class Runner {
 				file.useLocale(Locale.ENGLISH);
 			    purchases[i] = new Purchase(file.nextInt(),
 			    		file.nextInt(), file.nextInt());
-			    System.out.println(purchases[i]);
 		    }
-			Purchase maxCostOfPurchase = purchases[0];
+			showPurchases(purchases);
+			Purchase maxCostPurchase = purchases[0];
+			WeekDay maxCostDay = null;
 			int sumOfPurchasesCost = 0;
 			int sumOfPurchasesCostOnMonday = 0;
+			double meanCost = 0.0;
 			for (Purchase purchase : purchases) {
-				sumOfPurchasesCost += purchase.getCost();
+				int cost = purchase.getCost();
+				int maxCost = maxCostPurchase.getCost();
+				sumOfPurchasesCost += cost;
 				if(purchase.getWeekDay() == WeekDay.MONDAY) {
-					sumOfPurchasesCostOnMonday += purchase.getCost();
+					sumOfPurchasesCostOnMonday += cost;
 				}
-				if(maxCostOfPurchase.getCost() < purchase.getCost()) {
-					maxCostOfPurchase = purchase;
+				if(maxCost < cost) {
+					maxCostDay = purchase.getWeekDay();
 				}
 			}
-			System.out.println("Mean cost " + sumOfPurchasesCost / 1000 + "." 
-					+ sumOfPurchasesCost % 1000);
-			System.out.println("Total cost on Monday " + sumOfPurchasesCostOnMonday);
+			if(purchases.length > 0) {
+				meanCost = ((double) sumOfPurchasesCost) / purchases.length;
+			}
+
+			System.out.println(String.format("Mean cost %.3f",meanCost).replace(',', '.'));
+			System.out.println("Total cost on Monday " 
+					+ FinancialAction.toRubles(sumOfPurchasesCostOnMonday));
 			System.out.println("The day with the maximum cost purchase "
-					+ maxCostOfPurchase.getWeekDay());
+					+ maxCostDay);
 			Arrays.sort(purchases);
 			showConst();
-			for (Purchase purchase : purchases) {
-				System.out.println(purchase);
+			showPurchases(purchases);
+			int valueOfSearch = Arrays.binarySearch(purchases,new Purchase(5,0,0));
+			if(valueOfSearch >= 0) {
+				System.out.println("Requried purchase is " 
+						+ purchases[Arrays.binarySearch(purchases,new Purchase(5,0,0))]);
 			}
-			System.out.println("Requried purchase is " 
-					+ purchases[Arrays.binarySearch(purchases,purchases[5])]);
+			else {
+				System.out.println("Requried purchase is not found");				
+			}
 		} catch (FileNotFoundException e) {
 		    System.err.println("Input file is not found");
 		}

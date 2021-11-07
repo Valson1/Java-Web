@@ -43,18 +43,17 @@ public class Purchase implements Comparable<Purchase> {
     public void setWeekDay(WeekDay weekDay) {
         this.weekDay = weekDay;
     }
-    public long getCost() {
-    	return round(((PRICE * numberOfPurchaseUnits * (100 - disountPercent) / 100) / 100));
+    public int getCost() {
+    	return (int)round((PRICE * numberOfPurchaseUnits * (100 - disountPercent) / 100) / 100) * 100;
     }
     @Override
     public String toString() {
-	return numberOfPurchaseUnits + ";" 
-		+ disountPercent + ";" + weekDay + ";" + getCost();
+    	return numberOfPurchaseUnits + ";" 
+			+ disountPercent + ";" + weekDay + ";" + getCost();
     }
     
     @Override
     public int compareTo(Purchase purchase) {
-	return numberOfPurchaseUnits < purchase.numberOfPurchaseUnits ? 
-		1 : (numberOfPurchaseUnits == purchase.numberOfPurchaseUnits ? 0 : -1);
+    	return numberOfPurchaseUnits - purchase.numberOfPurchaseUnits;
     }    
 }
