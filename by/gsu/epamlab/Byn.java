@@ -24,7 +24,7 @@ public class Byn implements Comparable<Byn> {
 
     @Override
     public String toString() {
-	return UtilityClass.toRubles(valueOfFinancialEntity);
+	return UtilityClass.toRubles(valueOfFinancialEntity) + ";";
     }
 
     @Override

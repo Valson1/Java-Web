@@ -43,7 +43,8 @@ public class Purchase {
 
     @Override
     public String toString() {
-	return name + ";" + UtilityClass.toRubles(price) + ";" + numberOfPurchaseUnits;
+	return name + ";" + UtilityClass.toRubles(price) + ";" + numberOfPurchaseUnits 
+		+ UtilityClass.toRubles(getCost());
     }
 
     @Override

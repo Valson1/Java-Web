@@ -21,7 +21,10 @@ public class DiscountPurchase extends Purchase {
     public void setDiscountOfPurchase(double discountOfPurchase) {
 	this.discountOfPurchase = discountOfPurchase;
     }
-
+    protected String fieldsToString() {
+	return getName() + ";" + getPrice() + ";" + getNumberOfPurchaseUnits();
+    }
+    
     @Override
     public int getCost() {
 	if (getNumberOfPurchaseUnits() > requiredDiscount) {
@@ -34,7 +37,7 @@ public class DiscountPurchase extends Purchase {
 
     @Override
     public String toString() {
-	return super.toString() + ";" + discountOfPurchase + ";" + UtilityClass.toRubles(getCost());
+	return fieldsToString() + ";" + discountOfPurchase + ";" + UtilityClass.toRubles(getCost());
     }
 
 }
