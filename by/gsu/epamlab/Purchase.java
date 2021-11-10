@@ -16,7 +16,7 @@ public class Purchase {
 	this.price = price;
 	this.numberOfPurchaseUnits = numberOfPurchaseUnits;
     }
-    
+
     public String getName() {
 	return name;
     }
@@ -43,8 +43,7 @@ public class Purchase {
 
     @Override
     public String toString() {
-	return name + ";" + UtilityClass.toRubles(price) + ";" + numberOfPurchaseUnits 
-		+ UtilityClass.toRubles(getCost());
+	return name + ";" + price + ";" + numberOfPurchaseUnits + ";" + getCost();
     }
 
     @Override

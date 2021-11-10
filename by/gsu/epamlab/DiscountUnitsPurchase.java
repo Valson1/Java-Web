@@ -20,12 +20,14 @@ public class DiscountUnitsPurchase extends Purchase {
     public int getCost() {
 	return (int) Math.round((getPrice() - discountForUnit) * getNumberOfPurchaseUnits());
     }
+
     protected String fieldsToString() {
 	return getName() + ";" + getPrice() + ";" + getNumberOfPurchaseUnits();
     }
+
     @Override
     public String toString() {
-	return fieldsToString() + ";" + discountForUnit + ";" + UtilityClass.toRubles(getCost());
+	return fieldsToString() + ";" + discountForUnit + ";" + getCost();
     }
 
 }

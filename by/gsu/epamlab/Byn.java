@@ -11,7 +11,7 @@ public class Byn implements Comparable<Byn> {
 	super();
 	this.valueOfFinancialEntity = valueFinancialEntity;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
 	if (this == obj)
@@ -19,16 +19,32 @@ public class Byn implements Comparable<Byn> {
 	if (obj == null || getClass() != obj.getClass())
 	    return false;
 	Byn byn = (Byn) obj;
-	return valueOfFinancialEntity == byn.valueOfFinancialEntity ? true : false; 
+	return valueOfFinancialEntity == byn.valueOfFinancialEntity ? true : false;
+    }
+
+    public int sum(Byn byn) {
+	return this.valueOfFinancialEntity + byn.valueOfFinancialEntity;
+    }
+
+    public int div(Byn byn) {
+	return this.valueOfFinancialEntity / byn.valueOfFinancialEntity;
+    }
+
+    public int myltiply(Byn byn) {
+	return this.valueOfFinancialEntity * byn.valueOfFinancialEntity;
+    }
+
+    public int sub(Byn byn) {
+	return this.valueOfFinancialEntity - byn.valueOfFinancialEntity;
     }
 
     @Override
     public String toString() {
-	return UtilityClass.toRubles(valueOfFinancialEntity) + ";";
+	return String.format("%d.%02d", valueOfFinancialEntity / 100, valueOfFinancialEntity % 100);
     }
 
     @Override
     public int compareTo(Byn byn) {
-	return this.valueOfFinancialEntity - byn.valueOfFinancialEntity ;
+	return this.valueOfFinancialEntity - byn.valueOfFinancialEntity;
     }
 }

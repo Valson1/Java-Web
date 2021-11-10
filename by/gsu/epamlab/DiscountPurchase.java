@@ -4,8 +4,7 @@ public class DiscountPurchase extends Purchase {
     public final static double requiredDiscount = 15;
     private double discountOfPurchase;
 
-    public DiscountPurchase(String name, int price, 
-	    int numberOfPurchaseUnits, double discountOfPurchase) {
+    public DiscountPurchase(String name, int price, int numberOfPurchaseUnits, double discountOfPurchase) {
 	super(name, price, numberOfPurchaseUnits);
 	this.discountOfPurchase = discountOfPurchase;
     }
@@ -21,23 +20,23 @@ public class DiscountPurchase extends Purchase {
     public void setDiscountOfPurchase(double discountOfPurchase) {
 	this.discountOfPurchase = discountOfPurchase;
     }
+
     protected String fieldsToString() {
 	return getName() + ";" + getPrice() + ";" + getNumberOfPurchaseUnits();
     }
-    
+
     @Override
     public int getCost() {
 	if (getNumberOfPurchaseUnits() > requiredDiscount) {
-	    return (int) Math.round(getPrice() * getNumberOfPurchaseUnits() * (1 - discountOfPurchase / 100));	    
-	}
-	else {
+	    return (int) Math.round(getPrice() * getNumberOfPurchaseUnits() * (1 - discountOfPurchase / 100));
+	} else {
 	    return super.getCost();
 	}
     }
 
     @Override
     public String toString() {
-	return fieldsToString() + ";" + discountOfPurchase + ";" + UtilityClass.toRubles(getCost());
+	return fieldsToString() + ";" + discountOfPurchase + ";" + getCost();
     }
 
 }
