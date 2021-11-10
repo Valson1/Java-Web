@@ -11,14 +11,20 @@ public class Byn implements Comparable<Byn> {
 	super();
 	this.valueOfFinancialEntity = valueFinancialEntity;
     }
+    
     @Override
     public boolean equals(Object obj) {
-	return super.equals(obj);
+	if (this == obj)
+	    return true;
+	if (obj == null || getClass() != obj.getClass())
+	    return false;
+	Byn byn = (Byn) obj;
+	return valueOfFinancialEntity == byn.valueOfFinancialEntity ? true : false; 
     }
 
     @Override
     public String toString() {
-	return valueOfFinancialEntity + ";";
+	return UtilityClass.toRubles(valueOfFinancialEntity);
     }
 
     @Override

@@ -1,25 +1,32 @@
 package by.gsu.epamlab;
 
 public class Purchase {
-    public final static String name = "Milk";
-    public final static int price = 120;
+
+    private String name;
+    private int price;
     private int numberOfPurchaseUnits;
 
     public Purchase() {
-	super();
+
     }
 
-    public Purchase(int numberOfPurchaseUnits) {
+    public Purchase(String name, int price, int numberOfPurchaseUnits) {
 	super();
+	this.name = name;
+	this.price = price;
 	this.numberOfPurchaseUnits = numberOfPurchaseUnits;
     }
-
+    
     public String getName() {
 	return name;
     }
 
     public int getPrice() {
 	return price;
+    }
+
+    public void setPrice(int price) {
+	this.price = price;
     }
 
     public int getNumberOfPurchaseUnits() {
@@ -31,18 +38,25 @@ public class Purchase {
     }
 
     public int getCost() {
-	
+	return price * numberOfPurchaseUnits;
     }
 
     @Override
     public String toString() {
-	return numberOfPurchaseUnits + ";";
+	return name + ";" + UtilityClass.toRubles(price) + ";" + numberOfPurchaseUnits;
     }
 
     @Override
     public boolean equals(Object obj) {
-	return super.equals(obj);
+	if (this == obj)
+	    return true;
+	if (obj == null || getClass() != obj.getClass())
+	    return false;
+	Purchase purchase = (Purchase) obj;
+	if (price != purchase.price) {
+	    return false;
+	}
+	return purchase.name != null ? name.equals(purchase.name) : purchase.name == null;
     }
-    
 
 }
