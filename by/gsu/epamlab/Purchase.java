@@ -49,12 +49,12 @@ public class Purchase {
     }
 
     protected String fieldsToString() {
-	return name + ";" + price + ";" + numberOfPurchaseUnits + ";";
+	return name + ";" + price + ";" + numberOfPurchaseUnits;
     }
 
     @Override
     public String toString() {
-	return fieldsToString() + getCost();
+	return fieldsToString() + ";" + getCost();
     }
 
     @Override

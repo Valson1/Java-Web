@@ -29,8 +29,8 @@ public class Byn implements Comparable<Byn> {
 	return this;
     }
 
-    public Byn div(Byn byn) {
-	value /= byn.value;
+    public Byn sub(Byn byn) {
+	value -= byn.value;
 	return this;
     }
 
@@ -40,22 +40,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn multiply(double discount) {
-	round(value *= (1 - discount / 100));
-	return this;
-    }
-
-    public Byn multiply(Byn byn) {
-	value *= byn.value;
-	return this;
-    }
-
-    public Byn sub(double discount) {
-	round(value -= discount);
-	return this;
-    }
-
-    public Byn sub(Byn byn) {
-	value -= byn.value;
+	value = (int) round(value * discount);
 	return this;
     }
 

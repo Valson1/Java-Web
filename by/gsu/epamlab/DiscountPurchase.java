@@ -26,16 +26,16 @@ public class DiscountPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-	if (getNumberOfPurchaseUnits() > REQUIRED_DISCOUNT) {
-	    return super.getCost().multiply(discountOfPurchase);
+	if (getNumberOfPurchaseUnits() >= REQUIRED_DISCOUNT) {
+	    return super.getCost().multiply(1 - discountOfPurchase / 100);
 	} else {
 	    return super.getCost();
 	}
     }
 
     @Override
-    public String toString() {
-	return fieldsToString() + discountOfPurchase + ";" + getCost();
+    protected String fieldsToString() {
+	return super.fieldsToString() + ";" + discountOfPurchase;
     }
 
 }

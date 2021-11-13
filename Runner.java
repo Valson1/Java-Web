@@ -7,16 +7,16 @@ import by.gsu.epamlab.*;
 public class Runner {
 
     public static void main(String[] args) {
-	try (Scanner sc = new Scanner(new FileReader("src/Purchases.txt"))) {
+	try (Scanner sc = new Scanner(new FileReader("src/in.txt"))) {
 	    // Create an array for 6 objects.
 	    Purchase[] purchases = new Purchase[6];
 	    boolean isEquals = true;
-	    Purchase purchaseWithMaxCost = null;
+	    Purchase purchaseWithMaxCost = new Purchase();
 	    Byn maxCostOfPurchase = new Byn(0);
 	    // Input data from the given file into the array.
 	    for (int i = 0; i < purchases.length; i++) {
 		// Pattern Factory for create objects
-		purchases[i] = FactoryClass.getPurchaseFromFactory(purchases[i], sc);
+		purchases[i] = FactoryClass.getPurchaseFromFactory(sc);
 		// Output content of purchases
 		System.out.println(purchases[i]);
 		// Found the purchase with maximum cost

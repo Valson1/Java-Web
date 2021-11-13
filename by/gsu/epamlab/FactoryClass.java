@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class FactoryClass {
 
-    public enum PurchaseKind {
+    private static enum PurchaseKind {
 	GENERAL_PURCHASE {
 	    public Purchase getPurchase(Scanner sc) {
 		return new Purchase(sc);
@@ -24,7 +24,7 @@ public class FactoryClass {
 	public abstract Purchase getPurchase(Scanner sc);
     }
 
-    public static Purchase getPurchaseFromFactory(Purchase purchase, Scanner sc) {
+    public static Purchase getPurchaseFromFactory(Scanner sc) {
 	PurchaseKind kind = PurchaseKind.valueOf(sc.next());
 	return kind.getPurchase(sc);
     }
