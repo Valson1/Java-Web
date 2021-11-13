@@ -1,16 +1,19 @@
 package by.gsu.epamlab;
 
+import java.util.Scanner;
+
 public class DiscountPurchase extends Purchase {
-    public final static double requiredDiscount = 15;
+    public final static double REQUIRED_DISCOUNT = 5;
     private double discountOfPurchase;
 
-    public DiscountPurchase(String name, int price, int numberOfPurchaseUnits, double discountOfPurchase) {
+    public DiscountPurchase(String name, Byn price, int numberOfPurchaseUnits, double discountOfPurchase) {
 	super(name, price, numberOfPurchaseUnits);
 	this.discountOfPurchase = discountOfPurchase;
     }
 
-    public DiscountPurchase() {
-	super();
+    public DiscountPurchase(Scanner sc) {
+	super(sc.next(), new Byn(sc.nextInt()), sc.nextInt());
+	this.discountOfPurchase = sc.nextDouble();
     }
 
     public double getDiscountOfPurchase() {
@@ -21,14 +24,10 @@ public class DiscountPurchase extends Purchase {
 	this.discountOfPurchase = discountOfPurchase;
     }
 
-    protected String fieldsToString() {
-	return getName() + ";" + getPrice() + ";" + getNumberOfPurchaseUnits();
-    }
-
     @Override
-    public int getCost() {
-	if (getNumberOfPurchaseUnits() > requiredDiscount) {
-	    return (int) Math.round(getPrice() * getNumberOfPurchaseUnits() * (1 - discountOfPurchase / 100));
+    public Byn getCost() {
+	if (getNumberOfPurchaseUnits() > REQUIRED_DISCOUNT) {
+	    return super.getCost().multiply(discountOfPurchase);
 	} else {
 	    return super.getCost();
 	}
@@ -36,7 +35,7 @@ public class DiscountPurchase extends Purchase {
 
     @Override
     public String toString() {
-	return fieldsToString() + ";" + discountOfPurchase + ";" + getCost();
+	return fieldsToString() + discountOfPurchase + ";" + getCost();
     }
 
 }

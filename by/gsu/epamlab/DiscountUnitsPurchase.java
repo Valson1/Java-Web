@@ -1,11 +1,18 @@
 package by.gsu.epamlab;
 
+import java.util.Scanner;
+
 public class DiscountUnitsPurchase extends Purchase {
     private double discountForUnit;
 
-    public DiscountUnitsPurchase(String name, int price, int numberOfPurchaseUnits, double discountForUnite) {
+    public DiscountUnitsPurchase(String name, Byn price, int numberOfPurchaseUnits, double discountForUnite) {
 	super(name, price, numberOfPurchaseUnits);
 	this.discountForUnit = discountForUnite;
+    }
+
+    public DiscountUnitsPurchase(Scanner sc) {
+	super(sc.next(), new Byn(sc.nextInt()), sc.nextInt());
+	this.discountForUnit = sc.nextDouble();
     }
 
     public double getDiscountForUnite() {
@@ -17,17 +24,13 @@ public class DiscountUnitsPurchase extends Purchase {
     }
 
     @Override
-    public int getCost() {
-	return (int) Math.round((getPrice() - discountForUnit) * getNumberOfPurchaseUnits());
-    }
-
-    protected String fieldsToString() {
-	return getName() + ";" + getPrice() + ";" + getNumberOfPurchaseUnits();
+    public Byn getCost() {
+	return getPrice().sub(discountForUnit).multiply(getNumberOfPurchaseUnits());
     }
 
     @Override
     public String toString() {
-	return fieldsToString() + ";" + discountForUnit + ";" + getCost();
+	return fieldsToString() + discountForUnit + ";" + getCost();
     }
 
 }

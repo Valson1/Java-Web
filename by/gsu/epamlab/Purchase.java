@@ -1,31 +1,38 @@
 package by.gsu.epamlab;
 
+import java.util.Scanner;
+
 public class Purchase {
 
     private String name;
-    private int price;
+    private Byn price;
     private int numberOfPurchaseUnits;
 
     public Purchase() {
 
     }
 
-    public Purchase(String name, int price, int numberOfPurchaseUnits) {
-	super();
+    public Purchase(String name, Byn price, int numberOfPurchaseUnits) {
 	this.name = name;
 	this.price = price;
 	this.numberOfPurchaseUnits = numberOfPurchaseUnits;
+    }
+
+    public Purchase(Scanner sc) {
+	this.name = sc.next();
+	this.price = new Byn(sc.nextInt());
+	this.numberOfPurchaseUnits = sc.nextInt();
     }
 
     public String getName() {
 	return name;
     }
 
-    public int getPrice() {
+    public Byn getPrice() {
 	return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Byn price) {
 	this.price = price;
     }
 
@@ -37,13 +44,17 @@ public class Purchase {
 	this.numberOfPurchaseUnits = numberOfPurchaseUnits;
     }
 
-    public int getCost() {
-	return price * numberOfPurchaseUnits;
+    public Byn getCost() {
+	return price.multiply(numberOfPurchaseUnits);
+    }
+
+    protected String fieldsToString() {
+	return name + ";" + price + ";" + numberOfPurchaseUnits + ";";
     }
 
     @Override
     public String toString() {
-	return name + ";" + price + ";" + numberOfPurchaseUnits + ";" + getCost();
+	return fieldsToString() + getCost();
     }
 
     @Override

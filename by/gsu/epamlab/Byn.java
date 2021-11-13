@@ -1,15 +1,17 @@
 package by.gsu.epamlab;
 
-public class Byn implements Comparable<Byn> {
-    private int valueOfFinancialEntity;
+import static java.lang.Math.round;
 
-    public Byn() {
-	super();
+public class Byn implements Comparable<Byn> {
+    private int value;
+
+    public Byn(Byn byn) {
+	this(byn.value);
     }
 
-    public Byn(int valueFinancialEntity) {
+    public Byn(int value) {
 	super();
-	this.valueOfFinancialEntity = valueFinancialEntity;
+	this.value = value;
     }
 
     @Override
@@ -19,32 +21,51 @@ public class Byn implements Comparable<Byn> {
 	if (obj == null || getClass() != obj.getClass())
 	    return false;
 	Byn byn = (Byn) obj;
-	return valueOfFinancialEntity == byn.valueOfFinancialEntity ? true : false;
+	return value == byn.value ? true : false;
     }
 
-    public int sum(Byn byn) {
-	return this.valueOfFinancialEntity + byn.valueOfFinancialEntity;
+    public Byn sum(Byn byn) {
+	value += byn.value;
+	return this;
     }
 
-    public int div(Byn byn) {
-	return this.valueOfFinancialEntity / byn.valueOfFinancialEntity;
+    public Byn div(Byn byn) {
+	value /= byn.value;
+	return this;
     }
 
-    public int myltiply(Byn byn) {
-	return this.valueOfFinancialEntity * byn.valueOfFinancialEntity;
+    public Byn multiply(int number) {
+	value *= number;
+	return this;
     }
 
-    public int sub(Byn byn) {
-	return this.valueOfFinancialEntity - byn.valueOfFinancialEntity;
+    public Byn multiply(double discount) {
+	round(value *= (1 - discount / 100));
+	return this;
+    }
+
+    public Byn multiply(Byn byn) {
+	value *= byn.value;
+	return this;
+    }
+
+    public Byn sub(double discount) {
+	round(value -= discount);
+	return this;
+    }
+
+    public Byn sub(Byn byn) {
+	value -= byn.value;
+	return this;
     }
 
     @Override
     public String toString() {
-	return String.format("%d.%02d", valueOfFinancialEntity / 100, valueOfFinancialEntity % 100);
+	return String.format("%d.%02d", value / 100, value % 100);
     }
 
     @Override
     public int compareTo(Byn byn) {
-	return this.valueOfFinancialEntity - byn.valueOfFinancialEntity;
+	return this.value - byn.value;
     }
 }
