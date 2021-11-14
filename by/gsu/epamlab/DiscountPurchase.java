@@ -26,11 +26,11 @@ public class DiscountPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
+	Byn purchaseGetCost = super.getCost();
 	if (getNumberOfPurchaseUnits() >= REQUIRED_DISCOUNT) {
-	    return super.getCost().multiply(1 - discountOfPurchase / 100);
-	} else {
-	    return super.getCost();
+	    purchaseGetCost = purchaseGetCost.multiply(1 - discountOfPurchase / 100, RoundMethod.ROUND, 2);
 	}
+	return purchaseGetCost;
     }
 
     @Override

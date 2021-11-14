@@ -45,7 +45,8 @@ public class Purchase {
     }
 
     public Byn getCost() {
-	return price.multiply(numberOfPurchaseUnits);
+	Byn byn = new Byn(price);
+	return byn.multiply(numberOfPurchaseUnits);
     }
 
     protected String fieldsToString() {
@@ -61,7 +62,7 @@ public class Purchase {
     public boolean equals(Object obj) {
 	if (this == obj)
 	    return true;
-	if (obj == null || getClass() != obj.getClass())
+	if (obj == null || !(obj instanceof Purchase))
 	    return false;
 	Purchase purchase = (Purchase) obj;
 	if (price != purchase.price) {

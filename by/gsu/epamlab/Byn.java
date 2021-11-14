@@ -1,7 +1,5 @@
 package by.gsu.epamlab;
 
-import static java.lang.Math.round;
-
 public class Byn implements Comparable<Byn> {
     private int value;
 
@@ -12,6 +10,10 @@ public class Byn implements Comparable<Byn> {
     public Byn(int value) {
 	super();
 	this.value = value;
+    }
+
+    public Byn(int rubs, int coins) {
+	this((rubs * 100) + coins);
     }
 
     @Override
@@ -39,8 +41,12 @@ public class Byn implements Comparable<Byn> {
 	return this;
     }
 
-    public Byn multiply(double discount) {
-	value = (int) round(value * discount);
+    public Byn multiply(double k,RoundMethod roundMethod, int d) {
+	value = (int) roundMethod.round(value * k,roundMethod,d);
+	return this;
+    }
+    public Byn round(RoundMethod roundMethod, int d){
+	value = (int) roundMethod.round(value, roundMethod, d);
 	return this;
     }
 
