@@ -46,7 +46,7 @@ public class Purchase {
 
     public Byn getCost() {
 	Byn byn = new Byn(price);
-	return byn.multiply(numberOfPurchaseUnits);
+	return byn.multiply(numberOfPurchaseUnits, RoundMethod.ROUND, 2);
     }
 
     protected String fieldsToString() {
@@ -62,13 +62,10 @@ public class Purchase {
     public boolean equals(Object obj) {
 	if (this == obj)
 	    return true;
-	if (obj == null || !(obj instanceof Purchase))
+	if (!(obj instanceof Purchase))
 	    return false;
 	Purchase purchase = (Purchase) obj;
-	if (price != purchase.price) {
-	    return false;
-	}
-	return purchase.name != null ? name.equals(purchase.name) : purchase.name == null;
+	return price.equals(purchase.price) && name.equals(purchase.name);
     }
 
 }

@@ -22,13 +22,13 @@ public enum RoundMethod {
 
     abstract double roundFunction(double d);
 
-    public double round(double roundedValue, RoundMethod roundMethod, int d) {
+    public int round(double roundedValue, int d) {
 	int tenPow = (int) pow10(d);
 	int result = (int) roundFunction(roundedValue / tenPow) * tenPow;
 	return result;
     }
 
-    private static double pow10(int d) {
+    private static int pow10(int d) {
 	int result = 1;
 	for (int i = 0; i < d; i++) {
 	    result *= 10;
