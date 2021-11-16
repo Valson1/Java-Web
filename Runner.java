@@ -13,7 +13,6 @@ public class Runner {
 	    Purchase[] purchases = new Purchase[PURCHASES_NUMBER];
 	    Purchase purchaseWithMaxCost = new Purchase();
 	    boolean areEquals = true;
-	    Byn maxCostOfPurchase = new Byn(0);
 	    // Input data from the given file into the array.
 	    for (int i = 0; i < purchases.length; i++) {
 		// Pattern Factory for create objects
@@ -21,13 +20,9 @@ public class Runner {
 		// Output content of purchases
 		System.out.println(purchases[i]);
 		// Found the purchase with maximum cost
-		Byn purchaseCost = new Byn(purchases[i].getCost());
-		int cost = purchaseCost.compareTo(maxCostOfPurchase);
-		if (cost > 0) {
-		    maxCostOfPurchase = purchaseCost;
+		if (purchases[i].getCost().compareTo(purchaseWithMaxCost.getCost()) > 0) {
 		    purchaseWithMaxCost = purchases[i];
 		}
-		// Determine whether all purchases are equal.
 		if (areEquals) {
 		    areEquals = purchases[i].equals(purchases[0]);
 		}

@@ -3,28 +3,28 @@ package by.gsu.epamlab;
 public enum RoundMethod {
     FLOOR {
 	@Override
-	double roundFunction(double d) {
-	    return Math.floor(d);
+	int roundFunction(double d) {
+	    return (int) Math.floor(d);
 	}
     },
     ROUND {
 	@Override
-	double roundFunction(double d) {
-	    return Math.round(d);
+	int roundFunction(double d) {
+	    return (int) Math.round(d);
 	}
     },
     CEIL {
 	@Override
-	double roundFunction(double d) {
-	    return Math.ceil(d);
+	int roundFunction(double d) {
+	    return (int) Math.ceil(d);
 	}
     };
 
-    abstract double roundFunction(double d);
+    abstract int roundFunction(double d);
 
     public int round(double roundedValue, int d) {
-	int tenPow = (int) pow10(d);
-	int result = (int) roundFunction(roundedValue / tenPow) * tenPow;
+	int tenPow = pow10(d);
+	int result = roundFunction(roundedValue / tenPow) * tenPow;
 	return result;
     }
 

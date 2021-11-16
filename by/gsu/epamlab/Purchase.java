@@ -46,7 +46,7 @@ public class Purchase {
 
     public Byn getCost() {
 	Byn byn = new Byn(price);
-	return byn.multiply(numberOfPurchaseUnits, RoundMethod.ROUND, 2);
+	return byn.multiply(numberOfPurchaseUnits);
     }
 
     protected String fieldsToString() {

@@ -26,7 +26,7 @@ public class DiscountUnitsPurchase extends Purchase {
     @Override
     public Byn getCost() {
 	Byn byn = new Byn(getPrice());
-	return byn.sub(discountForUnit).multiply(getNumberOfPurchaseUnits(),RoundMethod.ROUND, 2);
+	return byn.sub(discountForUnit).multiply(getNumberOfPurchaseUnits(), RoundMethod.ROUND, 0);
     }
 
     @Override
