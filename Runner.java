@@ -1,49 +1,34 @@
-import by.gsu.epamlab.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Scanner;
+
+import by.gsu.epamlab.*;
 
 public class Runner {
-    public static void main(String[] args) {    	
-		try(Scanner file = new Scanner(new FileReader("src/in.txt"))) {
-			final int PURCHASES_NUMBER = file.nextInt();
-			Purchase []purchases = new Purchase[PURCHASES_NUMBER];
-			for (int i = 0; i < purchases.length; i++){
-				file.useLocale(Locale.ENGLISH);
-			    purchases[i] = new Purchase(file.nextInt(),
-			    		file.nextInt(), WeekDay.values()[file.nextInt()]);
-			    System.out.println(purchases[i]);
-		    }
-			Purchase maxCostOfPurchase = purchases[0];
-			int sumOfPurchasesCost = 0;
-			int sumOfPurchasesCostOnMonday = 0;
-			for (Purchase purchase : purchases) {
-				sumOfPurchasesCost += purchase.getCost();
-				if(purchase.getWeekDay() == WeekDay.MONDAY) {
-					sumOfPurchasesCostOnMonday += purchase.getCost();
-				}
-				if(maxCostOfPurchase.getCost() < purchase.getCost()) {
-					maxCostOfPurchase = purchase;
-				}
-			}
-			System.out.println("Mean cost " + sumOfPurchasesCost / 1000 + "." 
-					+ sumOfPurchasesCost % 1000);
-			System.out.println("Total cost on Monday " + sumOfPurchasesCostOnMonday / 100 + "."
-					+ sumOfPurchasesCostOnMonday / 10 % 10 
-					+ sumOfPurchasesCostOnMonday % 10);
-			System.out.println("The day with the maximum cost purchase "
-					+ maxCostOfPurchase.getWeekDay());
-			Arrays.sort(purchases);
-			for (Purchase purchase : purchases) {
-				System.out.println(purchase);
-			}
-			System.out.println(Arrays.binarySearch(purchases,purchases[4]));
-		} catch (FileNotFoundException e) {
-		    System.err.println("Input file is not found");
-		}
+    public static void main(String[] args) {
+	Product product = new Product();
+	AbstractPurchase [] purchases = {
+		new DiscountPurchase(12,new Byn(30)),
+		new DiscountUnitPurchase(3,10),
+		new DiscountPurchase(5,new Byn(20)),
+		new TransportExpencesPurchase(7, new Byn(50)),
+		new DiscountUnitPurchase(10, 20),
+		new TransportExpencesPurchase(12, new Byn(45)) };
+	showPurchasesInformation(product, purchases);
+	Arrays.sort(purchases);
+	showPurchasesInformation(product, purchases);
+	System.out.println("Minimum cost of purchase:" + purchases[purchases.length - 1].getCost());
+	AbstractPurchase purchase = null;
+	for (int i = 0; i < purchases.length; i++) {
+	    if(purchases[i].getCost().compareTo(new Byn(5)) == 0) {
+		purchase = purchases[i];
+	    }
+	}
+	Arrays.binarySearch(purchases,purchase);
+	}
+
+    private static void showPurchasesInformation(Product product, AbstractPurchase[] purchases) {
+	System.out.println(product);
+	for (AbstractPurchase purchase : purchases) {
+	    System.out.println(purchase);
+	}
     }
 }
-
