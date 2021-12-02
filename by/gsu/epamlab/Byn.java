@@ -1,8 +1,9 @@
 package by.gsu.epamlab;
 
 import java.util.Currency;
+import java.util.Objects;
 
-public final class Byn implements Comparable<Byn>{
+public final class Byn implements Comparable<Byn> {
     private final int value;
 
     public Byn(int value) {
@@ -24,13 +25,17 @@ public final class Byn implements Comparable<Byn>{
     public Byn sub(Byn byn) {
 	return new Byn(this.value - byn.value);
     }
-    
+
     public Byn multiply(int number) {
 	return new Byn(this.value * number);
     }
-    
-    public Byn myltiply(double k) {
-	return new Byn((int)Math.floor(this.value * k / 100) * 100);
+
+    public Byn myltiply(double k, RoundMethod roundMethod, int d) {
+	return new Byn(roundMethod.round(this.value * k, d));
+    }
+
+    public Byn round(RoundMethod roundMethod, int d) {
+	return new Byn(roundMethod.round(value, d));
     }
 
     @Override
@@ -39,8 +44,20 @@ public final class Byn implements Comparable<Byn>{
     }
 
     @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (obj == null)
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	Byn other = (Byn) obj;
+	return value == other.value;
+    }
+
+    @Override
     public int compareTo(Byn byn) {
 	return value - byn.value;
     }
-    
+
 }

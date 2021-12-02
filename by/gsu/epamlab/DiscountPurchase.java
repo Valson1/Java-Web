@@ -3,8 +3,8 @@ package by.gsu.epamlab;
 public class DiscountPurchase extends AbstractPurchase {
     private Byn discount;
 
-    public DiscountPurchase(int numberOfPurchaseUnits, Byn discount) {
-	super( numberOfPurchaseUnits);
+    public DiscountPurchase(Product product,int numberOfPurchaseUnits, Byn discount) {
+	super(product,numberOfPurchaseUnits);
 	this.discount = discount;
     }
 
@@ -20,13 +20,13 @@ public class DiscountPurchase extends AbstractPurchase {
     }
 
     @Override
-    protected Byn fieldsToGetCost() {
-	return Product.PRICE.sub(discount).multiply(getNumberOfPurchaseUnits());
+    protected Byn fieldsToGetCost(Byn price) {
+	return price.sub(discount).multiply(getNumberOfPurchaseUnits());
     }
 
     @Override
-    protected String fieldsToString() {
-	return discount.toString();
+    public String fieldsToString() {
+	return getNumberOfPurchaseUnits() + ";" + discount;
     }
 
    
