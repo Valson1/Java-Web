@@ -21,13 +21,13 @@ public class TransportExpencesPurchase extends AbstractPurchase {
     }
 
     @Override
-    protected Byn fieldsToGetCost(Byn price) {
-	return price.multiply(getNumberOfPurchaseUnits()).sum(transportExpences);
+    protected Byn fieldsToGetCost(Byn naturalCost) {
+	return naturalCost.sum(transportExpences);
     }
 
     @Override
     public String fieldsToString() {
-	return getNumberOfPurchaseUnits() + ";" + transportExpences;
+	return super.fieldsToString() + ";" + transportExpences;
     }
 
 }

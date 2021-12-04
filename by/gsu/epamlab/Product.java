@@ -3,8 +3,8 @@ package by.gsu.epamlab;
 import java.util.Objects;
 
 public class Product {
-    private String name;
-    private Byn price;
+    private final String name;
+    private final Byn price;
 
     public Product(String name, Byn price) {
 	this.name = name;
@@ -12,22 +12,15 @@ public class Product {
     }
 
     public Product() {
+	this(null, null);
     }
 
     public String getName() {
 	return name;
     }
 
-    public void setName(String name) {
-	this.name = name;
-    }
-
     public Byn getPrice() {
 	return price;
-    }
-
-    public void setPrice(Byn price) {
-	this.price = price;
     }
 
     @Override

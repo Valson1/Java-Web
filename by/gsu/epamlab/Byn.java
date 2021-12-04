@@ -47,9 +47,7 @@ public final class Byn implements Comparable<Byn> {
     public boolean equals(Object obj) {
 	if (this == obj)
 	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
+	if (obj == null || getClass() != obj.getClass())
 	    return false;
 	Byn other = (Byn) obj;
 	return value == other.value;
