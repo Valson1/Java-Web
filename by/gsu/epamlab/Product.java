@@ -1,6 +1,5 @@
 package by.gsu.epamlab;
 
-import java.util.Objects;
 
 public class Product {
     private final String name;

@@ -13,17 +13,16 @@ public class Runner {
 	Arrays.sort(purchases);
 	showPurchasesInformation(purchases);
 	System.out.println("Minimum cost of purchase:" + purchases[purchases.length - 1].getCost());
-	AbstractPurchase purchase = new NumberDiscountPurchase(product, 5, new Byn(0));
-	int indexOfBinnarySearch = search(purchases,purchase);
-	if (indexOfBinnarySearch >= 0) {
-	    System.out.println("Purchase is found :" + purchases[indexOfBinnarySearch]);
+	search(purchases, new NumberDiscountPurchase(product, 5, new Byn(0)));
+    }
+
+    private static void search(AbstractPurchase[] purchases, AbstractPurchase purchase) {
+	int index = Arrays.binarySearch(purchases, purchase);
+	if (index >= 0) {
+	    System.out.println("Purchase is found :" + purchases[index]);
 	} else {
 	    System.out.println("Purchase is not found");
 	}
-}
-
-    private static int search(AbstractPurchase[] purchases,AbstractPurchase purchase) {
-	return Arrays.binarySearch(purchases, purchase);		
     }
 
     private static void showPurchasesInformation(AbstractPurchase[] purchases) {

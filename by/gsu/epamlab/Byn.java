@@ -1,8 +1,5 @@
 package by.gsu.epamlab;
 
-import java.util.Currency;
-import java.util.Objects;
-
 public final class Byn implements Comparable<Byn> {
     private final int value;
 

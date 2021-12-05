@@ -2,7 +2,7 @@ package by.gsu.epamlab;
 
 public class PercentageDiscountPurchase extends AbstractPurchase {
     private double discountForUnit;
-    private final static int REQURIED_UNIT = 7;
+    private final static int REQURIED_UNIT = 3;
 
     public PercentageDiscountPurchase(Product product, int numberOfPurchaseUnits, double discountForUnit) {
 	super(product, numberOfPurchaseUnits);
@@ -23,8 +23,8 @@ public class PercentageDiscountPurchase extends AbstractPurchase {
     @Override
     protected Byn fieldsToGetCost(Byn naturalCost) {
 	if (getNumberOfPurchaseUnits() >= REQURIED_UNIT) {
-	    naturalCost.multiply(getNumberOfPurchaseUnits()).myltiply(1 - discountForUnit / 100,
-		    RoundMethod.FLOOR, 2);
+	    naturalCost = naturalCost.multiply(getNumberOfPurchaseUnits()).myltiply(1 - discountForUnit / 100,
+		    RoundMethod.FLOOR, 0);
 	}
 	return naturalCost;
     }
