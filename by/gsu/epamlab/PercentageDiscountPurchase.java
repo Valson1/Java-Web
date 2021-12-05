@@ -23,8 +23,7 @@ public class PercentageDiscountPurchase extends AbstractPurchase {
     @Override
     protected Byn fieldsToGetCost(Byn naturalCost) {
 	if (getNumberOfPurchaseUnits() >= REQURIED_UNIT) {
-	    naturalCost = naturalCost.multiply(getNumberOfPurchaseUnits()).myltiply(1 - discountForUnit / 100,
-		    RoundMethod.FLOOR, 0);
+	    naturalCost = naturalCost.myltiply(1 - discountForUnit / 100, RoundMethod.FLOOR, 0);
 	}
 	return naturalCost;
     }
