@@ -13,7 +13,7 @@ public class Runner {
 	Arrays.sort(purchases);
 	showPurchasesInformation(purchases);
 	System.out.println("Minimum cost of purchase:" + purchases[purchases.length - 1].getCost());
-	int index = search(purchases, new NumberDiscountPurchase(product, 5, new Byn(0)));
+	int index = search(purchases);
 	if (index >= 0) {
 	    System.out.println("Purchase is found :" + purchases[index]);
 	} else {
@@ -21,8 +21,9 @@ public class Runner {
 	}
     }
     
-    private static int search(AbstractPurchase[] purchases, AbstractPurchase purchase) {
-	return Arrays.binarySearch(purchases, purchase);
+    private static int search(AbstractPurchase[] purchases) {
+	Product product = new Product("Milk",new Byn(100));
+	return Arrays.binarySearch(purchases, new NumberDiscountPurchase(product, 5, new Byn(0)));
     }
 
     private static void showPurchasesInformation(AbstractPurchase[] purchases) {
