@@ -7,26 +7,26 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class TestRunner {
+    private static final String CSV_SEPARATOR = ";";
+    private static final String MINUS = " - ";
+    private static final String PLUS = " + ";
+    private static final String RESULT_HEAD = "result(";
+    private static final String RESULT_TAIL = ") = ";
 
     private static int getResult(String csvName, StringBuilder strResult) throws FileNotFoundException {
 	try (Scanner sc = new Scanner(new FileReader(csvName))) {
-	    final String CSV_SEPARATOR = ";";
-	    final String MINUS = " - ";
-	    final String PLUS = " + ";
-	    final String RESULT_HEAD = "result(";
-	    final String RESULT_TAIL = ") = ";
 	    double result = 0;
 	    int errorLines = 0;
 	    int numLine = 0;
 	    while (sc.hasNext()) {
 		String[] elements = sc.nextLine().split(CSV_SEPARATOR);
 		try {
-		    double elementValueOfFirstIElementIndexValue = Double
-			    .parseDouble(elements[Integer.parseInt(elements[0])]);
+		    int position = Integer.parseInt(elements[0].trim());
+		    double elementValueOfFirstIElementIndexValue = Double.parseDouble(elements[position]);
 		    result += elementValueOfFirstIElementIndexValue;
 		    numLine++;
 		    if (elementValueOfFirstIElementIndexValue < 0 && numLine > 1) {
-			strResult.append(MINUS).append(elementValueOfFirstIElementIndexValue * -1);
+			strResult.append(MINUS).append(Math.abs(elementValueOfFirstIElementIndexValue));
 		    } else {
 			strResult.append(PLUS).append(elementValueOfFirstIElementIndexValue);
 		    }
@@ -36,6 +36,7 @@ public class TestRunner {
 	    }
 	    strResult.delete(0, 3);
 	    strResult.insert(0, RESULT_HEAD).append(RESULT_TAIL).append(result);
+	    System.out.println(strResult);
 	    return errorLines;
 	}
     }
@@ -48,11 +49,11 @@ public class TestRunner {
 	StringBuilder resultFile4 = new StringBuilder();
 	StringBuilder resultFile5 = new StringBuilder();
 
-	final String FILE1_NAME = "src/src1.txt";
-	final String FILE2_NAME = "src/src2.txt";
-	final String FILE3_NAME = "src/src3.txt";
-	final String FILE4_NAME = "src/src4.txt";
-	final String FILE5_NAME = "src/src5.txt";
+	final String FILE1_NAME = "src/src1.csv";
+	final String FILE2_NAME = "src/src2.csv";
+	final String FILE3_NAME = "src/src3.csv";
+	final String FILE4_NAME = "src/src4.csv";
+	final String FILE5_NAME = "src/src5.csv";
 
 	int errorLinesFile1 = getResult(FILE1_NAME, resultFile1);
 	int errorLinesFile2 = getResult(FILE2_NAME, resultFile2);
