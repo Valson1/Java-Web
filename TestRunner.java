@@ -7,34 +7,41 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class TestRunner {
-    private static final String CSV_SEPARATOR = ";";
-    private static final String MINUS = " - ";
-    private static final String PLUS = " + ";
-    private static final String RESULT_HEAD = "result(";
-    private static final String RESULT_TAIL = ") = ";
-
     private static int getResult(String csvName, StringBuilder strResult) throws FileNotFoundException {
 	try (Scanner sc = new Scanner(new FileReader(csvName))) {
+	    final String CSV_SEPARATOR = ";";
+	    final String BEFORE_SIGN = " ";
+	    final String AFTER_SIGN = " ";
+	    final String MINUS = BEFORE_SIGN + "-" + AFTER_SIGN;
+	    final String PLUS = BEFORE_SIGN + "+" + AFTER_SIGN;
+	    final String RESULT_HEAD = "result(";
+	    final String RESULT_TAIL = ") = ";
 	    double result = 0;
 	    int errorLines = 0;
-	    int numLine = 0;
-	    while (sc.hasNext()) {
+	    while (sc.hasNextLine()) {
 		String[] elements = sc.nextLine().split(CSV_SEPARATOR);
 		try {
 		    int position = Integer.parseInt(elements[0].trim());
 		    double elementValueOfFirstIElementIndexValue = Double.parseDouble(elements[position]);
 		    result += elementValueOfFirstIElementIndexValue;
-		    numLine++;
-		    if (elementValueOfFirstIElementIndexValue < 0 && numLine > 1) {
-			strResult.append(MINUS).append(Math.abs(elementValueOfFirstIElementIndexValue));
-		    } else {
+		    if(elementValueOfFirstIElementIndexValue >= 0) {
 			strResult.append(PLUS).append(elementValueOfFirstIElementIndexValue);
+		    }else {
+			strResult.append(MINUS).append(Math.abs(elementValueOfFirstIElementIndexValue));
 		    }
 		} catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
 		    errorLines++;
 		}
 	    }
-	    strResult.delete(0, 3);
+	    if(strResult.length() > 0) {
+		final char CHAR_MINUS = '-';
+		if(strResult.toString().startsWith(PLUS)) {
+		    strResult.delete(0, 3);
+		}else {
+		    strResult.delete(0, 3).insert(0,CHAR_MINUS);
+		}
+		
+	    }
 	    strResult.insert(0, RESULT_HEAD).append(RESULT_TAIL).append(result);
 	    System.out.println(strResult);
 	    return errorLines;
