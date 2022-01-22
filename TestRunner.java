@@ -24,23 +24,23 @@ public class TestRunner {
 		    int position = Integer.parseInt(elements[0].trim());
 		    double elementValueOfFirstIElementIndexValue = Double.parseDouble(elements[position]);
 		    result += elementValueOfFirstIElementIndexValue;
-		    if(elementValueOfFirstIElementIndexValue >= 0) {
-			strResult.append(PLUS).append(elementValueOfFirstIElementIndexValue);
-		    }else {
-			strResult.append(MINUS).append(Math.abs(elementValueOfFirstIElementIndexValue));
-		    }
+		    strResult = elementValueOfFirstIElementIndexValue >= 0
+			    ? strResult.append(PLUS).append(elementValueOfFirstIElementIndexValue)
+			    : strResult.append(MINUS).append(Math.abs(elementValueOfFirstIElementIndexValue));
 		} catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
 		    errorLines++;
 		}
 	    }
-	    if(strResult.length() > 0) {
+	    if (strResult.length() > 0) {
 		final char CHAR_MINUS = '-';
-		if(strResult.toString().startsWith(PLUS)) {
-		    strResult.delete(0, 3);
-		}else {
-		    strResult.delete(0, 3).insert(0,CHAR_MINUS);
+		final int MINUS_LENGTH = MINUS.length();
+		final int PLUS_LENGTH = PLUS.length();
+		if (strResult.toString().startsWith(PLUS)) {
+		    strResult.delete(0, PLUS_LENGTH);
+		} else {
+		    strResult.delete(0, MINUS_LENGTH).insert(0, CHAR_MINUS);
 		}
-		
+
 	    }
 	    strResult.insert(0, RESULT_HEAD).append(RESULT_TAIL).append(result);
 	    System.out.println(strResult);
@@ -81,11 +81,11 @@ public class TestRunner {
 	Assert.assertEquals(EXPECTED_ERROR_LINES_FILE5, errorLinesFile5);
 	Assert.assertEquals(EXPECTED_ERROR_LINES_FILE5, errorLinesFile5);
 
-	final String EXPECTED_RESULT_FILE1 = "result(5.2 - 3.14 + 0.0) = 2.06";
-	final String EXPECTED_RESULT_FILE2 = "result(-3.1 - 1.0) = -4.1";
-	final String EXPECTED_RESULT_FILE3 = "result(0.75) = 0.75";
-	final String EXPECTED_RESULT_FILE4 = "result(0.0) = 0.0";
-	final String EXPECTED_RESULT_FILE5 = "result() = 0.0";
+	final String EXPECTED_RESULT_FILE1 = String.format("result(5.2 - 3.14 + 0.0) = 2.06");
+	final String EXPECTED_RESULT_FILE2 = String.format("result(-3.1 - 1.0) = -4.1");
+	final String EXPECTED_RESULT_FILE3 = String.format("result(0.75) = 0.75");
+	final String EXPECTED_RESULT_FILE4 = String.format("result(0.0) = 0.0");
+	final String EXPECTED_RESULT_FILE5 = String.format("result() = 0.0");
 
 	Assert.assertEquals(EXPECTED_RESULT_FILE1, resultFile1.toString());
 	Assert.assertEquals(EXPECTED_RESULT_FILE2, resultFile2.toString());
