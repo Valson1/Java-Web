@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class TestRunner {
     private static final int EXPECTED_ERROR_LINES_FILE1 = 3;
@@ -13,21 +12,22 @@ public class TestRunner {
     private static final int EXPECTED_ERROR_LINES_FILE4 = 0;
     private static final int EXPECTED_ERROR_LINES_FILE5 = 1;
 
-    private static final String EXPECTED_RESULT_FILE1 = "result(5.2 - 3.14 + 0.0) = 2.06";
-    private static final String EXPECTED_RESULT_FILE2 = "result(-3.1 - 1.0) = -4.1";
-    private static final String EXPECTED_RESULT_FILE3 = "result(0.75) = 0.75";
-    private static final String EXPECTED_RESULT_FILE4 = "result(0.0) = 0.0";
-    private static final String EXPECTED_RESULT_FILE5 = "result() = 0.0";
+    private static final String CSV_SEPARATOR = ";";
+    private static final String BEFORE_SIGN = " ";
+    private static final String AFTER_SIGN = " ";
+    private static final String MINUS = BEFORE_SIGN + "-" + AFTER_SIGN;
+    private static final String PLUS = BEFORE_SIGN + "+" + AFTER_SIGN;
+    private static final String RESULT_HEAD = "result(";
+    private static final String RESULT_TAIL = ") = ";
+
+    private static final String EXPECTED_RESULT_FILE1 = String.format("%s5.2%s3.14%s0.0%s2.06", RESULT_HEAD, MINUS, PLUS, RESULT_TAIL);
+    private static final String EXPECTED_RESULT_FILE2 = String.format("%s-3.1%s1.0%s-4.1",RESULT_HEAD, MINUS, RESULT_TAIL);
+    private static final String EXPECTED_RESULT_FILE3 = String.format("%s0.75%s0.75",RESULT_HEAD, RESULT_TAIL);
+    private static final String EXPECTED_RESULT_FILE4 = String.format("%s0.0%s0.0",RESULT_HEAD, RESULT_TAIL);
+    private static final String EXPECTED_RESULT_FILE5 = String.format("%s%s0.0", RESULT_HEAD, RESULT_TAIL);
 
     private static int getResult(String csvName, StringBuilder strResult) throws FileNotFoundException {
 	try (Scanner sc = new Scanner(new FileReader(csvName))) {
-	    final String CSV_SEPARATOR = ";";
-	    final String BEFORE_SIGN = " ";
-	    final String AFTER_SIGN = " ";
-	    final String MINUS = BEFORE_SIGN + "-" + AFTER_SIGN;
-	    final String PLUS = BEFORE_SIGN + "+" + AFTER_SIGN;
-	    final String RESULT_HEAD = "result(";
-	    final String RESULT_TAIL = ") = ";
 	    double result = 0;
 	    int errorLines = 0;
 	    while (sc.hasNextLine()) {
