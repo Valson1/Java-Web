@@ -7,6 +7,18 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class TestRunner {
+    private static final int EXPECTED_ERROR_LINES_FILE1 = 3;
+    private static final int EXPECTED_ERROR_LINES_FILE2 = 0;
+    private static final int EXPECTED_ERROR_LINES_FILE3 = 0;
+    private static final int EXPECTED_ERROR_LINES_FILE4 = 0;
+    private static final int EXPECTED_ERROR_LINES_FILE5 = 1;
+    
+	private static final String EXPECTED_RESULT_FILE1 = "result(5.2 - 3.14 + 0.0) = 2.06";
+	private static final String EXPECTED_RESULT_FILE2 = "result(-3.1 - 1.0) = -4.1";
+	private static final String EXPECTED_RESULT_FILE3 = "result(0.75) = 0.75";
+	private static final String EXPECTED_RESULT_FILE4 = "result(0.0) = 0.0";
+	private static final String EXPECTED_RESULT_FILE5 = "result() = 0.0";
+
     private static int getResult(String csvName, StringBuilder strResult) throws FileNotFoundException {
 	try (Scanner sc = new Scanner(new FileReader(csvName))) {
 	    final String CSV_SEPARATOR = ";";
@@ -43,7 +55,6 @@ public class TestRunner {
 
 	    }
 	    strResult.insert(0, RESULT_HEAD).append(RESULT_TAIL).append(result);
-	    System.out.println(strResult);
 	    return errorLines;
 	}
     }
@@ -68,24 +79,12 @@ public class TestRunner {
 	int errorLinesFile4 = getResult(FILE4_NAME, resultFile4);
 	int errorLinesFile5 = getResult(FILE5_NAME, resultFile5);
 
-	final int EXPECTED_ERROR_LINES_FILE1 = 3;
-	final int EXPECTED_ERROR_LINES_FILE2 = 0;
-	final int EXPECTED_ERROR_LINES_FILE3 = 0;
-	final int EXPECTED_ERROR_LINES_FILE4 = 0;
-	final int EXPECTED_ERROR_LINES_FILE5 = 1;
-
 	Assert.assertEquals(EXPECTED_ERROR_LINES_FILE1, errorLinesFile1);
 	Assert.assertEquals(EXPECTED_ERROR_LINES_FILE2, errorLinesFile2);
 	Assert.assertEquals(EXPECTED_ERROR_LINES_FILE3, errorLinesFile3);
 	Assert.assertEquals(EXPECTED_ERROR_LINES_FILE4, errorLinesFile4);
 	Assert.assertEquals(EXPECTED_ERROR_LINES_FILE5, errorLinesFile5);
 	Assert.assertEquals(EXPECTED_ERROR_LINES_FILE5, errorLinesFile5);
-
-	final String EXPECTED_RESULT_FILE1 = String.format("result(5.2 - 3.14 + 0.0) = 2.06");
-	final String EXPECTED_RESULT_FILE2 = String.format("result(-3.1 - 1.0) = -4.1");
-	final String EXPECTED_RESULT_FILE3 = String.format("result(0.75) = 0.75");
-	final String EXPECTED_RESULT_FILE4 = String.format("result(0.0) = 0.0");
-	final String EXPECTED_RESULT_FILE5 = String.format("result() = 0.0");
 
 	Assert.assertEquals(EXPECTED_RESULT_FILE1, resultFile1.toString());
 	Assert.assertEquals(EXPECTED_RESULT_FILE2, resultFile2.toString());
