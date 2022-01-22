@@ -12,12 +12,12 @@ public class TestRunner {
     private static final int EXPECTED_ERROR_LINES_FILE3 = 0;
     private static final int EXPECTED_ERROR_LINES_FILE4 = 0;
     private static final int EXPECTED_ERROR_LINES_FILE5 = 1;
-    
-	private static final String EXPECTED_RESULT_FILE1 = "result(5.2 - 3.14 + 0.0) = 2.06";
-	private static final String EXPECTED_RESULT_FILE2 = "result(-3.1 - 1.0) = -4.1";
-	private static final String EXPECTED_RESULT_FILE3 = "result(0.75) = 0.75";
-	private static final String EXPECTED_RESULT_FILE4 = "result(0.0) = 0.0";
-	private static final String EXPECTED_RESULT_FILE5 = "result() = 0.0";
+
+    private static final String EXPECTED_RESULT_FILE1 = "result(5.2 - 3.14 + 0.0) = 2.06";
+    private static final String EXPECTED_RESULT_FILE2 = "result(-3.1 - 1.0) = -4.1";
+    private static final String EXPECTED_RESULT_FILE3 = "result(0.75) = 0.75";
+    private static final String EXPECTED_RESULT_FILE4 = "result(0.0) = 0.0";
+    private static final String EXPECTED_RESULT_FILE5 = "result() = 0.0";
 
     private static int getResult(String csvName, StringBuilder strResult) throws FileNotFoundException {
 	try (Scanner sc = new Scanner(new FileReader(csvName))) {
