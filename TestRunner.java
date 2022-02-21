@@ -14,10 +14,6 @@ public class TestRunner {
     private static final String FILE_NAME2 = "resources.in2";
     private static final String FILE_NAME3 = "resources.in3";
 
-    private static final String VALUE = "value";
-    private static final String INDEX = "index(.*)";
-    private static final String NATURAL_NUMBER = "[1-9]+[0-9]*";
-
     private static final double EXPECTED_RESULT1 = 8.24;
     private static final double EXPECTED_RESULT2 = 30.242;
     private static final double EXPECTED_RESULT3 = 1.9;
@@ -26,34 +22,20 @@ public class TestRunner {
     private static final int EXPECTED_ERROR_LINES2 = 9;
     private static final int EXPECTED_ERROR_LINES3 = 0;
 
-    private static final ErrorTest EXPECTED_ERROR_TEST1 = new ErrorTest(EXPECTED_ERROR_LINES1, EXPECTED_RESULT1);
-    private static final ErrorTest EXPECTED_ERROR_TEST2 = new ErrorTest(EXPECTED_ERROR_LINES2, EXPECTED_RESULT2);
-    private static final ErrorTest EXPECTED_ERROR_TEST3 = new ErrorTest(EXPECTED_ERROR_LINES3, EXPECTED_RESULT3);
-
-    public static class ErrorTest {
-	public int errorLines;
-	public double result;
+    private static class ErrorTest {
+	private int errorLines;
+	private double result;
 
 	public ErrorTest(int errorLines, double result) {
 	    this.errorLines = errorLines;
 	    this.result = result;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-	    if (this == obj)
-		return true;
-	    if (obj == null)
-		return false;
-	    if (getClass() != obj.getClass())
-		return false;
-	    ErrorTest other = (ErrorTest) obj;
-	    return errorLines == other.errorLines && result == other.result;
-	}
-
     }
 
     private static ErrorTest getResult(String fileName) {
+	final String VALUE = "value";
+	final String INDEX = "index(.*)";
+	final String NATURAL_NUMBER = "[1-9]+[0-9]*";
 	ResourceBundle rb = ResourceBundle.getBundle(fileName);
 	int errorLines = 0;
 	BigDecimal result = new BigDecimal(0);
@@ -84,14 +66,43 @@ public class TestRunner {
 
     @Test
     public void testMainScenario() {
-	ErrorTest testFile1 = getResult(FILE_NAME1);
-	ErrorTest testFile2 = getResult(FILE_NAME2);
-	ErrorTest testFile3 = getResult(FILE_NAME3);
+	class TestCase {
+	    private int errorLines;
+	    private double result;
+	    private String fileName;
 
-	Assert.assertTrue(testFile1.equals(EXPECTED_ERROR_TEST1));
-	Assert.assertTrue(testFile2.equals(EXPECTED_ERROR_TEST2));
-	Assert.assertTrue(testFile3.equals(EXPECTED_ERROR_TEST3));
+	    public TestCase(int errorLines, double result, String fileName) {
+		this.errorLines = errorLines;
+		this.result = result;
+		this.fileName = fileName;
+	    }
 
+	    public TestCase(ErrorTest errorTest, String fileName) {
+		this.errorLines = errorTest.errorLines;
+		this.result = errorTest.result;
+		this.fileName = fileName;
+	    }
+
+	    @Override
+	    public boolean equals(Object obj) {
+		if (this == obj)
+		    return true;
+		if (obj == null)
+		    return false;
+		if (getClass() != obj.getClass())
+		    return false;
+		TestCase other = (TestCase) obj;
+		return errorLines == other.errorLines && fileName.equals(other.fileName) && result == other.result;
+	    }
+	}
+	TestCase[] testCases = { new TestCase(EXPECTED_ERROR_LINES1, EXPECTED_RESULT1, FILE_NAME1),
+		new TestCase(EXPECTED_ERROR_LINES2, EXPECTED_RESULT2, FILE_NAME2),
+		new TestCase(EXPECTED_ERROR_LINES3, EXPECTED_RESULT3, FILE_NAME3), };
+
+	for (int i = 0; i < testCases.length; i++) {
+	    String fileName = testCases[i].fileName;
+	    Assert.assertEquals(testCases[i], new TestCase(getResult(fileName), fileName));
+	}
     }
 
     @Test(expected = MissingResourceException.class)
