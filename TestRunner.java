@@ -1,13 +1,10 @@
-import java.math.BigDecimal;
 import java.util.Enumeration;
 import java.util.MissingResourceException;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class TestRunner {
     private static final String FILE_NAME1 = "resources.in1";
@@ -22,6 +19,10 @@ public class TestRunner {
     private static final int EXPECTED_ERROR_LINES2 = 9;
     private static final int EXPECTED_ERROR_LINES3 = 0;
 
+    private static final ErrorTest EXPECTED_ERROR_TEST1 = new ErrorTest(EXPECTED_ERROR_LINES1, EXPECTED_RESULT1);
+    private static final ErrorTest EXPECTED_ERROR_TEST2 = new ErrorTest(EXPECTED_ERROR_LINES2, EXPECTED_RESULT2);
+    private static final ErrorTest EXPECTED_ERROR_TEST3 = new ErrorTest(EXPECTED_ERROR_LINES3, EXPECTED_RESULT3);
+
     private static class ErrorTest {
 	private int errorLines;
 	private double result;
@@ -35,10 +36,10 @@ public class TestRunner {
     private static ErrorTest getResult(String fileName) {
 	final String VALUE = "value";
 	final String INDEX = "index(.*)";
-	final String NATURAL_NUMBER = "[1-9]+[0-9]*";
+	final String NATURAL_NUMBER = "[1-9]\\d*";
 	ResourceBundle rb = ResourceBundle.getBundle(fileName);
 	int errorLines = 0;
-	BigDecimal result = new BigDecimal(0);
+	double result = 0;
 	Enumeration<String> keys = rb.getKeys();
 	String key;
 	while (keys.hasMoreElements()) {
@@ -51,7 +52,7 @@ public class TestRunner {
 		Matcher indexValueMatcher = Pattern.compile(NATURAL_NUMBER).matcher(indexValue);
 		if (indexValueMatcher.matches() && indexNumMatcher.matches()) {
 		    try {
-			result = result.add(new BigDecimal(rb.getString(VALUE + indexNum + indexValue).trim()));
+			result += Double.parseDouble(rb.getString(VALUE + indexNum + indexValue).trim());
 		    } catch (MissingResourceException | NumberFormatException e) {
 			errorLines++;
 		    }
@@ -60,48 +61,29 @@ public class TestRunner {
 		}
 	    }
 	}
-	return new ErrorTest(errorLines, result.doubleValue());
-
+	return new ErrorTest(errorLines, result);
     }
 
     @Test
     public void testMainScenario() {
 	class TestCase {
-	    private int errorLines;
-	    private double result;
+	    private ErrorTest errorTest;
 	    private String fileName;
-
-	    public TestCase(int errorLines, double result, String fileName) {
-		this.errorLines = errorLines;
-		this.result = result;
-		this.fileName = fileName;
-	    }
+	    private static final double DELTA = 0.000000000000001;
 
 	    public TestCase(ErrorTest errorTest, String fileName) {
-		this.errorLines = errorTest.errorLines;
-		this.result = errorTest.result;
+		this.errorTest = errorTest;
 		this.fileName = fileName;
 	    }
-
-	    @Override
-	    public boolean equals(Object obj) {
-		if (this == obj)
-		    return true;
-		if (obj == null)
-		    return false;
-		if (getClass() != obj.getClass())
-		    return false;
-		TestCase other = (TestCase) obj;
-		return errorLines == other.errorLines && fileName.equals(other.fileName) && result == other.result;
-	    }
 	}
-	TestCase[] testCases = { new TestCase(EXPECTED_ERROR_LINES1, EXPECTED_RESULT1, FILE_NAME1),
-		new TestCase(EXPECTED_ERROR_LINES2, EXPECTED_RESULT2, FILE_NAME2),
-		new TestCase(EXPECTED_ERROR_LINES3, EXPECTED_RESULT3, FILE_NAME3), };
-
-	for (int i = 0; i < testCases.length; i++) {
-	    String fileName = testCases[i].fileName;
-	    Assert.assertEquals(testCases[i], new TestCase(getResult(fileName), fileName));
+	
+	TestCase[] testCases = { new TestCase(EXPECTED_ERROR_TEST1, FILE_NAME1),
+		new TestCase(EXPECTED_ERROR_TEST2, FILE_NAME2), new TestCase(EXPECTED_ERROR_TEST3, FILE_NAME3), };
+	
+	for (TestCase testCase : testCases) {
+	    String fileName = testCase.fileName;
+	    Assert.assertEquals(testCase.errorTest.errorLines,getResult(fileName).errorLines);
+	    Assert.assertEquals(testCase.errorTest.result,getResult(fileName).result,TestCase.DELTA);
 	}
     }
 
