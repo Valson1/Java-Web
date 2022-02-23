@@ -19,6 +19,11 @@ public class TestRunner {
     private static final int EXPECTED_ERROR_LINES2 = 9;
     private static final int EXPECTED_ERROR_LINES3 = 0;
 
+    private static final String VALUE = "value";
+    private static final String INDEX = "index(.*)";
+    private static final String NATURAL_NUMBER = "[1-9]\\d*";
+    private static final int TAIL_INDEX = 1;
+    
     static class ErrorTest {
 	private int errorLines;
 	private double result;
@@ -27,40 +32,28 @@ public class TestRunner {
 	    this.errorLines = errorLines;
 	    this.result = result;
 	}
-
-	public ErrorTest() {
-	}
-
-	public int getErrorLines() {
-	    return errorLines;
-	}
-
-	public double getResult() {
-	    return result;
-	}
-
     }
 
     private static ErrorTest getResult(String fileName) {
-	final String VALUE = "value";
-	final String INDEX = "index(.*)";
-	final String NATURAL_NUMBER = "[1-9]\\d*";
 	ResourceBundle rb = ResourceBundle.getBundle(fileName);
+	Enumeration<String> keys = rb.getKeys();
+	Pattern naturalNumberPattern = Pattern.compile(NATURAL_NUMBER);
+	Pattern indexKeyPattern = Pattern.compile(INDEX);
 	int errorLines = 0;
 	double result = 0;
-	Enumeration<String> keys = rb.getKeys();
 	String key;
 	while (keys.hasMoreElements()) {
 	    key = keys.nextElement();
-	    Matcher indexMatcher = Pattern.compile(INDEX).matcher(key);
+	    Matcher indexMatcher = indexKeyPattern.matcher(key);
 	    if (indexMatcher.matches()) {
-		String indexNum = indexMatcher.group(1);
+		String indexNum = indexMatcher.group(TAIL_INDEX);
 		String indexValue = rb.getString(key);
-		Matcher indexNumMatcher = Pattern.compile(NATURAL_NUMBER).matcher(indexNum);
-		Matcher indexValueMatcher = Pattern.compile(NATURAL_NUMBER).matcher(indexValue);
+		Matcher indexNumMatcher = naturalNumberPattern.matcher(indexNum);
+		Matcher indexValueMatcher = naturalNumberPattern.matcher(indexValue);
 		if (indexValueMatcher.matches() && indexNumMatcher.matches()) {
+		    String value = VALUE + indexNum + indexValue;
 		    try {
-			result += Double.parseDouble(rb.getString(VALUE + indexNum + indexValue).trim());
+			result += Double.parseDouble(rb.getString(value).trim());
 		    } catch (MissingResourceException | NumberFormatException e) {
 			errorLines++;
 		    }
@@ -84,7 +77,8 @@ public class TestRunner {
 		this.fileName = fileName;
 	    }
 	}
-	TestCase[] testCases = { new TestCase(new ErrorTest(EXPECTED_ERROR_LINES1, EXPECTED_RESULT1), FILE_NAME1),
+	TestCase[] testCases = { 
+		new TestCase(new ErrorTest(EXPECTED_ERROR_LINES1, EXPECTED_RESULT1), FILE_NAME1),
 		new TestCase(new ErrorTest(EXPECTED_ERROR_LINES2, EXPECTED_RESULT2), FILE_NAME2),
 		new TestCase(new ErrorTest(EXPECTED_ERROR_LINES3, EXPECTED_RESULT3), FILE_NAME3), };
 
