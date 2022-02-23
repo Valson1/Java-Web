@@ -19,11 +19,7 @@ public class TestRunner {
     private static final int EXPECTED_ERROR_LINES2 = 9;
     private static final int EXPECTED_ERROR_LINES3 = 0;
 
-    private static final ErrorTest EXPECTED_ERROR_TEST1 = new ErrorTest(EXPECTED_ERROR_LINES1, EXPECTED_RESULT1);
-    private static final ErrorTest EXPECTED_ERROR_TEST2 = new ErrorTest(EXPECTED_ERROR_LINES2, EXPECTED_RESULT2);
-    private static final ErrorTest EXPECTED_ERROR_TEST3 = new ErrorTest(EXPECTED_ERROR_LINES3, EXPECTED_RESULT3);
-
-    private static class ErrorTest {
+    static class ErrorTest {
 	private int errorLines;
 	private double result;
 
@@ -31,6 +27,18 @@ public class TestRunner {
 	    this.errorLines = errorLines;
 	    this.result = result;
 	}
+
+	public ErrorTest() {
+	}
+
+	public int getErrorLines() {
+	    return errorLines;
+	}
+
+	public double getResult() {
+	    return result;
+	}
+
     }
 
     private static ErrorTest getResult(String fileName) {
@@ -76,14 +84,14 @@ public class TestRunner {
 		this.fileName = fileName;
 	    }
 	}
-	
-	TestCase[] testCases = { new TestCase(EXPECTED_ERROR_TEST1, FILE_NAME1),
-		new TestCase(EXPECTED_ERROR_TEST2, FILE_NAME2), new TestCase(EXPECTED_ERROR_TEST3, FILE_NAME3), };
-	
+	TestCase[] testCases = { new TestCase(new ErrorTest(EXPECTED_ERROR_LINES1, EXPECTED_RESULT1), FILE_NAME1),
+		new TestCase(new ErrorTest(EXPECTED_ERROR_LINES2, EXPECTED_RESULT2), FILE_NAME2),
+		new TestCase(new ErrorTest(EXPECTED_ERROR_LINES3, EXPECTED_RESULT3), FILE_NAME3), };
+
 	for (TestCase testCase : testCases) {
-	    String fileName = testCase.fileName;
-	    Assert.assertEquals(testCase.errorTest.errorLines,getResult(fileName).errorLines);
-	    Assert.assertEquals(testCase.errorTest.result,getResult(fileName).result,TestCase.DELTA);
+	    ErrorTest test = getResult(testCase.fileName);
+	    Assert.assertEquals(testCase.errorTest.errorLines, test.errorLines);
+	    Assert.assertEquals(testCase.errorTest.result, test.result, TestCase.DELTA);
 	}
     }
 
