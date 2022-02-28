@@ -69,24 +69,25 @@ class Gen2 <T extends Info> { … } <br />
 Предложите более эффективную запись данного кода: <br />
 <T> void make1(Gen <T extends Object> gen) { … } <br />
 <T, S extends T> void make2(Info<T> info1, Info<S> info2) { … } <br />
-**Ответ.**  цуацу<br />
+**Ответ.** <T> void make1(Gen <T> gen) { … } <br />
+<T, S extends T> void make2(Info<T> info1, Info<S> info2) { … } <br />
 **Источник.** https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html  <br />
 
-Дан код:
-class Info { 
-	public <T1> Info() { … }
-	public <T2> Info(T2 t2) { … }
-	public <T1> void make1(T1 t1) { … }
-	public <T3> void make2() { … }
-}
-Создайте какой-либо экземпляр класса Info 
-конструктором без аргументов, 
-конструктором с аргументом.
-Синтаксически правильно вызовите методы make1() и make2(). 
-**Ответ.** ыавыыа . <br />
+Дан код:<br />
+class Info { <br />
+	public <T1> Info() { … }<br />
+	public <T2> Info(T2 t2) { … }<br />
+	public <T1> void make1(T1 t1) { … }<br />
+	public <T3> void make2() { … }<br />
+}<br />
+Создайте какой-либо экземпляр класса Info <br />
+конструктором без аргументов, <br />
+конструктором с аргументом.<br />
+Синтаксически правильно вызовите методы make1() и make2(). <br />
+**Ответ.**  . <br />
 **Источник.** https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html  <br />
 
-Поясните данный код:
-static <T extends Object & Comparable<? super T>> T max(Collection<? extends T> coll)
+Поясните данный код: <br />
+static <T extends Object & Comparable<? super T>> T max(Collection<? extends T> coll) <br />
 **Ответ.** . <br />
 **Источник.** https://docs.oracle.com/javase/tutorial/java/javaOO/nested.html  <br />
