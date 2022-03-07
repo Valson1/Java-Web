@@ -13,19 +13,12 @@ public class PurchaseList {
 
     public PurchaseList(String csvFileName) {
 	try (Scanner sc = new Scanner(new FileReader(csvFileName))) {
-	    final String SEPARATOR = ";";
-	    final int PURCHASE_NUMBER_FIELDS = 3;
-	    final int DISCOUNT_PURCHASE_NUMBER_FIELDS = 4;
 	    while (sc.hasNextLine()) {
-		String str = sc.nextLine();
-		int length = str.split(SEPARATOR).length;
+		String line = sc.nextLine();
 		try {
-		    if(length < PURCHASE_NUMBER_FIELDS || length > DISCOUNT_PURCHASE_NUMBER_FIELDS) {
-			throw new IllegalArgumentException();
-		    }
-		    purchases.add(FactoryClass.getPurchaseFromFactory(length,sc));
-		} catch (IllegalArgumentException | InputMismatchException e) {
-		    System.err.println(str);
+		    purchases.add(FactoryClass.getPurchaseFromFactory(line));
+		} catch (IllegalArgumentException e) {
+		    System.err.println(line);
 		}
 	    }
 	} catch (FileNotFoundException e) {
@@ -33,9 +26,59 @@ public class PurchaseList {
 	}
     }
 
-    public void get() {
-	for (Purchase purchase : purchases) {
-	    System.out.println(purchase);
-	}
+    public List<Purchase> getPurchases() {
+	return purchases;
     }
+
+    public void add(int index, Purchase purchase) {
+	int listSize = purchases.size();
+	purchases.add(checkRangeIndex(index, listSize), purchase);
+    }
+
+    private static int getIndexNearestEnd(int index, int listSize) {
+	return index < 0 ? 0 : listSize;
+    }
+    private static int checkRangeIndex(int index, int listSize) {
+	return index < 0 || index >= listSize ? getIndexNearestEnd(index, listSize) : index;
+    }
+
+    public int delete(int indexFrom, int indexTo) {
+	int listSize = purchases.size();
+	if (indexFrom > indexTo) {
+	    throw new IllegalArgumentException();
+	}
+	indexFrom = checkRangeIndex(indexFrom, listSize);
+	indexTo = checkRangeIndex(indexTo, listSize);
+	List<Purchase> subList = purchases.subList(indexFrom, indexTo);
+	int subListLength = subList.size();
+	subList.clear();
+	return subListLength;
+    }
+
+    public Byn getCost() {
+	Byn getCost = new Byn();
+	for (int i = 0; i < purchases.size(); i++) {
+	    getCost = getCost.sum(purchases.get(i).getCost());
+	}
+	return getCost;
+    }
+
+    public void sort(PurchaseComparatorKind comparatorKind) {
+	Collections.sort(purchases, comparatorKind);
+    }
+
+    public int binarySearch(PurchaseComparatorKind comparatorKind, Purchase key) {
+	sort(comparatorKind);
+	return Collections.binarySearch(purchases, key, comparatorKind);
+    }
+
+    @Override
+    public String toString() {
+	StringBuilder result = new StringBuilder();
+	for (int i = 0; i < purchases.size(); i++) {
+	    result.append(purchases.get(i)).append(";");
+	}
+	return result.toString();
+    }
+
 }

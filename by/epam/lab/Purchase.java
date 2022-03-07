@@ -13,21 +13,29 @@ public class Purchase {
     private final int numberOfPurchaseUnits;
 
     public Purchase() {
-	this(null,new Byn(),0);
-	
+	this(null, new Byn(), 0);
+
     }
 
     public Purchase(String name, Byn price, int numberOfPurchaseUnits) {
-	if(name.isBlank() || price.compareTo(new Byn(0)) <= 0 || numberOfPurchaseUnits <= 0) {
-	    throw new IllegalArgumentException();
+	if (name.isEmpty()) {
+	    throw new IllegalArgumentException("Name is empty");
+	}
+	if (price.getValue() <= 0) {
+	    throw new IllegalArgumentException("Price is less or equal to zero");
+	}
+	if (numberOfPurchaseUnits <= 0) {
+	    throw new IllegalArgumentException("Number of units is less or equal to zero");
 	}
 	this.name = name;
 	this.price = price;
 	this.numberOfPurchaseUnits = numberOfPurchaseUnits;
     }
 
-    public Purchase(Scanner sc) {
-	this(sc.next(),new Byn(sc), sc.nextInt());
+    public Purchase(String[] elements) {
+	this(elements[ConstantsUtility.FIRST_ELEMENT],
+		new Byn(Integer.parseInt(elements[ConstantsUtility.SECOND_ELEMENT])),
+		Integer.parseInt(elements[ConstantsUtility.THIRD_ELEMENT]));
     }
 
     public String getName() {
@@ -48,7 +56,8 @@ public class Purchase {
     }
 
     protected String fieldsToString() {
-	return name + ";" + price + ";" + numberOfPurchaseUnits;
+	return new StringBuilder(name).append(ConstantsUtility.SEPARATOR).append(price)
+		.append(ConstantsUtility.SEPARATOR).append(numberOfPurchaseUnits).toString();
     }
 
     @Override

@@ -6,23 +6,27 @@ public class FactoryClass {
 
     private static enum PurchaseKind {
 	GENERAL_PURCHASE {
-	    public Purchase getPurchase(Scanner sc) {
-		return new Purchase(sc);
+	    public Purchase getPurchase(String[] elements) {
+		return new Purchase(elements);
 	    }
 	},
 	DISCOUNT_UNIT_PURCHASE {
-	    public Purchase getPurchase(Scanner sc) {
-		return new DiscountUnitsPurchase(sc);
+	    public Purchase getPurchase(String[] elements) {
+		return new DiscountUnitsPurchase(elements);
 	    }
 	};
 
-	public abstract Purchase getPurchase(Scanner sc);
+	public abstract Purchase getPurchase(String[] elements);
     }
 
-    public static Purchase getPurchaseFromFactory(int length,Scanner sc) {
-	final int PURCHASE_NUMBER_FIELDS = 3;
-	PurchaseKind kind = PurchaseKind.values()[length == PURCHASE_NUMBER_FIELDS ? 0 : 1];
-	return kind.getPurchase(sc);
+    public static Purchase getPurchaseFromFactory(String csvLine) {
+	String [] elements = csvLine.split(ConstantsUtility.SEPARATOR);
+	int length = elements.length;
+	    if(length < ConstantsUtility.PURCHASE_NUMBER_FIELDS || length > ConstantsUtility.DISCOUNT_PURCHASE_NUMBER_FIELDS) {
+		throw new IllegalArgumentException();
+	    }
+	PurchaseKind kind = PurchaseKind.values()[length == ConstantsUtility.PURCHASE_NUMBER_FIELDS ? 0 : 1];
+	return kind.getPurchase(elements);
     }
 
 }

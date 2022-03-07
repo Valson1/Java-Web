@@ -8,7 +8,7 @@ public final class Byn implements Comparable<Byn> {
     public Byn(int value) {
 	this.value = value;
     }
-    
+
     public Byn(Scanner sc) {
 	this.value = sc.nextInt();
     }
@@ -19,6 +19,10 @@ public final class Byn implements Comparable<Byn> {
 
     public Byn() {
 	this.value = 0;
+    }
+
+    public int getValue() {
+	return value;
     }
 
     public Byn sum(Byn byn) {
@@ -43,7 +47,7 @@ public final class Byn implements Comparable<Byn> {
 
     @Override
     public String toString() {
-	return String.format("%d.%02d", value / 100, value % 100);
+	return new StringBuilder().append(value / 100).append(ConstantsUtility.DOT).append(value % 100).toString();
     }
 
     @Override

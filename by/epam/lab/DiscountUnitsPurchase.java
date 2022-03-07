@@ -13,14 +13,20 @@ public class DiscountUnitsPurchase extends Purchase {
 
     public DiscountUnitsPurchase(String name, Byn price, int numberOfPurchaseUnits, Byn discountForUnit) {
 	super(name, price, numberOfPurchaseUnits);
-	if (discountForUnit.compareTo(price) >= 0 || discountForUnit.compareTo(new Byn(0)) <= 0) {
-	    throw new IllegalArgumentException();
+	if (discountForUnit.getValue() >= price.getValue()) {
+	    throw new IllegalArgumentException("Discount is more or equal to price");
+	}
+	if (discountForUnit.getValue() <= 0) {
+	    throw new IllegalArgumentException("Discount is less or equal to zero");
 	}
 	this.discountForUnit = discountForUnit;
     }
 
-    public DiscountUnitsPurchase(Scanner sc) {
-	this(sc.next(), new Byn(sc), sc.nextInt(),new Byn(sc));
+    public DiscountUnitsPurchase(String[] elements) {
+	this(elements[ConstantsUtility.FIRST_ELEMENT],
+		new Byn(Integer.parseInt(elements[ConstantsUtility.SECOND_ELEMENT])),
+		Integer.parseInt(elements[ConstantsUtility.THIRD_ELEMENT]),
+		new Byn(Integer.parseInt(elements[ConstantsUtility.FOURTH_ELEMENT])));
     }
 
     public Byn getDiscountForUnite() {
@@ -35,7 +41,7 @@ public class DiscountUnitsPurchase extends Purchase {
 
     @Override
     protected String fieldsToString() {
-	return super.fieldsToString() + ";" + discountForUnit;
+	return new StringBuilder(super.fieldsToString()).append(ConstantsUtility.SEPARATOR).append(discountForUnit).toString();
     }
 
 }
