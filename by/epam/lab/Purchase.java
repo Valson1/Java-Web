@@ -1,11 +1,5 @@
 package by.epam.lab;
 
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import by.epam.lab.*;
-
 public class Purchase {
 
     private final String name;
@@ -19,13 +13,13 @@ public class Purchase {
 
     public Purchase(String name, Byn price, int numberOfPurchaseUnits) {
 	if (name.isEmpty()) {
-	    throw new IllegalArgumentException("Name is empty");
+	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_NAME);
 	}
 	if (price.getValue() <= 0) {
-	    throw new IllegalArgumentException("Price is less or equal to zero");
+	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_PRICE);
 	}
 	if (numberOfPurchaseUnits <= 0) {
-	    throw new IllegalArgumentException("Number of units is less or equal to zero");
+	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_NUMBER_OF_UNITS);
 	}
 	this.name = name;
 	this.price = price;

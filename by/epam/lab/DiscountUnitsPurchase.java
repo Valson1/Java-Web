@@ -1,9 +1,5 @@
 package by.epam.lab;
 
-import java.util.Scanner;
-
-import by.epam.lab.Purchase;
-
 public class DiscountUnitsPurchase extends Purchase {
     private final Byn discountForUnit;
 
@@ -14,10 +10,10 @@ public class DiscountUnitsPurchase extends Purchase {
     public DiscountUnitsPurchase(String name, Byn price, int numberOfPurchaseUnits, Byn discountForUnit) {
 	super(name, price, numberOfPurchaseUnits);
 	if (discountForUnit.getValue() >= price.getValue()) {
-	    throw new IllegalArgumentException("Discount is more or equal to price");
+	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_DISCOUNT_PRICE);
 	}
 	if (discountForUnit.getValue() <= 0) {
-	    throw new IllegalArgumentException("Discount is less or equal to zero");
+	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_DISCOUNT_ZERO);
 	}
 	this.discountForUnit = discountForUnit;
     }

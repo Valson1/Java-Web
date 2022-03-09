@@ -29,6 +29,11 @@ public class PurchaseList {
     public List<Purchase> getPurchases() {
 	return purchases;
     }
+    
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
+    }
 
     public void add(int index, Purchase purchase) {
 	int listSize = purchases.size();
@@ -76,7 +81,10 @@ public class PurchaseList {
     public String toString() {
 	StringBuilder result = new StringBuilder();
 	for (int i = 0; i < purchases.size(); i++) {
-	    result.append(purchases.get(i)).append(";");
+	    result.append(purchases.get(i)).append(ConstantsUtility.SEPARATOR);
+	}
+	if(!purchases.isEmpty()) {
+	    result.deleteCharAt(result.length() - 1);
 	}
 	return result.toString();
     }

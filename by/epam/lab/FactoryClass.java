@@ -1,10 +1,8 @@
 package by.epam.lab;
 
-import java.util.Scanner;
-
 public class FactoryClass {
 
-    private static enum PurchaseKind {
+    private enum PurchaseKind {
 	GENERAL_PURCHASE {
 	    public Purchase getPurchase(String[] elements) {
 		return new Purchase(elements);
