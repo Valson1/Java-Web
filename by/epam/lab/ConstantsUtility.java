@@ -1,6 +1,4 @@
 package by.epam.lab;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ConstantsUtility { 
     public static final String SEPARATOR = ";"; 
