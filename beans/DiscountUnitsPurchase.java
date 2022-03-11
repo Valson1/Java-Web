@@ -51,8 +51,7 @@ public class DiscountUnitsPurchase extends Purchase {
 
     @Override
     protected String fieldsToString() {
-	return new StringBuilder(super.fieldsToString()).append(ConstantsUtility.SEPARATOR).append(discountForUnit)
-		.toString();
+	return super.fieldsToString() + ConstantsUtility.SEPARATOR + discountForUnit;
     }
 
 }

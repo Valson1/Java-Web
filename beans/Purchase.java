@@ -23,7 +23,8 @@ public class Purchase {
 	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_PRICE + price);
 	}
 	if (numberOfPurchaseUnits <= 0) {
-	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_NUMBER_OF_UNITS + numberOfPurchaseUnits);
+	    throw new IllegalArgumentException(
+		    ConstantsUtility.EXCEPTION_MESSAGE_NUMBER_OF_UNITS + numberOfPurchaseUnits);
 	}
 	this.name = name;
 	this.price = price;
@@ -42,9 +43,9 @@ public class Purchase {
     public Purchase(String[] elements) {
 	this(getValidPurchase(elements));
     }
-    
+
     public Purchase(Purchase purchase) {
-	this(purchase.name,purchase.price,purchase.numberOfPurchaseUnits);
+	this(purchase.name, purchase.price, purchase.numberOfPurchaseUnits);
     }
 
     public String getName() {
@@ -65,8 +66,7 @@ public class Purchase {
     }
 
     protected String fieldsToString() {
-	return new StringBuilder(name).append(ConstantsUtility.SEPARATOR).append(price)
-		.append(ConstantsUtility.SEPARATOR).append(numberOfPurchaseUnits).toString();
+	return name + ConstantsUtility.SEPARATOR + price + ConstantsUtility.SEPARATOR + numberOfPurchaseUnits;
     }
 
     @Override

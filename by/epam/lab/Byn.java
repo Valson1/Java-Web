@@ -1,13 +1,12 @@
 package by.epam.lab;
 
-
 import exceptions.NonpositiveArgumentException;
 
 public final class Byn implements Comparable<Byn> {
     private final int value;
 
     public Byn(int value) {
-	if(value < 0) {
+	if (value < 0) {
 	    throw new NonpositiveArgumentException(value);
 	}
 	this.value = value;
@@ -20,25 +19,25 @@ public final class Byn implements Comparable<Byn> {
     public Byn() {
 	this(0);
     }
-    
-    private static int getValidValue(int rubs,int coins) {
-	if(rubs < 0) {
-	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_BYN_RUBS + rubs);	    
+
+    private static int getValidValue(int rubs, int coins) {
+	if (rubs < 0) {
+	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_BYN_RUBS + rubs);
 	}
-	if(coins < 0 ||coins > 100) {
-	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_BYN_COPS + coins);	    	    
+	if (coins < 0 || coins > 100) {
+	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_BYN_COPS + coins);
 	}
 	return 100 * rubs + coins;
     }
-    
+
     public Byn(int rubs, int coins) {
 	this(getValidValue(rubs, coins));
     }
-    
+
     public Byn(String strKops) {
 	this(Integer.parseInt(strKops));
     }
-    
+
     public int getValue() {
 	return value;
     }
@@ -65,7 +64,7 @@ public final class Byn implements Comparable<Byn> {
 
     @Override
     public String toString() {
-	return new StringBuilder().append(value / 100).append(ConstantsUtility.DOT).append(value % 100).toString();
+	return value / ConstantsUtility.VALUE_DIVISOR + ConstantsUtility.DOT + ConstantsUtility.VALUE_DIVISOR;
     }
 
     @Override
