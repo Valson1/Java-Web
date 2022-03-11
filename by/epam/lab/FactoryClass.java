@@ -1,5 +1,9 @@
 package by.epam.lab;
 
+import beans.DiscountUnitsPurchase;
+import beans.Purchase;
+import exceptions.CsvLineException;
+
 public class FactoryClass {
 
     private enum PurchaseKind {
@@ -14,17 +18,21 @@ public class FactoryClass {
 	    }
 	};
 
-	public abstract Purchase getPurchase(String[] elements);
+	protected abstract Purchase getPurchase(String[] elements);
     }
 
-    public static Purchase getPurchaseFromFactory(String csvLine) {
-	String [] elements = csvLine.split(ConstantsUtility.SEPARATOR);
-	int length = elements.length;
-	    if(length < ConstantsUtility.PURCHASE_NUMBER_FIELDS || length > ConstantsUtility.DISCOUNT_PURCHASE_NUMBER_FIELDS) {
-		throw new IllegalArgumentException();
-	    }
-	PurchaseKind kind = PurchaseKind.values()[length == ConstantsUtility.PURCHASE_NUMBER_FIELDS ? 0 : 1];
-	return kind.getPurchase(elements);
+    private static PurchaseKind getPurchaseKind(int csvLineLength) {
+	return csvLineLength == ConstantsUtility.DISCOUNT_PURCHASE_NUMBER_FIELDS ? PurchaseKind.DISCOUNT_UNIT_PURCHASE
+		: PurchaseKind.GENERAL_PURCHASE;
+    }
+
+    public static Purchase getPurchaseFromFactory(String csvLine) throws CsvLineException {
+	String[] elements = csvLine.split(ConstantsUtility.SEPARATOR);
+	try {
+	    return getPurchaseKind(elements.length).getPurchase(elements);
+	} catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+	    throw new CsvLineException(csvLine, e);
+	}
     }
 
 }
