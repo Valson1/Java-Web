@@ -24,10 +24,10 @@ public final class Byn implements Comparable<Byn> {
 	if (rubs < 0) {
 	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_BYN_RUBS + rubs);
 	}
-	if (coins < 0 || coins > 100) {
+	if (coins < 0 || coins > ConstantsUtility.VALUE_DIVISOR) {
 	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_BYN_COPS + coins);
 	}
-	return 100 * rubs + coins;
+	return ConstantsUtility.VALUE_DIVISOR * rubs + coins;
     }
 
     public Byn(int rubs, int coins) {
@@ -64,7 +64,7 @@ public final class Byn implements Comparable<Byn> {
 
     @Override
     public String toString() {
-	return value / ConstantsUtility.VALUE_DIVISOR + ConstantsUtility.DOT + ConstantsUtility.VALUE_DIVISOR;
+	return value / ConstantsUtility.VALUE_DIVISOR + ConstantsUtility.DOT + value % ConstantsUtility.VALUE_DIVISOR;
     }
 
     @Override
