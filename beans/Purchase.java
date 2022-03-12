@@ -1,7 +1,8 @@
 package beans;
 
-import by.epam.lab.Byn;
-import by.epam.lab.ConstantsUtility;
+import static utils.ConstantsUtility.*;
+
+import exceptions.NonpositiveArgumentException;
 
 public class Purchase {
 
@@ -16,15 +17,14 @@ public class Purchase {
     }
 
     public Purchase(String name, Byn price, int numberOfPurchaseUnits) {
-	if (name.isEmpty()) {
-	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_NAME);
+	if (name.trim().isEmpty()) {
+	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_NAME + name);
 	}
-	if (price.getValue() == 0) {
-	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_PRICE + price);
+	if (price.compareTo(new Byn(0)) < 1) {
+	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_PRICE + price);
 	}
 	if (numberOfPurchaseUnits <= 0) {
-	    throw new IllegalArgumentException(
-		    ConstantsUtility.EXCEPTION_MESSAGE_NUMBER_OF_UNITS + numberOfPurchaseUnits);
+	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_NUMBER_OF_UNITS + numberOfPurchaseUnits);
 	}
 	this.name = name;
 	this.price = price;
@@ -32,12 +32,11 @@ public class Purchase {
     }
 
     private static Purchase getValidPurchase(String[] elements) {
-	if (elements.length != ConstantsUtility.PURCHASE_NUMBER_FIELDS) {
-	    throw new ArrayIndexOutOfBoundsException(ConstantsUtility.EXCEPTION_MESSAGE_CSV_LENGTH + elements.length);
+	if (elements.length != PURCHASE_NUMBER_FIELDS) {
+	    throw new ArrayIndexOutOfBoundsException(EXCEPTION_MESSAGE_CSV_LENGTH + elements.length);
 	}
-	return new Purchase(elements[ConstantsUtility.FIRST_ELEMENT],
-		new Byn(elements[ConstantsUtility.SECOND_ELEMENT]),
-		Integer.parseInt(elements[ConstantsUtility.THIRD_ELEMENT]));
+	return new Purchase(elements[FIRST_ELEMENT], new Byn(elements[SECOND_ELEMENT]),
+		Integer.parseInt(elements[THIRD_ELEMENT]));
     }
 
     public Purchase(String[] elements) {
@@ -61,17 +60,16 @@ public class Purchase {
     }
 
     public Byn getCost() {
-	Byn byn = new Byn(price);
-	return byn.multiply(numberOfPurchaseUnits);
+	return price.multiply(numberOfPurchaseUnits);
     }
 
     protected String fieldsToString() {
-	return name + ConstantsUtility.SEPARATOR + price + ConstantsUtility.SEPARATOR + numberOfPurchaseUnits;
+	return name + SEPARATOR + price + SEPARATOR + numberOfPurchaseUnits;
     }
 
     @Override
     public String toString() {
-	return fieldsToString();
+	return fieldsToString() + SEPARATOR + getCost();
     }
 
     @Override

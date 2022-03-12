@@ -1,5 +1,7 @@
 package by.epam.lab;
 
+import static utils.ConstantsUtility.*;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -8,27 +10,29 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+import beans.Byn;
 import beans.Purchase;
 import exceptions.CsvLineException;
+import services.FactoryClass;
 
 public class PurchaseList {
     private List<Purchase> purchases = new ArrayList<>();
     private final Comparator<Purchase> comparator;
-    private boolean isSorted;
+    private boolean isSorted = false;
 
     public PurchaseList(String csvFileName, Comparator<Purchase> comparator) {
 	this.comparator = comparator;
 	try (Scanner sc = new Scanner(new FileReader(csvFileName))) {
 	    while (sc.hasNextLine()) {
-		String line = sc.nextLine();
 		try {
-		    purchases.add(FactoryClass.getPurchaseFromFactory(line));
+		    purchases.add(FactoryClass.getPurchaseFromFactory(sc.nextLine()));
 		} catch (CsvLineException e) {
-		    System.err.println(e.getMessage());
+		    System.err.println(e + SPACE + e.getMessage());
 		}
 	    }
 	} catch (FileNotFoundException e) {
-	    purchases = Collections.emptyList();
+	    System.err.println("File is not found");
+	    isSorted = true;
 	}
     }
 
@@ -58,7 +62,7 @@ public class PurchaseList {
 	int listSize = purchases.size();
 	if (indexFrom > indexTo) {
 	    throw new IllegalArgumentException(
-		    ConstantsUtility.EXCEPTION_MESSAGE_DELETE + indexFrom + ConstantsUtility.SPACE + indexTo);
+		    EXCEPTION_MESSAGE_DELETE + indexFrom + SPACE + indexTo);
 	}
 	indexFrom = checkRangeIndex(indexFrom, listSize);
 	indexTo = checkRangeIndex(indexTo, listSize);
@@ -92,7 +96,7 @@ public class PurchaseList {
     public String toString() {
 	StringBuilder result = new StringBuilder();
 	for (int i = 0; i < purchases.size(); i++) {
-	    result.append(purchases.get(i)).append(ConstantsUtility.SEPARATOR);
+	    result.append(purchases.get(i)).append(SEPARATOR);
 	}
 	if (!purchases.isEmpty()) {
 	    result.deleteCharAt(result.length() - 1);

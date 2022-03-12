@@ -1,8 +1,11 @@
 package beans;
 
-import by.epam.lab.Byn;
-import by.epam.lab.ConstantsUtility;
-import by.epam.lab.RoundMethod;
+import exceptions.NonpositiveArgumentException;
+import services.RoundMethod;
+
+import static utils.ConstantsUtility.*;
+
+import java.util.Objects;
 
 public class DiscountUnitsPurchase extends Purchase {
     private final Byn discountForUnit;
@@ -14,20 +17,23 @@ public class DiscountUnitsPurchase extends Purchase {
 
     public DiscountUnitsPurchase(String name, Byn price, int numberOfPurchaseUnits, Byn discountForUnit) {
 	super(name, price, numberOfPurchaseUnits);
-	if (discountForUnit.getValue() >= price.getValue()) {
-	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_DISCOUNT_PRICE + discountForUnit);
+	if (discountForUnit.compareTo(price) >= 0) {
+	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_DISCOUNT_PRICE + discountForUnit);
 	}
-	if (discountForUnit.getValue() == 0) {
-	    throw new IllegalArgumentException(ConstantsUtility.EXCEPTION_MESSAGE_DISCOUNT_ZERO + discountForUnit);
+	if (discountForUnit.compareTo(new Byn(0)) <= 0) {
+	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_DISCOUNT_ZERO + discountForUnit);
 	}
 	this.discountForUnit = discountForUnit;
     }
 
     private static DiscountUnitsPurchase getValidDiscountPurchase(String[] elements) {
-	return new DiscountUnitsPurchase(elements[ConstantsUtility.FIRST_ELEMENT],
-		new Byn(Integer.parseInt(elements[ConstantsUtility.SECOND_ELEMENT])),
-		Integer.parseInt(elements[ConstantsUtility.THIRD_ELEMENT]),
-		new Byn(Integer.parseInt(elements[ConstantsUtility.FOURTH_ELEMENT])));
+	if (elements.length != DISCOUNT_PURCHASE_NUMBER_FIELDS) {
+	    throw new ArrayIndexOutOfBoundsException(EXCEPTION_MESSAGE_CSV_LENGTH + elements.length);
+	}
+	return new DiscountUnitsPurchase(elements[FIRST_ELEMENT],
+		new Byn(Integer.parseInt(elements[SECOND_ELEMENT])),
+		Integer.parseInt(elements[THIRD_ELEMENT]),
+		new Byn(Integer.parseInt(elements[FOURTH_ELEMENT])));
     }
 
     public DiscountUnitsPurchase(String[] elements) {
@@ -45,13 +51,26 @@ public class DiscountUnitsPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-	Byn byn = new Byn(getPrice());
-	return byn.sub(discountForUnit).multiply(getNumberOfPurchaseUnits(), RoundMethod.ROUND, 0);
+	return getPrice().sub(discountForUnit).multiply(getNumberOfPurchaseUnits(), RoundMethod.ROUND, 0);
     }
 
     @Override
     protected String fieldsToString() {
-	return super.fieldsToString() + ConstantsUtility.SEPARATOR + discountForUnit;
+	return super.fieldsToString() + SEPARATOR + discountForUnit;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj)
+	    return true;
+	if (!super.equals(obj))
+	    return false;
+	if (getClass() != obj.getClass())
+	    return false;
+	DiscountUnitsPurchase other = (DiscountUnitsPurchase) obj;
+	return super.equals(other) && discountForUnit.equals(other.discountForUnit);
+    }
+    
+    
 
 }

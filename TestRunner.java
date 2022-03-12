@@ -5,17 +5,19 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import beans.Byn;
 import beans.DiscountUnitsPurchase;
 import beans.Purchase;
 import by.epam.lab.*;
 import exceptions.CsvLineException;
+import services.FactoryClass;
 
 public class TestRunner {
 
     private static String CSV_FILE_NAME1 = "src/in.csv";
     private static String CSV_FILE_NAME2 = "wefwedas";
 
-    private static String EXPECTED_STRING = "bread;1.55;1;0.2;milk;1.31;2;bread;1.54;3;bread;1.45;5;potato;1.80;2;0.10;butter;3.70;1;butter;3.41;1;0.1;meat;11.0;2;0.80";
+    private static String EXPECTED_STRING = "bread;1.55;1;0.02;1.53;milk;1.31;2;2.62;bread;1.54;3;4.62;bread;1.45;5;7.25;potato;1.80;2;0.10;3.40;butter;3.70;1;3.70;butter;3.41;1;0.01;3.40;meat;11.00;2;0.80;20.40";
 
     private static Comparator<Purchase> comparator = new Comparator<>() {
 	@Override
@@ -42,6 +44,7 @@ public class TestRunner {
 	purchasesActual.setPurchases(purchases);
 	Assert.assertEquals(purchasesExpected, purchasesActual);
 	PurchaseList purchasesEmpty = new PurchaseList(CSV_FILE_NAME2, comparator);
+	System.out.println(purchasesActual);
 	Assert.assertEquals(purchasesEmpty.toString(), "");
 	Assert.assertEquals(EXPECTED_STRING, purchasesActual.toString());
 
@@ -63,7 +66,7 @@ public class TestRunner {
     public void sortAndSearchTest() {
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
 	purchasesActual.sort();
-	Assert.assertEquals("bread;1.55;1;0.2", purchasesActual.getPurchases().get(3).toString());
+	Assert.assertEquals("bread;1.55;1;0.02;1.53", purchasesActual.getPurchases().get(3).toString());
 	int index = purchasesActual.binarySearch(new Purchase("bwef", new Byn(180), 3));
 	Assert.assertEquals(4, index);
 	index = purchasesActual.binarySearch(new Purchase("bwef", new Byn(155), 3));
