@@ -1,25 +1,26 @@
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import beans.Byn;
-import beans.DiscountUnitsPurchase;
-import beans.Purchase;
-import by.epam.lab.*;
-import exceptions.CsvLineException;
-import services.FactoryClass;
+import by.epam.lab.beans.*;
+import by.epam.lab.exceptions.*;
+import by.epam.lab.services.*;
 
 public class TestRunner {
 
-    private static String CSV_FILE_NAME1 = "src/in.csv";
-    private static String CSV_FILE_NAME2 = "wefwedas";
+    private static final String CSV_FILE_NAME1 = "src/in.csv";
+    private static final String CSV_FILE_NAME2 = "wefwedas";
 
-    private static String EXPECTED_STRING = "bread;1.55;1;0.02;1.53;milk;1.31;2;2.62;bread;1.54;3;4.62;bread;1.45;5;7.25;potato;1.80;2;0.10;3.40;butter;3.70;1;3.70;butter;3.41;1;0.01;3.40;meat;11.00;2;0.80;20.40";
+    private static final String EXPECTED_STRING = "DiscountUnitsPurchase;bread;1.55;1;0.02;1.53;Purchase;milk;1.31;2;2.62;Purchase;bread;1.54;3;4.62;Purchase;bread;1.45;5;7.25;DiscountUnitsPurchase;potato;1.80;2;0.10;3.40;Purchase;butter;3.70;1;3.70;DiscountUnitsPurchase;butter;3.41;1;0.01;3.40;DiscountUnitsPurchase;meat;11.00;2;0.80;20.40";
+    private static final String EXPECTED_STRING_DELETE_LEFT = "DiscountUnitsPurchase;bread;1.55;1;0.02;1.53;Purchase;bread;1.45;5;7.25;DiscountUnitsPurchase;potato;1.80;2;0.10;3.40;Purchase;butter;3.70;1;3.70;DiscountUnitsPurchase;butter;3.41;1;0.01;3.40;DiscountUnitsPurchase;meat;11.00;2;0.80;20.40";
+    private static final String EXPECTED_STRING_DELETE_MIDDLE = "Purchase;bread;1.45;5;7.25;DiscountUnitsPurchase;bread;1.55;1;0.02;1.53;DiscountUnitsPurchase;potato;1.80;2;0.10;3.40;DiscountUnitsPurchase;butter;3.41;1;0.01;3.40";
+    private static final String EXPECTED_STRING_MIDDLE_ADD = "DiscountUnitsPurchase;bread;1.55;1;0.02;1.53;Purchase;milk;1.31;2;2.62;Purchase;bread;1.54;3;4.62;Purchase;bread;1.45;5;7.25;DiscountUnitsPurchase;potato;1.80;2;0.10;3.40;Purchase;www;0.02;12;0.24;Purchase;butter;3.70;1;3.70;DiscountUnitsPurchase;butter;3.41;1;0.01;3.40;DiscountUnitsPurchase;meat;11.00;2;0.80;20.40";
+    private static final String EXPECTED_STRING_LEFT_ADD = "Purchase;www;0.02;12;0.24;" + EXPECTED_STRING;
+    private static final String EXPECTED_STRING_RIGHT_ADD = EXPECTED_STRING_LEFT_ADD + ";Purchase;www;0.02;12;0.24";
+    private static final String EXPECTED_STRING_SORTED = "Purchase;milk;1.31;2;2.62;Purchase;bread;1.45;5;7.25;Purchase;bread;1.54;3;4.62;DiscountUnitsPurchase;bread;1.55;1;0.02;1.53;DiscountUnitsPurchase;potato;1.80;2;0.10;3.40;DiscountUnitsPurchase;butter;3.41;1;0.01;3.40;Purchase;butter;3.70;1;3.70;DiscountUnitsPurchase;meat;11.00;2;0.80;20.40";
+    private static final String EXPECTED_STRING_DELETE = "DiscountUnitsPurchase;bread;1.55;1;0.02;1.53;Purchase;milk;1.31;2;2.62;Purchase;bread;1.54;3;4.62;Purchase;bread;1.45;5;7.25;DiscountUnitsPurchase;potato;1.80;2;0.10;3.40;Purchase;butter;3.70;1;3.70";
 
-    private static Comparator<Purchase> comparator = new Comparator<>() {
+    private static final Comparator<Purchase> comparator = new Comparator<>() {
 	@Override
 	public int compare(Purchase o1, Purchase o2) {
 	    return o1.getPrice().compareTo(o2.getPrice());
@@ -28,37 +29,34 @@ public class TestRunner {
 
     @Test
     public void testConstructorPurchaseList() {
-	List<Purchase> purchases = new ArrayList<>();
-	purchases.add(new DiscountUnitsPurchase("bread", new Byn(155), 1, new Byn(2)));
-	purchases.add(new Purchase("milk", new Byn(131), 2));
-	purchases.add(new Purchase("bread", new Byn(154), 3));
-	purchases.add(new Purchase("bread", new Byn(145), 5));
-	purchases.add(new DiscountUnitsPurchase("potato", new Byn(180), 2, new Byn(10)));
-	purchases.add(new Purchase("butter", new Byn(370), 1));
-	purchases.add(new DiscountUnitsPurchase("butter", new Byn(341), 1, new Byn(1)));
-	purchases.add(new DiscountUnitsPurchase("meat", new Byn(1100), 2, new Byn(80)));
+	PurchaseList purchases = new PurchaseList("we", comparator);
+	purchases.add(0, new DiscountUnitsPurchase("bread", new Byn(155), 1, new Byn(2)));
+	purchases.add(1, new Purchase("milk", new Byn(131), 2));
+	purchases.add(2, new Purchase("bread", new Byn(154), 3));
+	purchases.add(3, new Purchase("bread", new Byn(145), 5));
+	purchases.add(4, new DiscountUnitsPurchase("potato", new Byn(180), 2, new Byn(10)));
+	purchases.add(5, new Purchase("butter", new Byn(370), 1));
+	purchases.add(6, new DiscountUnitsPurchase("butter", new Byn(341), 1, new Byn(1)));
+	purchases.add(7, new DiscountUnitsPurchase("meat", new Byn(1100), 2, new Byn(80)));
 	// constructor
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
-	PurchaseList purchasesExpected = purchasesActual;
-	purchasesActual.delete(0, 10);
-	purchasesActual.setPurchases(purchases);
-	Assert.assertEquals(purchasesExpected, purchasesActual);
+	Assert.assertEquals(purchases.toString(), purchasesActual.toString());
 	PurchaseList purchasesEmpty = new PurchaseList(CSV_FILE_NAME2, comparator);
-	System.out.println(purchasesActual);
 	Assert.assertEquals(purchasesEmpty.toString(), "");
 	Assert.assertEquals(EXPECTED_STRING, purchasesActual.toString());
 
 	// add method index out of bounds
-	List<Purchase> getPurchases = purchasesActual.getPurchases();
 	Purchase purchase = new Purchase("www", new Byn(2), 12);
 	purchasesActual.add(-10, purchase);
-	Assert.assertEquals(purchase, getPurchases.get(0));
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_LEFT_ADD);
 	purchasesActual.add(20, purchase);
-	Assert.assertEquals(purchase, getPurchases.get(getPurchases.size() - 1));
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_RIGHT_ADD);
 
 	// add method
-	purchasesActual.add(5, purchase);
-	Assert.assertEquals(purchase, getPurchases.get(5));
+
+	PurchaseList purchasesMiddleAdd = new PurchaseList(CSV_FILE_NAME1, comparator);
+	purchasesMiddleAdd.add(5, purchase);
+	Assert.assertEquals(purchasesMiddleAdd.toString(), EXPECTED_STRING_MIDDLE_ADD);
 
     }
 
@@ -66,7 +64,7 @@ public class TestRunner {
     public void sortAndSearchTest() {
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
 	purchasesActual.sort();
-	Assert.assertEquals("bread;1.55;1;0.02;1.53", purchasesActual.getPurchases().get(3).toString());
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_SORTED);
 	int index = purchasesActual.binarySearch(new Purchase("bwef", new Byn(180), 3));
 	Assert.assertEquals(4, index);
 	index = purchasesActual.binarySearch(new Purchase("bwef", new Byn(155), 3));
@@ -78,11 +76,11 @@ public class TestRunner {
 
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
 	purchasesActual.delete(-1, 0);
-	Assert.assertEquals(8, purchasesActual.getPurchases().size());
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING);
 	purchasesActual.delete(12, 13);
-	Assert.assertEquals(8, purchasesActual.getPurchases().size());
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING);
 	purchasesActual.delete(6, 13);
-	Assert.assertEquals(6, purchasesActual.getPurchases().size());
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_DELETE);
 	Assert.assertEquals(-6,
 		purchasesActual.binarySearch(new DiscountUnitsPurchase("butter", new Byn(341), 1, new Byn(1))));
 	Assert.assertEquals(-7,
@@ -94,11 +92,11 @@ public class TestRunner {
 
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
 	purchasesActual.delete(1, 3);
-	Assert.assertEquals(6, purchasesActual.getPurchases().size());
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_DELETE_LEFT);
 	Assert.assertEquals(-1, purchasesActual.binarySearch(new Purchase("milk", new Byn(131), 2)));
 	Assert.assertEquals(-2, purchasesActual.binarySearch(new Purchase("bread", new Byn(154), 3)));
 	purchasesActual.delete(4, 7);
-	Assert.assertEquals(4, purchasesActual.getPurchases().size());
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_DELETE_MIDDLE);
     }
 
     @Test
@@ -107,10 +105,11 @@ public class TestRunner {
 	Assert.assertEquals(new Byn(4692), purchasesActual.getCost());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void deleteExceptionTest() {
+    @Test
+    public void deleteIndexesMessedUpTest() {
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
 	purchasesActual.delete(11, 2);
+	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING);
     }
 
     @Test
