@@ -15,7 +15,7 @@ public class DiscountUnitsPurchase extends Purchase {
     public DiscountUnitsPurchase(String name, Byn price, int numberOfPurchaseUnits, Byn discountForUnit) {
 	super(name, price, numberOfPurchaseUnits);
 	if (discountForUnit.compareTo(price) >= 0 || discountForUnit.compareTo(new Byn(0)) <= 0) {
-	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_DISCOUNT_PRICE + discountForUnit);
+	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_DISCOUNT_PRICE + discountForUnit);
 	}
 	this.discountForUnit = discountForUnit;
     }

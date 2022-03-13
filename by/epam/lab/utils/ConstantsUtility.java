@@ -19,7 +19,6 @@ public class ConstantsUtility {
     public static final String EXCEPTION_MESSAGE_BYN_VALUE = "Wrong value argument ";
     public static final String EXCEPTION_MESSAGE_BYN_COPS = "Wrong kopecks argument";
     public static final String EXCEPTION_MESSAGE_BYN_RUBS = "Wrong rubles argument ";
-    public static final String EXCEPTION_MESSAGE_DELETE = "Index from is more then index to ";
     public static final String EXCEPTION_MESSAGE_FILE = "File is not found";
     public static final String FORMAT = "%d.%02d";
 

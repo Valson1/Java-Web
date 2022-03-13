@@ -18,13 +18,13 @@ public class Purchase {
 
     public Purchase(String name, Byn price, int numberOfPurchaseUnits) {
 	if (name.trim().isEmpty()) {
-	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_NAME + name);
+	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_NAME + name);
 	}
 	if (price.compareTo(new Byn(0)) < 1) {
-	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_PRICE + price);
+	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_PRICE + price);
 	}
 	if (numberOfPurchaseUnits <= 0) {
-	    throw new NonpositiveArgumentException(EXCEPTION_MESSAGE_NUMBER_OF_UNITS + numberOfPurchaseUnits);
+	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_NUMBER_OF_UNITS + numberOfPurchaseUnits);
 	}
 	this.name = name;
 	this.price = price;

@@ -23,7 +23,7 @@ public enum RoundMethod {
     abstract double roundFunction(double d);
 
     public int round(double roundedValue, int d) {
-	return (int)roundFunction(roundedValue / pow10(d)) * pow10(d);
+	return (int) roundFunction(roundedValue / pow10(d)) * pow10(d);
     }
 
     private static int pow10(int d) {
