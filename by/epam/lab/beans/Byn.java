@@ -2,7 +2,6 @@ package by.epam.lab.beans;
 
 import static by.epam.lab.utils.ConstantsUtility.*;
 import by.epam.lab.exceptions.*;
-import by.epam.lab.services.*;
 
 public final class Byn implements Comparable<Byn> {
     private final int value;
@@ -54,14 +53,6 @@ public final class Byn implements Comparable<Byn> {
 
     public Byn multiply(int number) {
 	return new Byn(value * number);
-    }
-
-    public Byn multiply(double k, RoundMethod roundMethod, int d) {
-	return new Byn(roundMethod.round(this.value * k, d));
-    }
-
-    public Byn round(RoundMethod roundMethod, int d) {
-	return new Byn(roundMethod.round(value, d));
     }
 
     @Override

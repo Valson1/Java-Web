@@ -58,8 +58,8 @@ public class TestRunner {
 	Assert.assertEquals(4, index);
 	index = purchasesActual.binarySearch(new Purchase("bwef", new Byn(155), 3));
 	Assert.assertEquals(3, index);
-	index = purchasesActual.binarySearch(new Purchase("bwef", new Byn(180), 3));
-	Assert.assertEquals(4, index);
+	index = purchasesActual.binarySearch(new Purchase("bwef", new Byn(345), 3));
+	Assert.assertEquals(-7, index);
     }
 
     @Test
@@ -105,15 +105,12 @@ public class TestRunner {
 	Assert.assertEquals(discountPurchase, new DiscountUnitsPurchase("milk", new Byn(155), 1, new Byn(20)));
     }
 
-    @Test
-    public void testFactoryClassWrongPurchase() {
-	boolean checkCsvLineException = false;
-	try {
-	    FactoryClass.getPurchaseFromFactory("milk;155;1;20;12;3");
-	} catch (CsvLineException e) {
-	    System.err.println(e.getMessage());
-	    checkCsvLineException = true;
-	}
-	Assert.assertEquals(true, checkCsvLineException);
+    @Test(expected = CsvLineException.class)
+    public void testFactoryClassWrongPurchase() throws CsvLineException {
+	FactoryClass.getPurchaseFromFactory("milk;155;1;20;12;3");
+    }
+    @Test(expected = CsvLineException.class)
+    public void testFactoryClassPurchase() throws CsvLineException {
+	FactoryClass.getPurchaseFromFactory("milk;155");
     }
 }

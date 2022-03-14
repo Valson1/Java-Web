@@ -1,16 +1,10 @@
 package by.epam.lab.beans;
 
 import by.epam.lab.exceptions.*;
-import by.epam.lab.services.*;
 import static by.epam.lab.utils.ConstantsUtility.*;
 
 public class DiscountUnitsPurchase extends Purchase {
     private final Byn discountForUnit;
-
-    public DiscountUnitsPurchase() {
-	super();
-	this.discountForUnit = new Byn(0);
-    }
 
     public DiscountUnitsPurchase(String name, Byn price, int numberOfPurchaseUnits, Byn discountForUnit) {
 	super(name, price, numberOfPurchaseUnits);
@@ -21,7 +15,7 @@ public class DiscountUnitsPurchase extends Purchase {
     }
 
     private static DiscountUnitsPurchase getValidDiscountPurchase(String[] elements) {
-	if (elements.length != DISCOUNT_PURCHASE_NUMBER_FIELDS) {
+	if (elements.length != PURCHASE_NUMBER_FIELDS + EXTRA_FIELD) {
 	    throw new ArrayIndexOutOfBoundsException(EXCEPTION_MESSAGE_CSV_LENGTH + elements.length);
 	}
 	return new DiscountUnitsPurchase(elements[FIRST_ELEMENT], new Byn(Integer.parseInt(elements[SECOND_ELEMENT])),
@@ -43,7 +37,7 @@ public class DiscountUnitsPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-	return getPrice().sub(discountForUnit).multiply(getNumberOfPurchaseUnits(), RoundMethod.ROUND, 0);
+	return getPrice().sub(discountForUnit).multiply(getNumberOfPurchaseUnits());
     }
 
     @Override

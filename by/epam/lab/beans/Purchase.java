@@ -5,17 +5,11 @@ import by.epam.lab.exceptions.*;
 
 
 public class Purchase {
-
+    public final static int PURCHASE_NUMBER_FIELDS = Purchase.class.getDeclaredFields().length - EXTRA_FIELD;
     private final String name;
     private final Byn price;
     private final int numberOfPurchaseUnits;
-
-    public Purchase() {
-	this.name = "";
-	this.price = new Byn(0);
-	this.numberOfPurchaseUnits = 0;
-    }
-
+    
     public Purchase(String name, Byn price, int numberOfPurchaseUnits) {
 	if (name.trim().isEmpty()) {
 	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_NAME + name);

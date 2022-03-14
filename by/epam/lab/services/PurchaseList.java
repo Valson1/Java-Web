@@ -40,16 +40,12 @@ public class PurchaseList {
 	isSorted = false;
     }
 
-    private static int getIndexNearestEnd(int index, int listSize) {
-	return index < 0 ? 0 : listSize;
-    }
-
     private static int checkRangeIndex(int index, int listSize) {
-	return index < 0 || index >= listSize ? getIndexNearestEnd(index, listSize) : index;
+	return index < 0 || index >= listSize ?  (index < 0 ? 0 : listSize) : index;
     }
 
     public int delete(int indexFrom, int indexTo) {
-	if (indexFrom > indexTo) {
+	if (indexFrom >= indexTo) {
 	    return 0;
 	}
 	int listSize = purchases.size();
