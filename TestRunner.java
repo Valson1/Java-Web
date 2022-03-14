@@ -101,8 +101,9 @@ public class TestRunner {
     @Test
     public void deleteIndexesMessedUpTest() {
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
-	purchasesActual.delete(11, 2);
+	int index = purchasesActual.delete(11, 2);
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING);
+	Assert.assertEquals(0, index);
     }
 
     @Test
