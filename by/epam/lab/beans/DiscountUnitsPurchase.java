@@ -15,7 +15,7 @@ public class DiscountUnitsPurchase extends Purchase {
     }
 
     private static DiscountUnitsPurchase getValidDiscountPurchase(String[] elements) {
-	if (elements.length != PURCHASE_NUMBER_FIELDS + EXTRA_FIELD) {
+	if (elements.length != DISCOUNT_PURCHASE_NUMBER_FIELDS) {
 	    throw new ArrayIndexOutOfBoundsException(EXCEPTION_MESSAGE_CSV_LENGTH + elements.length);
 	}
 	return new DiscountUnitsPurchase(elements[FIRST_ELEMENT], new Byn(Integer.parseInt(elements[SECOND_ELEMENT])),

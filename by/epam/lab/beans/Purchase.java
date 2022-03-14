@@ -5,7 +5,6 @@ import by.epam.lab.exceptions.*;
 
 
 public class Purchase {
-    public final static int PURCHASE_NUMBER_FIELDS = Purchase.class.getDeclaredFields().length - EXTRA_FIELD;
     private final String name;
     private final Byn price;
     private final int numberOfPurchaseUnits;

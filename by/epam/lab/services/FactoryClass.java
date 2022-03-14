@@ -23,7 +23,7 @@ public class FactoryClass {
     }
 
     private static PurchaseKind getPurchaseKind(int csvLineLength) {
-	return PurchaseKind.values()[csvLineLength - Purchase.PURCHASE_NUMBER_FIELDS];
+	return PurchaseKind.values()[csvLineLength - PURCHASE_NUMBER_FIELDS];
     }
 
     public static Purchase getPurchaseFromFactory(String csvLine) throws CsvLineException {

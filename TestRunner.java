@@ -5,6 +5,7 @@ import org.junit.Test;
 import by.epam.lab.beans.*;
 import by.epam.lab.exceptions.*;
 import by.epam.lab.services.*;
+
 import static by.epam.lab.utils.TestConstantsUtility.*;
 
 public class TestRunner {
@@ -33,26 +34,30 @@ public class TestRunner {
 	PurchaseList purchasesEmpty = new PurchaseList(CSV_FILE_NAME2, comparator);
 	Assert.assertEquals(purchasesEmpty.toString(), "");
 	Assert.assertEquals(EXPECTED_STRING, purchasesActual.toString());
+    }
 
-	// add method index out of bounds
+    public void addIndexOutOfBoundsTest() {
+	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
 	Purchase purchase = new Purchase("www", new Byn(2), 12);
 	purchasesActual.add(-10, purchase);
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_LEFT_ADD);
 	purchasesActual.add(20, purchase);
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_RIGHT_ADD);
+    }
 
-	// add method
-
+    public void addTest() {
+	Purchase purchase = new Purchase("www", new Byn(2), 12);
 	PurchaseList purchasesMiddleAdd = new PurchaseList(CSV_FILE_NAME1, comparator);
 	purchasesMiddleAdd.add(5, purchase);
 	Assert.assertEquals(purchasesMiddleAdd.toString(), EXPECTED_STRING_MIDDLE_ADD);
-
     }
 
     @Test
     public void sortAndSearchTest() {
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
+	Assert.assertEquals(false,purchasesActual.isSorted());
 	purchasesActual.sort();
+	Assert.assertEquals(true,purchasesActual.isSorted());
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_SORTED);
 	int index = purchasesActual.binarySearch(new Purchase("bwef", new Byn(180), 3));
 	Assert.assertEquals(4, index);
@@ -64,23 +69,26 @@ public class TestRunner {
 
     @Test
     public void deleteOutOfBoundsTest() {
-
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
-	purchasesActual.delete(-1, 0);
+	int index = purchasesActual.delete(-1, 0);
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING);
-	purchasesActual.delete(12, 13);
+	Assert.assertEquals(index, 0);
+	index = purchasesActual.delete(12, 13);
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING);
-	purchasesActual.delete(6, 13);
+	Assert.assertEquals(index, 0);
+	index = purchasesActual.delete(6, 13);
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_DELETE);
+	Assert.assertEquals(index, 2);
     }
 
     @Test
     public void deleteTest() {
-
 	PurchaseList purchasesActual = new PurchaseList(CSV_FILE_NAME1, comparator);
-	purchasesActual.delete(1, 3);
+	int index = purchasesActual.delete(1, 3);
+	Assert.assertEquals(index, 2);
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_DELETE_LEFT);
-	purchasesActual.delete(4, 7);
+	index = purchasesActual.delete(4, 6);
+	Assert.assertEquals(index, 2);
 	Assert.assertEquals(purchasesActual.toString(), EXPECTED_STRING_DELETE_MIDDLE);
     }
 
@@ -109,6 +117,7 @@ public class TestRunner {
     public void testFactoryClassWrongPurchase() throws CsvLineException {
 	FactoryClass.getPurchaseFromFactory("milk;155;1;20;12;3");
     }
+
     @Test(expected = CsvLineException.class)
     public void testFactoryClassPurchase() throws CsvLineException {
 	FactoryClass.getPurchaseFromFactory("milk;155");

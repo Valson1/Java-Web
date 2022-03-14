@@ -33,6 +33,10 @@ public class PurchaseList {
 	    isSorted = true;
 	}
     }
+    
+    public boolean isSorted() {
+	return isSorted;
+    }
 
     public void add(int index, Purchase purchase) {
 	int listSize = purchases.size();
