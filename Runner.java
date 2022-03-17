@@ -24,7 +24,7 @@ public class Runner {
 	Service service = new Service("gym workout", new Byn(7560), 5);
 	PurchaseUtils purchaseUtils3 = new PurchaseUtils(service, 2.25);
 	// output item of last purchase
-	Product item = service;
+	Product item = purchaseUtils3.getPurchase().getProduct();
 	System.out.println(item);
 	// create PurchaseList
 	PurchaseList purchases = new PurchaseList(new Comparator<Purchase>() {
