@@ -1,49 +1,44 @@
-import by.gsu.epamlab.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.Comparator;
+import by.epam.lab.beans.*;
+import by.epam.lab.services.PurchaseList;
+import static by.epam.lab.utils.ConstantsUtility.*;
+import by.epam.lab.utils.PurchaseUtils;
 
 public class Runner {
-    public static void main(String[] args) {    	
-		try(Scanner file = new Scanner(new FileReader("src/in.txt"))) {
-			final int PURCHASES_NUMBER = file.nextInt();
-			Purchase []purchases = new Purchase[PURCHASES_NUMBER];
-			for (int i = 0; i < purchases.length; i++){
-				file.useLocale(Locale.ENGLISH);
-			    purchases[i] = new Purchase(file.nextInt(),
-			    		file.nextInt(), WeekDay.values()[file.nextInt()]);
-			    System.out.println(purchases[i]);
-		    }
-			Purchase maxCostOfPurchase = purchases[0];
-			int sumOfPurchasesCost = 0;
-			int sumOfPurchasesCostOnMonday = 0;
-			for (Purchase purchase : purchases) {
-				sumOfPurchasesCost += purchase.getCost();
-				if(purchase.getWeekDay() == WeekDay.MONDAY) {
-					sumOfPurchasesCostOnMonday += purchase.getCost();
-				}
-				if(maxCostOfPurchase.getCost() < purchase.getCost()) {
-					maxCostOfPurchase = purchase;
-				}
-			}
-			System.out.println("Mean cost " + sumOfPurchasesCost / 1000 + "." 
-					+ sumOfPurchasesCost % 1000);
-			System.out.println("Total cost on Monday " + sumOfPurchasesCostOnMonday / 100 + "."
-					+ sumOfPurchasesCostOnMonday / 10 % 10 
-					+ sumOfPurchasesCostOnMonday % 10);
-			System.out.println("The day with the maximum cost purchase "
-					+ maxCostOfPurchase.getWeekDay());
-			Arrays.sort(purchases);
-			for (Purchase purchase : purchases) {
-				System.out.println(purchase);
-			}
-			System.out.println(Arrays.binarySearch(purchases,purchases[4]));
-		} catch (FileNotFoundException e) {
-		    System.err.println("Input file is not found");
-		}
+    public static void main(String[] args) {
+	//create purchase1 instance
+	Purchase purchase1 = new Purchase(new Product("milk",new Byn(170)),20);
+	// create instance purchaseUtils1 and output purchase1 and cost
+	PurchaseUtils purchaseUtils1 = new PurchaseUtils(purchase1);
+	purchaseUtils1.printPurchase();
+	purchaseUtils1.printCost();
+	//create purchase2 
+	Purchase purchase2 = new Purchase(new Product("sugar",new Byn(300)),12.5);
+	//output cost of purchase2 and cost difference between purchase2 and purchase1
+	PurchaseUtils purchaseUtils2 = new PurchaseUtils(purchase2);
+	purchaseUtils2.printCost();
+	purchaseUtils2.printCostDiff(purchase1);
+	//create purchase3
+	Purchase purchase3 = new Purchase(new DiscountProduct("sugar",new Byn(280),new Byn(10)),60);
+	//create instance purchaseUtils3 without purchase instance
+	PurchaseUtils purchaseUtils3 = new PurchaseUtils(new Service("gym workout",new Byn(7560),5),2.25);
+	Purchase purchase4 = purchaseUtils3.getPurchase();
+	//output item of last purchase
+	Product product = purchase4.getProduct();
+	System.out.println(product);
+	//output last purchase
+	System.out.println(purchaseUtils3.getPurchase());
+	//create PurchaseList
+	PurchaseList purchases = new PurchaseList(new Comparator<Purchase>(){
+	    @Override
+	    public int compare(Purchase o1, Purchase o2) {
+		return o1.getProduct().getPrice().compareTo(o2.getProduct().getPrice());
+	    }
+	});
+	purchases.add(FIRST_ELEMENT, purchase1);
+	purchases.add(SECOND_ELEMENT, purchase3);
+	purchases.add(THIRD_ELEMENT,purchase4);
+	//check the same purchase
+	purchaseUtils2.printIsSameCost(purchases);
     }
 }
-
