@@ -8,10 +8,10 @@ public class Product {
     private final Byn price;
 
     public Product(String name, Byn price) {
-	if(price.compareTo(new Byn(0)) <= 0) {
+	if (price.compareTo(new Byn(0)) <= 0) {
 	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_PRICE + price);
 	}
-	if(name.isEmpty()) {
+	if (name.isEmpty()) {
 	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_NAME + name);
 	}
 	this.name = name;

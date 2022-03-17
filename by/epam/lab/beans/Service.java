@@ -1,30 +1,33 @@
 package by.epam.lab.beans;
+
 import static by.epam.lab.utils.ConstantsUtility.*;
 
 import by.epam.lab.exceptions.NonPositiveArgumentException;
 
-public class Service extends Product{
+public class Service extends Product {
     private final int numberOfUsers;
-    
-    public Service(String name,Byn totalCost,int numberOfUsers) {
-	super(name,totalCost.div(numberOfUsers));
+    private final Byn totalCost;
+
+    public Service(String name, Byn totalCost, int numberOfUsers) {
+	super(name, totalCost.div(numberOfUsers));
 	if (numberOfUsers <= 0) {
 	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_NUMBER_OF_USERS + numberOfUsers);
 	}
+	this.totalCost = totalCost;
 	this.numberOfUsers = numberOfUsers;
     }
 
     public Service() {
-	this("",new Byn(0),0);
+	this("", new Byn(0), 0);
     }
 
     public int getNumberOfUsers() {
-        return numberOfUsers;
+	return numberOfUsers;
     }
 
     @Override
     protected String fieldsToString() {
-	return super.fieldsToString() + SEPARATOR + numberOfUsers;
+	return super.fieldsToString() + SEPARATOR + numberOfUsers + SEPARATOR + totalCost;
     }
-    
+
 }

@@ -17,13 +17,13 @@ public class PurchaseList {
     public PurchaseList(Comparator<Purchase> comparator) {
 	this.comparator = comparator;
     }
-    
+
     public boolean isSorted() {
 	return isSorted;
     }
-    
+
     public List<Purchase> getPurchases() {
-        return Collections.unmodifiableList(purchases);
+	return Collections.unmodifiableList(purchases);
     }
 
     public void add(int index, Purchase purchase) {
@@ -33,7 +33,7 @@ public class PurchaseList {
     }
 
     private static int checkRangeIndex(int index, int listSize) {
-	return index < 0 || index >= listSize ?  (index < 0 ? 0 : listSize) : index;
+	return index < 0 || index >= listSize ? (index < 0 ? 0 : listSize) : index;
     }
 
     public int delete(int indexFrom, int indexTo) {

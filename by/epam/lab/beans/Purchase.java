@@ -10,7 +10,7 @@ public class Purchase {
     private final double units;
 
     public Purchase(Product product, double units) {
-	if(units <= 0) {
+	if (units <= 0) {
 	    throw new NonPositiveArgumentException(EXCEPTION_MESSAGE_NUMBER_OF_UNITS + units);
 	}
 	this.product = product;
@@ -24,11 +24,11 @@ public class Purchase {
     public double getUnits() {
 	return units;
     }
-    
+
     public Byn getCost() {
 	return product.getPrice().multiply(units, RoundMethod.ROUND, 0);
     }
-    
+
     @Override
     public String toString() {
 	return getClass().getSimpleName() + SEPARATOR + product + SEPARATOR + units + SEPARATOR + getCost();

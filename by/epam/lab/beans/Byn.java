@@ -47,6 +47,7 @@ public final class Byn implements Comparable<Byn> {
     public Byn sum(Byn byn) {
 	return new Byn(value + byn.value);
     }
+
     public Byn div(int number) {
 	return new Byn(value / number);
     }
@@ -58,6 +59,7 @@ public final class Byn implements Comparable<Byn> {
     public Byn multiply(int number) {
 	return new Byn(value * number);
     }
+
     public Byn multiply(double k, RoundMethod roundMethod, int d) {
 	return new Byn(roundMethod.round(value * k, d));
     }
@@ -65,7 +67,6 @@ public final class Byn implements Comparable<Byn> {
     public Byn round(RoundMethod roundMethod, int d) {
 	return new Byn(roundMethod.round(value, d));
     }
-
 
     @Override
     public String toString() {

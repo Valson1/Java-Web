@@ -13,7 +13,8 @@ public class ConstantsUtility {
     public static final String PURCHASE_FOUND = "The same purchase is found: ";
     public static final String POSITIVE = "positive diff = ";
     public static final String NEGATIVE = "negative diff = ";
-    
+    public static final String BYN = " BYN";
+
     public static final String EXCEPTION_MESSAGE_NAME = "Wrong field name ";
     public static final String EXCEPTION_MESSAGE_PRICE = "Wrong field price ";
     public static final String EXCEPTION_MESSAGE_DISCOUNT_PRICE = "Wrong field discount ";
