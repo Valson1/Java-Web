@@ -52,7 +52,7 @@ public final class Byn implements Comparable<Byn> {
     }
 
     public Byn sub(Byn byn) {
-	return new Byn(value - byn.value);
+	return new Byn(Math.abs(value - byn.value));
     }
 
     public Byn multiply(int number) {

@@ -26,12 +26,12 @@ public class Purchase {
     }
     
     public Byn getCost() {
-	return product.getPrice().multiply(units, RoundMethod.ROUND, DEGREE);
+	return product.getPrice().multiply(units, RoundMethod.ROUND, 0);
     }
     
     @Override
     public String toString() {
-	return product + SEPARATOR + units;
+	return getClass().getSimpleName() + SEPARATOR + product + SEPARATOR + units + SEPARATOR + getCost();
     }
 
 }

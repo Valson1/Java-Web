@@ -20,5 +20,11 @@ public class Service extends Product{
 
     public int getNumberOfUsers() {
         return numberOfUsers;
-    }     
+    }
+
+    @Override
+    protected String fieldsToString() {
+	return super.fieldsToString() + SEPARATOR + numberOfUsers;
+    }
+    
 }

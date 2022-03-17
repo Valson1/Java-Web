@@ -27,17 +27,23 @@ public class PurchaseUtils {
     }
     
     private String getDiff(Purchase purchase) {
-	Byn getCost = purchase.getCost();
 	Byn thisGetCost = this.purchase.getCost();
-	return thisGetCost.compareTo(getCost) == 0 ? EMPTY_STRING : thisGetCost.sub(getCost).toString();
+	Byn getCost = purchase.getCost();
+	int result = thisGetCost.compareTo(getCost);
+	Byn diff = thisGetCost.sub(getCost); 
+	return result == 0 ? EMPTY_STRING : result > 0 ? POSITIVE + diff : NEGATIVE + diff;
     }
     
     public void printCostDiff(Purchase purchase) {
 	System.out.println(getDiff(purchase));
     }
     
-    public void printIsSameCost(PurchaseList purchases) {
+    private String isSameCost(PurchaseList purchases) {
 	int index = purchases.binarySearch(purchase);
-	System.out.println(index > 0 ? PURCHASE_FOUND + purchases.getPurchases().get(index) : PURCHASE_NOT_FOUND);
+	return index > 0 ? PURCHASE_FOUND + purchases.getPurchases().get(index) : PURCHASE_NOT_FOUND;
+    }
+    
+    public void printIsSameCost(PurchaseList purchases) {
+	System.out.println(isSameCost(purchases));
     }
 }

@@ -21,13 +21,11 @@ public class Runner {
 	//create purchase3
 	Purchase purchase3 = new Purchase(new DiscountProduct("sugar",new Byn(280),new Byn(10)),60);
 	//create instance purchaseUtils3 without purchase instance
-	PurchaseUtils purchaseUtils3 = new PurchaseUtils(new Service("gym workout",new Byn(7560),5),2.25);
-	Purchase purchase4 = purchaseUtils3.getPurchase();
+	Service service = new Service("gym workout",new Byn(7560),5);
+	PurchaseUtils purchaseUtils3 = new PurchaseUtils(service,2.25);
 	//output item of last purchase
-	Product product = purchase4.getProduct();
-	System.out.println(product);
-	//output last purchase
-	System.out.println(purchaseUtils3.getPurchase());
+	Product item = service;
+	System.out.println(item);
 	//create PurchaseList
 	PurchaseList purchases = new PurchaseList(new Comparator<Purchase>(){
 	    @Override
@@ -37,7 +35,9 @@ public class Runner {
 	});
 	purchases.add(FIRST_ELEMENT, purchase1);
 	purchases.add(SECOND_ELEMENT, purchase3);
-	purchases.add(THIRD_ELEMENT,purchase4);
+	purchases.add(THIRD_ELEMENT,purchaseUtils3.getPurchase());
+	//output last purchase getCost
+	purchaseUtils3.printCost();
 	//check the same purchase
 	purchaseUtils2.printIsSameCost(purchases);
     }
