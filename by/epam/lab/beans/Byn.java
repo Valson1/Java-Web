@@ -44,16 +44,6 @@ public final class Byn implements Comparable<Byn> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null || getClass() != obj.getClass())
-	    return false;
-	Byn other = (Byn) obj;
-	return value == other.value;
-    }
-
-    @Override
     public int compareTo(Byn byn) {
 	return value - byn.value;
     }
