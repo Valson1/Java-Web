@@ -3,7 +3,7 @@ package by.epam.lab.beans;
 import static by.epam.lab.utils.ConstantsUtility.*;
 import by.epam.lab.interfaces.Priceable;
 
-public class Product implements Priceable{
+public class Product implements Priceable {
     private final String name;
     private final Byn price;
 
@@ -21,17 +21,11 @@ public class Product implements Priceable{
     }
 
     protected String fieldsToString() {
-	return name + SEPARATOR + price;
+	return getClass().getSimpleName() + SEPARATOR + name + SEPARATOR + price;
     }
 
     @Override
     public String toString() {
-	return fieldsToString();
+	return fieldsToString() + SEPARATOR + getPrice();
     }
-
-    @Override
-    public int compareTo(Priceable price) {
-	return this.price.compareTo(price.getPrice());
-    }
-
 }

@@ -1,7 +1,6 @@
 package by.epam.lab.beans;
 
 import static by.epam.lab.utils.ConstantsUtility.*;
-import by.epam.lab.exceptions.*;
 import by.epam.lab.services.*;
 
 public final class Byn implements Comparable<Byn> {
@@ -17,22 +16,6 @@ public final class Byn implements Comparable<Byn> {
 
     public Byn() {
 	this(0);
-    }
-
-    private static int getValidValue(int rubs, int coins) {
-	return VALUE_DIVISOR * rubs + coins;
-    }
-
-    public Byn(int rubs, int coins) {
-	this(getValidValue(rubs, coins));
-    }
-
-    public Byn(String strKops) {
-	this(Integer.parseInt(strKops));
-    }
-
-    public int getValue() {
-	return value;
     }
 
     public Byn sum(Byn byn) {

@@ -19,15 +19,15 @@ public class Runner {
 	// create purchase3
 	Purchase purchase3 = new Purchase(new DiscountProduct("sugar", new Byn(280), new Byn(10)), 60);
 	// create instance purchaseUtils3 without purchase instance
-	PurchaseUtils purchaseUtils3 = new PurchaseUtils(new Service("gym workout", new Byn(7560), 5), 2.25);
+	PurchaseUtils purchaseUtils4 = new PurchaseUtils(
+		new Purchase(new Service("gym workout", new Byn(7560), 5), 2.25));
 	// output item of last purchase
-	Priceable item = purchaseUtils3.getPurchase().getItem();
+	Priceable item = purchaseUtils4.getPurchase().getItem();
 	System.out.println(item);
 	// create PurchaseList
-	Purchase[] purchases = { purchase1, purchase2, purchaseUtils3.getPurchase() };
 	// output last purchase getCost
-	purchaseUtils3.printCost();
+	purchaseUtils4.printCost();
 	// check the same purchase
-	purchaseUtils2.printIsSameCost(purchases);
+	purchaseUtils2.printIsSameCost(purchase1, purchase3, purchaseUtils4.getPurchase());
     }
 }

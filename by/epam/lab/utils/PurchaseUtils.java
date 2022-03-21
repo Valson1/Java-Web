@@ -3,17 +3,12 @@ package by.epam.lab.utils;
 import static by.epam.lab.utils.ConstantsUtility.*;
 
 import by.epam.lab.beans.*;
-import by.epam.lab.interfaces.Priceable;
 
 public class PurchaseUtils {
     private final Purchase purchase;
 
     public PurchaseUtils(Purchase purchase) {
 	this.purchase = purchase;
-    }
-
-    public PurchaseUtils(Priceable item, Number numberUnits) {
-	this.purchase = new Purchase(item, numberUnits);
     }
 
     public Purchase getPurchase() {
@@ -38,13 +33,12 @@ public class PurchaseUtils {
 
     public void printIsSameCost(Purchase... purchases) {
 	boolean isFound = false;
-	Purchase foundPurchase = null;
 	for (Purchase purchase : purchases) {
-	    isFound = false;
-	    if (this.purchase.compareTo(purchase) == 0) {
+	    if (this.purchase.getCost().compareTo(purchase.getCost()) == 0) {
 		isFound = true;
+		break;
 	    }
 	}
-	System.out.println(isFound ? PURCHASE_FOUND + foundPurchase : PURCHASE_NOT_FOUND);
+	System.out.println(isFound ? PURCHASE_FOUND : PURCHASE_NOT_FOUND);
     }
 }

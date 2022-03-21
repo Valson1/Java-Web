@@ -5,7 +5,7 @@ import static by.epam.lab.utils.ConstantsUtility.*;
 import by.epam.lab.interfaces.Priceable;
 import by.epam.lab.services.RoundMethod;
 
-public class Purchase implements Comparable<Purchase> {
+public class Purchase {
     private final Priceable item;
     private final Number units;
 
@@ -28,12 +28,7 @@ public class Purchase implements Comparable<Purchase> {
 
     @Override
     public String toString() {
-	return getClass().getSimpleName() + SEPARATOR + item + SEPARATOR + units + SEPARATOR + getCost();
-    }
-
-    @Override
-    public int compareTo(Purchase o) {
-	return item.getPrice().compareTo(o.getItem().getPrice());
+	return item + SEPARATOR + units + SEPARATOR + getCost();
     }
 
 }
