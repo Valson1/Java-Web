@@ -3,10 +3,6 @@ package by.epam.lab.utils;
 public class ConstantsUtility {
     public static final String SEPARATOR = ";";
 
-    public static final int FIRST_ELEMENT = 0;
-    public static final int SECOND_ELEMENT = 1;
-    public static final int THIRD_ELEMENT = 2;
-
     public static final String COST = "cost = ";
     public static final String EMPTY_STRING = "";
     public static final String PURCHASE_NOT_FOUND = "Purchase is not found";

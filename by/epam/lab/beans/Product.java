@@ -2,8 +2,9 @@ package by.epam.lab.beans;
 
 import static by.epam.lab.utils.ConstantsUtility.*;
 import by.epam.lab.exceptions.NonPositiveArgumentException;
+import by.epam.lab.interfaces.Priceble;
 
-public class Product {
+public class Product implements Priceble{
     private final String name;
     private final Byn price;
 
@@ -33,6 +34,11 @@ public class Product {
     @Override
     public String toString() {
 	return fieldsToString();
+    }
+
+    @Override
+    public int compareTo(Priceble price) {
+	return this.price.compareTo(price.getPrice());
     }
 
 }

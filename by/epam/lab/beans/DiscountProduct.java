@@ -18,6 +18,12 @@ public class DiscountProduct extends Product {
     public Byn getDiscount() {
 	return discount;
     }
+    
+
+    @Override
+    public Byn getPrice() {
+	return super.getPrice().sub(discount);
+    }
 
     @Override
     protected String fieldsToString() {

@@ -48,12 +48,8 @@ public final class Byn implements Comparable<Byn> {
 	return new Byn(value + byn.value);
     }
 
-    public Byn div(int number) {
-	return new Byn(value / number);
-    }
-
     public Byn sub(Byn byn) {
-	return new Byn(Math.abs(value - byn.value));
+	return new Byn(value - byn.value);
     }
 
     public Byn multiply(int number) {
