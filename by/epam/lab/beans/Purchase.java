@@ -5,20 +5,20 @@ import static by.epam.lab.utils.ConstantsUtility.*;
 import by.epam.lab.interfaces.Priceable;
 import by.epam.lab.services.RoundMethod;
 
-public class Purchase<T extends Priceable, K extends Number> {
-    private final T item;
-    private final K units;
+public class Purchase<K extends Priceable, N extends Number> {
+    private final K item;
+    private final N units;
 
-    public Purchase(T item, K units) {
+    public Purchase(K item, N units) {
 	this.item = item;
 	this.units = units;
     }
 
-    public T getItem() {
+    public K getItem() {
 	return item;
     }
 
-    public K getUnits() {
+    public N getUnits() {
 	return units;
     }
 

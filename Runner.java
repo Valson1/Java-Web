@@ -1,5 +1,4 @@
 import by.epam.lab.beans.*;
-import by.epam.lab.interfaces.Priceable;
 import by.epam.lab.utils.PurchaseUtils;
 
 public class Runner {
@@ -29,7 +28,6 @@ public class Runner {
 	// output last purchase getCost
 	purchaseUtils4.printCost();
 	// check the same purchase
-	Purchase<?, ?>[] purchases = { purchase1, purchase3, purchaseUtils4.getPurchase() };
-	purchaseUtils2.printIsSameCost(purchases);
+	purchaseUtils2.printIsSameCost(purchase1, purchase3, purchaseUtils4.getPurchase());
     }
 }

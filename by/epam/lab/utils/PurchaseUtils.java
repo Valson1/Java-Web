@@ -5,14 +5,14 @@ import static by.epam.lab.utils.ConstantsUtility.*;
 import by.epam.lab.beans.*;
 import by.epam.lab.interfaces.Priceable;
 
-public class PurchaseUtils<T extends Priceable, K extends Number> {
-    private final Purchase<T, K> purchase;
+public class PurchaseUtils<K extends Priceable, N extends Number> {
+    private final Purchase<K, N> purchase;
 
-    public PurchaseUtils(Purchase<T, K> purchase) {
+    public PurchaseUtils(Purchase<K, N> purchase) {
 	this.purchase = purchase;
     }
 
-    public Purchase<T, K> getPurchase() {
+    public Purchase<K, N> getPurchase() {
 	return purchase;
     }
 
@@ -24,7 +24,7 @@ public class PurchaseUtils<T extends Priceable, K extends Number> {
 	System.out.println(COST + purchase.getCost() + BYN);
     }
 
-    public void printCostDiff(Purchase<? extends Priceable, ? extends Number> purchase) {
+    public <E extends Purchase<? extends Priceable, ? extends Number>> void printCostDiff(E purchase) {
 	Byn thisGetCost = this.purchase.getCost();
 	Byn getCost = purchase.getCost();
 	int result = thisGetCost.compareTo(getCost);
@@ -32,9 +32,9 @@ public class PurchaseUtils<T extends Priceable, K extends Number> {
 		: result > 0 ? POSITIVE + thisGetCost.sub(getCost) : NEGATIVE + getCost.sub(thisGetCost));
     }
 
-    public void printIsSameCost(Purchase<? extends Priceable, ? extends Number>... purchases) {
+    public <E extends Purchase<? extends Priceable, ? extends Number>> void printIsSameCost(E... purchases) {
 	boolean isFound = false;
-	for (Purchase<? extends Priceable, ? extends Number> purchase : purchases) {
+	for (E purchase : purchases) {
 	    if (this.purchase.getCost().compareTo(purchase.getCost()) == 0) {
 		isFound = true;
 		break;
