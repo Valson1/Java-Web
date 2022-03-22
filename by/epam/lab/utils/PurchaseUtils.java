@@ -5,14 +5,14 @@ import static by.epam.lab.utils.ConstantsUtility.*;
 import by.epam.lab.beans.*;
 import by.epam.lab.interfaces.Priceable;
 
-public class PurchaseUtils<K extends Priceable, N extends Number> {
-    private final Purchase<K, N> purchase;
+public class PurchaseUtils<T extends Priceable, N extends Number> {
+    private final Purchase<T, N> purchase;
 
-    public PurchaseUtils(Purchase<K, N> purchase) {
+    public PurchaseUtils(Purchase<T, N> purchase) {
 	this.purchase = purchase;
     }
 
-    public Purchase<K, N> getPurchase() {
+    public Purchase<T, N> getPurchase() {
 	return purchase;
     }
 
