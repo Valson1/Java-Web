@@ -31,8 +31,8 @@ public class PurchaseUtils<T extends Priceable, N extends Number> {
 	System.out.println(result == 0 ? EMPTY_STRING
 		: result > 0 ? POSITIVE + thisGetCost.sub(getCost) : NEGATIVE + getCost.sub(thisGetCost));
     }
-
-    public <E extends Purchase<? extends Priceable, ? extends Number>> void printIsSameCost(E... purchases) {
+    @SafeVarargs
+    public final <E extends Purchase<? extends Priceable, ? extends Number>> void printIsSameCost(E... purchases) {
 	boolean isFound = false;
 	for (E purchase : purchases) {
 	    if (this.purchase.getCost().compareTo(purchase.getCost()) == 0) {
