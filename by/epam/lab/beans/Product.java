@@ -23,7 +23,11 @@ public class Product {
 
     @Override
     public int hashCode() {
-	return Objects.hash(name, price);
+	final int prime = 31;
+	int result = 17;
+	result = prime * result + (name == null ? 0 : name.hashCode());
+	result = prime * result + (price == null ? 0 : price.hashCode());
+	return result;
     }
 
     @Override

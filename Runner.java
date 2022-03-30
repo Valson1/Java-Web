@@ -98,7 +98,9 @@ public class Runner {
 	    removeEntries(lastPurchaseMap, "meat");
 	    // remove all entries from the second map on FRIDAY;
 	    removeEntries(firstPurchaseMap, WeekDay.FRIDAY.toString());
+	    System.out.println(LAST_PURCHASE_MAP);
 	    printMap(lastPurchaseMap);
+	    System.out.println(FIRST_PURCHASE_MAP);
 	    printMap(firstPurchaseMap);
 	    // print the total cost of these purchases;
 	    totalCost(pricePurchases);

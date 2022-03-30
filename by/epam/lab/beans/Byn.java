@@ -55,7 +55,7 @@ public final class Byn implements Comparable<Byn> {
 
     @Override
     public int hashCode() {
-	return Objects.hash(value);
+	return value;
     }
 
     @Override
