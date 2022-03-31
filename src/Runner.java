@@ -54,10 +54,8 @@ public class Runner {
 	    List<PricePurchase> pricePurchases = new ArrayList<>();
 	    Map<WeekDay, List<Purchase>> weekDayPurchasesMap = new EnumMap<>(WeekDay.class);
 	    while (sc.hasNextLine()) {
-		String purchaseLine = sc.nextLine();
-		String weekDayLine = sc.nextLine();
-		WeekDay weekDay = WeekDay.valueOf(weekDayLine);
-		Purchase purchase = PurchaseFactory.getPurchaseFromFactory(purchaseLine);
+		Purchase purchase = PurchaseFactory.getPurchaseFromFactory(sc.nextLine());
+		WeekDay weekDay = WeekDay.valueOf(sc.nextLine());
 		// load content into map, where key = Purchase, value = WeekDay of last purchase
 		lastPurchasesMap.put(purchase, weekDay);
 		// load content into map, where key = Purchase, value = WeekDay of first
@@ -69,7 +67,6 @@ public class Runner {
 		}
 		// load content into enum map, where key = WeekDay, value = List<Purchase>
 		List<Purchase> purchases = weekDayPurchasesMap.get(weekDay);
-//		if (weekDayPurchasesMap.containsKey(weekDay)) {
 		if (purchases == null) {
 		    weekDayPurchasesMap.put(weekDay, purchases = new ArrayList<>());
 		}
@@ -92,25 +89,10 @@ public class Runner {
 		}
 	    });
 	    // remove all entries from weekDayMap where list has purchases with name "milk";
-	    removeEntries(weekDayPurchasesMap, new EntryChecker<>() {
-		@Override
-		public boolean check(Entry<WeekDay, List<Purchase>> entry) {
-		    boolean isExist = false;
-		    for (Purchase purchase : entry.getValue()) {
-			if (purchase.getProduct().getName().equals("milk")) {
-			    isExist = true;
-			    break;
-			}
-		    }
-		    return isExist;
-		}
-	    });
-	    printMap(weekDayPurchasesMap, WEEKDAY_MAP);
-	    // remove all entries from the second map on FRIDAY;
 	    removeEntries(firstPurchasesMap, new EntryChecker<>() {
 		@Override
 		public boolean check(Entry<Purchase, WeekDay> entry) {
-		    return entry.getValue().equals(WeekDay.MONDAY);
+		    return entry.getValue().equals(WeekDay.FRIDAY);
 		}
 	    });
 	    printMap(lastPurchasesMap, LAST_PURCHASE_MAP);
@@ -125,6 +107,21 @@ public class Runner {
 	    }
 	    // find all purchases on MONDAY.
 	    findElement(weekDayPurchasesMap, WeekDay.MONDAY, WeekDay.MONDAY.toString());
+	    // remove all entries from the second map on FRIDAY;
+	    removeEntries(weekDayPurchasesMap, new EntryChecker<>() {
+		@Override
+		public boolean check(Entry<WeekDay, List<Purchase>> entry) {
+		    boolean isExist = false;
+		    for (Purchase purchase : entry.getValue()) {
+			if (purchase.getProduct().getName().equals("milk")) {
+			    isExist = true;
+			    break;
+			}
+		    }
+		    return isExist;
+		}
+	    });
+	    printMap(weekDayPurchasesMap, WEEKDAY_MAP);
 	} catch (FileNotFoundException e) {
 	    System.err.println(FILE_NOT_FOUND);
 	}
