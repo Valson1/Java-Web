@@ -13,7 +13,7 @@ import by.epam.lab.beans.Segment;
 
 public class Runner {
     public static void main(String[] args) {
-	try (Scanner sc = new Scanner(new FileReader(FILE_NAME4))) {
+	try (Scanner sc = new Scanner(new FileReader(FILE_NAME2))) {
 	    List<Segment> segments = new ArrayList<>();
 	    while (sc.hasNextLine()) {
 		List<String> coordinates = new ArrayList<>(Arrays.asList(sc.nextLine().split(REGEX)));
