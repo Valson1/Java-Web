@@ -20,7 +20,7 @@ public class Segment implements Comparable<Segment> {
     }
 
     public void addNum() {
-	num += 1;
+	num++;
     }
 
     @Override
