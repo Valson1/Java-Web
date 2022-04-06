@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static by.epam.lab.utils.ConstantsUtility.*;
-import by.epam.lab.beans.Segment;
+import by.epam.lab.beans.SegmentNumber;
 
 public class Runner {
     private static double powTwo(double number) {
@@ -22,9 +22,9 @@ public class Runner {
 
     public static void main(String[] args) {
 	try (Scanner sc = new Scanner(new FileReader(FILE_NAME3))) {
-	    List<Segment> segments = new ArrayList<>();
+	    List<SegmentNumber> segments = new ArrayList<>();
 	    while (sc.hasNextLine()) {
-		Segment segment = new Segment(segmentLength(sc.nextLine().split(REGEX)));
+		SegmentNumber segment = new SegmentNumber(segmentLength(sc.nextLine().split(REGEX)));
 		int index = Collections.binarySearch(segments, segment);
 		if (index >= 0) {
 		    segments.get(index).addNum();
@@ -32,13 +32,13 @@ public class Runner {
 		    segments.add(-index - 1, segment);
 		}
 	    }
-	    segments.sort(new Comparator<Segment>() {
+	    segments.sort(new Comparator<SegmentNumber>() {
 		@Override
-		public int compare(Segment o1, Segment o2) {
+		public int compare(SegmentNumber o1, SegmentNumber o2) {
 		    return o2.getNum() - o1.getNum();
 		}
 	    });
-	    for (Segment segment : segments) {
+	    for (SegmentNumber segment : segments) {
 		System.out.println(segment);
 	    }
 	} catch (FileNotFoundException e) {
