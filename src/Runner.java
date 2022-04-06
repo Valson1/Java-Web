@@ -16,8 +16,8 @@ public class Runner {
 
     private static int segmentLength(String[] coordinates) {
 	return (int) Math.round(Math.sqrt(
-		powTwo(Double.parseDouble(coordinates[X1_INDEX]) - Double.parseDouble(coordinates[X2_INDEX])) + powTwo(
-			Double.parseDouble(coordinates[Y1_INDEX]) - Double.parseDouble(coordinates[Y2_INDEX]))));
+		powTwo(Double.parseDouble(coordinates[X1_INDEX]) - Double.parseDouble(coordinates[X2_INDEX]))
+		+ powTwo(Double.parseDouble(coordinates[Y1_INDEX]) - Double.parseDouble(coordinates[Y2_INDEX]))));
     }
 
     public static void main(String[] args) {
