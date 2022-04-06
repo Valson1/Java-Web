@@ -2,28 +2,13 @@ package by.epam.lab.beans;
 
 import static by.epam.lab.utils.ConstantsUtility.*;
 
-import java.util.List;
-
 public class Segment implements Comparable<Segment> {
     private final int len;
     private int num;
 
-    public Segment(int len, int num) {
+    public Segment(int len) {
 	this.len = len;
-	this.num = num;
-    }
-
-    public Segment(List<String> coordinates, int num) {
-	this(segmentLength(Double.parseDouble(coordinates.get(X1_INDEX)), Double.parseDouble(coordinates.get(Y1_INDEX)),
-		Double.parseDouble(coordinates.get(X2_INDEX)), Double.parseDouble(coordinates.get(Y2_INDEX))), num);
-    }
-
-    private static int segmentLength(double x1, double y1, double x2, double y2) {
-	return (int) Math.round(Math.sqrt(powTwo(x1 - x2) + powTwo(y1 - y2)));
-    }
-
-    private static double powTwo(double number) {
-	return number * number;
+	this.num = 1;
     }
 
     public int getLen() {

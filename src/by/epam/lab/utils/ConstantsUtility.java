@@ -9,11 +9,11 @@ public class ConstantsUtility {
     public static final String FILE_NAME3 = "src/in3.txt";
     public static final String FILE_NAME4 = "src/in4.txt";
 
-    public static final int X1_INDEX = 0;
-    public static final int Y1_INDEX = 1;
-    public static final int X2_INDEX = 2;
-    public static final int Y2_INDEX = 3;
+    public static final int X1_INDEX = 1;
+    public static final int Y1_INDEX = 2;
+    public static final int X2_INDEX = 3;
+    public static final int Y2_INDEX = 4;
 
-    public static final String REGEX = "\\s*[\\(\\)\\;(\\)\\s*\\()]\\s*";
+    public static final String REGEX = "[\\s(;)]+";
 
 }
