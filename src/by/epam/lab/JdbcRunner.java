@@ -16,9 +16,9 @@ public class JdbcRunner {
     private final static String DB_PASSWORD = "Qwerty147258369";
     private final static String DB_USER = "root";
     private final static String SQL_QUERY_SELECT_COORDINATES = "SELECT ABS(CEIL(x1-x2)) AS len, COUNT(*) AS num FROM Coordinates GROUP BY len ORDER BY len";
-    private final static String SQL_QUERY_DELETE_FREQUINCES = "DELETE FROM Frequencies";
-    private final static String SQL_QUERY_SELECT_FREQUINCES = "SELECT len,num FROM Frequencies";
-    private final static String SQL_QUERY_LEN_MORE_NUM_FREQUINCES = "SELECT (len > num) FROM Frequencies;";
+    private final static String SQL_QUERY_DELETE_FREQUENCIES = "DELETE FROM Frequencies";
+    private final static String SQL_QUERY_SELECT_FREQUENCIES = "SELECT len,num FROM Frequencies";
+    private final static String SQL_QUERY_LEN_MORE_NUM_FREQUENCIES = "SELECT (len > num) FROM Frequencies;";
 
     public static void main(String[] args) {
 	try {
@@ -34,8 +34,8 @@ public class JdbcRunner {
 		while (rs.next()) {
 		    segments.add(new SegmentNumber(rs.getInt(1), rs.getInt(2)));
 		}
-		st.executeUpdate(SQL_QUERY_DELETE_FREQUINCES);
-		rs = st.executeQuery(SQL_QUERY_SELECT_FREQUINCES);
+		st.executeUpdate(SQL_QUERY_DELETE_FREQUENCIES);
+		rs = st.executeQuery(SQL_QUERY_SELECT_FREQUENCIES);
 		for (SegmentNumber segmentNumber : segments) {
 		    rs.moveToInsertRow();
 		    rs.updateObject(1, segmentNumber.getLen());
@@ -43,7 +43,7 @@ public class JdbcRunner {
 		    rs.insertRow();
 		    rs.moveToCurrentRow();
 		}
-		rs = st.executeQuery(SQL_QUERY_LEN_MORE_NUM_FREQUINCES);
+		rs = st.executeQuery(SQL_QUERY_LEN_MORE_NUM_FREQUENCIES);
 		System.out.println(segments);
 		for (SegmentNumber segmentNumber : segments) {
 		    rs.next();
