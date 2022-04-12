@@ -37,6 +37,7 @@ public class JdbcRunner {
 		while (rs.next()) {
 		    segments.add(new SegmentNumber(rs.getInt(LEN_COLUMN), rs.getInt(NUM_COLUMN)));
 		}
+	    }
 		// insert content from list to table Frequencies and output list
 		for (SegmentNumber segmentNumber : segments) {
 		    ps.setInt(LEN_COLUMN, segmentNumber.getLen());
@@ -45,7 +46,6 @@ public class JdbcRunner {
 		    System.out.println(segmentNumber);
 		}
 		ps.executeBatch();
-	    }
 	    try (ResultSet rs = st.executeQuery(LEN_MORE_NUM_FREQUENCIES)) {
 		// find content where len > num and output
 		while (rs.next()) {
