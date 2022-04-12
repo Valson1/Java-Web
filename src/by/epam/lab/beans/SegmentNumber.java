@@ -3,7 +3,7 @@ package by.epam.lab.beans;
 public class SegmentNumber {
     private final static String SEPARATOR = ";";
     private final int len;
-    private int num;
+    private final int num;
 
     public SegmentNumber(int len, int num) {
 	this.len = len;
@@ -16,10 +16,6 @@ public class SegmentNumber {
 
     public int getNum() {
 	return num;
-    }
-
-    public void addNum() {
-	num++;
     }
 
     @Override

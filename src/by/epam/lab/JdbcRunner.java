@@ -28,15 +28,16 @@ public class JdbcRunner {
 
     public static void main(String[] args) {
 	try (Connection cn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-		Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+		Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		PreparedStatement ps = cn.prepareStatement(INSERT_FREQUENCIES)) {
 	    List<SegmentNumber> segments = new ArrayList<>();
 	    st.executeUpdate(DELETE_FREQUENCIES);
 	    try (ResultSet rs = st.executeQuery(SELECT_COORDINATES)) {
+		// add content from table Coordinates to list
 		while (rs.next()) {
 		    segments.add(new SegmentNumber(rs.getInt(LEN_COLUMN), rs.getInt(NUM_COLUMN)));
 		}
-	    }
-	    try (PreparedStatement ps = cn.prepareStatement(INSERT_FREQUENCIES)) {
+		// insert content from list to table Frequencies and output list
 		for (SegmentNumber segmentNumber : segments) {
 		    ps.setInt(LEN_COLUMN, segmentNumber.getLen());
 		    ps.setInt(NUM_COLUMN, segmentNumber.getNum());
@@ -46,6 +47,7 @@ public class JdbcRunner {
 		ps.executeBatch();
 	    }
 	    try (ResultSet rs = st.executeQuery(LEN_MORE_NUM_FREQUENCIES)) {
+		// find content where len > num and output
 		while (rs.next()) {
 		    System.out.println(rs.getInt(LEN_COLUMN) + SEPARATOR + rs.getInt(NUM_COLUMN));
 		}
