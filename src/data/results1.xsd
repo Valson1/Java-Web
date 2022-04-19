@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.org/results"
+	xmlns:tns="http://www.example.org/results">
+	<element name="results">
+		<complexType>
+			<sequence>
+				<element name="student" type="tns:Student" minOccurs="1"
+					maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+	<complexType name="Student">
+		<sequence>
+			<element name="login" type="tns:Login" />
+			<element name="tests">
+				<complexType>
+					<sequence>
+						<element name="test" type="tns:Test" minOccurs="1"
+							maxOccurs="5" />
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<simpleType name="Mark">
+		<restriction base="string">
+			<pattern value="(\d\.\d)|((10)\.0)"/>
+		</restriction>
+	</simpleType>
+	<complexType name="Test">
+		<attribute name="name" type="string" use="required" />
+		<attribute name="date" type="date" use="required" />
+		<attribute name="mark" type="tns:Mark" use="required" />
+	</complexType>
+	<simpleType name="Login">
+		<restriction base="string">
+			<pattern value="[a-zA-Z].{2,}" />
+		</restriction>
+	</simpleType>
+</schema>
