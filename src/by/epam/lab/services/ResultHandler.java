@@ -51,4 +51,10 @@ public class ResultHandler extends DefaultHandler {
 	}
 	currentEnum = null;
     }
+
+    public void printResults() {
+	for (Result result : results) {
+	    System.out.println(result);
+	}
+    }
 }
