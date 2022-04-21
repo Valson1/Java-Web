@@ -1,7 +1,9 @@
 package by.epam.lab.beans;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+
 
 import static by.epam.lab.utils.Constants.*;
 
@@ -34,11 +36,11 @@ public class Result {
     public Date getDate() {
 	return date;
     }
-
-    public void setDate(Date date) throws ParseException {
-	this.date = date;
+    
+    public void setDate(String date) throws ParseException{
+	this.date = DATE_FORMAT.parse(date);
     }
-
+    
     public int getMark() {
 	return mark;
     }

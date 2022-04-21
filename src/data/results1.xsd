@@ -25,7 +25,7 @@
 	</complexType>
 	<simpleType name="Mark">
 		<restriction base="string">
-			<pattern value="(\d\.\d)|((10)\.0)"/>
+			<pattern value="(\d\.\d)|(10\.0)"/>
 		</restriction>
 	</simpleType>
 	<complexType name="Test">

@@ -14,7 +14,6 @@ import by.epam.lab.beans.Result;
 
 public class ResultHandler extends DefaultHandler {
     private ResultEnum currentEnum;
-    private Result result;
     private List<Result> results = new ArrayList<>();
     private String login;
 
@@ -25,13 +24,12 @@ public class ResultHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 	currentEnum = ResultEnum.valueOf(localName.toUpperCase());
-	result = new Result();
 	if (currentEnum == ResultEnum.TEST) {
+	    Result result = new Result();
 	    try {
-		result.setDate(DATE_FORMAT.parse(attributes.getValue(DATE_INDEX)));
+		result.setDate(attributes.getValue(DATE_INDEX));
 	    } catch (ParseException e) {
-		System.err.println(DATE_PARSE_ERROR);
-		;
+		throw new IllegalArgumentException(DATE_PARSE_ERROR);
 	    }
 	    result.setTest(attributes.getValue(TEST_INDEX));
 	    result.setMark(attributes.getValue(MARK_INDEX));
@@ -47,14 +45,12 @@ public class ResultHandler extends DefaultHandler {
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
 	if (currentEnum == ResultEnum.LOGIN) {
-	    login = new String(ch, start, length);
+	    String elementValue = new String(ch, start, length);
+	    if(!elementValue.isBlank()) {
+		login = elementValue;
+	    }
 	}
-	currentEnum = null;
     }
 
-    public void printResults() {
-	for (Result result : results) {
-	    System.out.println(result);
-	}
-    }
+    
 }
