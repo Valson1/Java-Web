@@ -12,8 +12,6 @@ public class Constants {
     public static final String FILE_NAME = "src/data/results1.xml";
 
     public static final String DATE_PARSE_ERROR = "Date is not valid";
-    public static final String SAX_EXCEPTION_MESSAGE = "Validation " + FILE_NAME + " is not valid ";
-    public static final String IO_EXCEPTION_MESSAGE = FILE_NAME + " is not valid";
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     public static final String STRING_DATE_FORMAT = "%d.%01d";

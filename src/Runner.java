@@ -23,10 +23,8 @@ public class Runner {
 	    reader.setContentHandler(handler);
 	    reader.parse(FILE_NAME);
 	    printResults(handler.getResults());
-	} catch (SAXException e) {
-	    System.err.println(SAX_EXCEPTION_MESSAGE);
-	} catch (IOException e) {
-	    System.err.println(IO_EXCEPTION_MESSAGE);
+	} catch (SAXException | IOException e) {
+	    System.err.println(e.getMessage());
 	}
     }
 }
