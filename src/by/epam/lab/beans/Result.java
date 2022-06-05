@@ -2,15 +2,17 @@ package by.epam.lab.beans;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 import by.epam.lab.interfaces.MarkFormat;
-import by.epam.lab.services.MarkKind;
+import by.epam.lab.services.factories.MarkKind;
 
 import static by.epam.lab.utils.ConstantsUtility.*;
 
 import java.sql.Date;
 
 public class Result implements Comparable<Result> {
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     private final String login;
     private final String test;
