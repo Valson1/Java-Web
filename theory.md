@@ -95,7 +95,7 @@ try{
 22. Приведите пример кода, в котором используется оператор try-with-resources.<br/>
 **Ответ.**
  
-```
+```java
 try(Scanner sc = new Scanner(new FileReader("wfw"))){
 ...
 }
@@ -166,7 +166,7 @@ UnsupportedOperationException Встретилась неподдерживае�
 32. Приведите пример кода со сцеплением исключений. <br/>
 **Ответ.**  
 
-```
+```java
 try {
 // Используем абстракцию нижнего уровня
 // для выполнения нашей задачи
@@ -207,7 +207,7 @@ throw new HigherLevelException(cause);
 38. Можно ли выбрасывать исключения в конструкторах?<br/>
 **Ответ.**  Да, можно <br/>
 
-```
+```java
 	...
 	public Student(String name,int age){
 		if (name.trim().isEmpty() || age < 0){
@@ -220,7 +220,7 @@ throw new HigherLevelException(cause);
 39. Может ли произойти потеря исключения? Если да – приведите пример.<br/>
 **Ответ.** Да. Например если в блоке finally бросать исключение.<br/>
 
-```
+```java
  try {
             try {
                 throw new Exception("a");
@@ -247,7 +247,7 @@ throw new HigherLevelException(cause);
 41. Является ли данный код антипаттерном? <br/>
 Обоснуйте ответ. <br/>
 
-```
+```java
 void methodCatchesSomeException() {
         	...
         	try {
@@ -265,7 +265,7 @@ void methodCatchesSomeException() {
 42. Является ли данный код антипаттерном? <br/>
 Обоснуйте ответ. 
 
-```
+```java
 void methodThrowsSomeCheckedException() {
         	...
         	throw new SomeCheckedException();
@@ -277,7 +277,7 @@ void methodThrowsSomeCheckedException() {
  
 43. Является ли данный код верным? Укажите почему.<br/>
 
-```
+```java
 void methodThrowsSomeCheckedException() throws SomeCheckedException {
         	...
         	throw new SomeCheckedException();
@@ -290,7 +290,7 @@ void methodThrowsSomeCheckedException() throws SomeCheckedException {
 44. Приведите примеры кода с выбросом RuntimeException явным образом и в случае программной ошибки.<br/>
 **Ответ.** 
 
-```
+```java
 if(some < 0){
 	throw new IllegalArgumentException("Wrong some");// явным образом
 }
@@ -301,7 +301,7 @@ ob.someMethod;// NPE программная ошибка
  
 45. Можно ли отрефакторить данный код? Если да, то выполните.<br/>
 
-```
+```java
 void methodThrowsSomeRuntimeException() {
         	...
         	throw new SomeRuntimeException();
@@ -314,7 +314,7 @@ void methodThrowsSomeRuntimeException() {
 46. Является ли данный код антипаттерном? <br/>
 Обоснуйте ответ. 
 
-```
+```java
 void methodThrowsSomeRuntimeException() throws SomeRuntimeException {
         	...
         	throw new SomeRuntimeException();
@@ -327,7 +327,7 @@ void methodThrowsSomeRuntimeException() throws SomeRuntimeException {
 47. В какой версии Java появился оператор try-with-resources? Приведите пример кода с использованием указанного оператора.
 **Ответ.** Java SE 7.0
 
-```
+```java
  try (FileReader fr = new FileReader(path);
 	         BufferedReader br = new BufferedReader(fr)) {
 	         return br.readLine();
@@ -338,7 +338,7 @@ void methodThrowsSomeRuntimeException() throws SomeRuntimeException {
 48. Является ли данный код антипаттерном? 
 Обоснуйте ответ. 
 
-```
+```java
 void methodWithAutocloseableInstance() {
         	...
         	try(SomeResource res = new SomeResource(...)) {
@@ -353,7 +353,7 @@ void methodWithAutocloseableInstance() {
 49. Является ли данный код антипаттерном? 
 Обоснуйте ответ. 
 
-```
+```java
 void methodWithAutocloseableInstance() {
         	...
         	try(SomeResource res = new SomeResource(...)) {
@@ -370,7 +370,7 @@ void methodWithAutocloseableInstance() {
 50. Является ли данный код антипаттерном? 
 Обоснуйте ответ. 
 
-```
+```java
 try {
            …
 }  catch (SomeException е) {
@@ -384,7 +384,7 @@ try {
 51. Является ли данный код антипаттерном? 
 Обоснуйте ответ. 
 
-```
+```java
 try {
         	…
 }  catch (SomeException е) {
@@ -396,7 +396,7 @@ try {
  
 52. Является ли данный код антипаттерном, если блок catch находится не в конце раннер-метода main()? 
 
-```
+```java
 Обоснуйте ответ. 
 try {
     		…
@@ -420,7 +420,7 @@ try {
 53. Является ли данный код антипаттерном? 
 Обоснуйте ответ.
  
-```
+```java
 try {
     	int i = 0;
   	  while(true) {
@@ -448,7 +448,7 @@ try {
 Обоснуйте ответ. 
 Вариант 1.
 
-```
+```java
 void setPositiveValue(int value) {
         	if(value <= 0) {
                     	throw new IllegalArgumentException(...);
@@ -458,7 +458,7 @@ void setPositiveValue(int value) {
 ```
 Вариант 2.
 
-```
+```java
 void setPositiveValue(int value) throws SomeCheckedException {
         	if(value <= 0) {
                     	throw new SomeCheckedException(...);
@@ -497,7 +497,7 @@ UnsupportedOperationException - объект не поддерживает вы�
 58. Выделите в блоке try-catch основной и альтернативный сценарии. 
 Обоснуйте ответ.
 
-``` 
+``` java
 try {
         	...
         	User user = source.getUser(login, password);
@@ -524,7 +524,7 @@ class Source {
 ```
 **Ответ.** 
 
-```
+```java
 User user = source.getUser(login, password); //основной вариант
 if(GUEST_USER.equals(user) { // альтернатива
                     	…
@@ -539,7 +539,7 @@ if(GUEST_USER.equals(user) { // альтернатива
 59. Перепишите код предыдущего задания с условием, что ввод неправильных логина или пароля является альтернативным сценарием.
 **Ответ.** 
 
-``` 
+```java
         	...
         	User user = source.getUser(login, password);
         	if(GUEST_USER.equals(user) {
@@ -607,7 +607,7 @@ throw new HigherLevelException(...);
 **Ответ.** Для фиксации сбоя строковое представление исключения должно содержать значения
 всех параметров и полей, «способствовавших появлению этого исключения».Один из приёмов, гарантирующих, что строковое представление исключения будет содержать информацию, достаточную для описания сбоя, состоит в том, чтобы эта информация запрашивалась в конструкторах исключения, а не в строке описания.<br/>
 
-```
+```java
 public IndexOutOfBoundsException(int lowerBound, int upperBound,int index){
 	// Генерируем описание исключения,
 	// фиксирующее обстоятельства отказа
@@ -640,7 +640,7 @@ public IndexOutOfBoundsException(int lowerBound, int upperBound,int index){
 67. Приведите пример, когда отсутствие транзакционности в исключениях, приводит к сохранению ссылки на объект в неверном состоянии.
 **Ответ.**
 
-```
+```java
 public class PartialInitTest{
 
     static PartialInitTest self;
@@ -684,7 +684,7 @@ looser;30;48
 Является ли код, реализующий задание, антипаттерном? 
 Обоснуйте ответ. 
 
-```
+```java
 public class Runner {
         	public static void main(String[] args) {
                     	List<Trial> trials = new ArrayList<Trial>();
@@ -713,7 +713,7 @@ public class Runner {
 ```
 **Ответ.** Исключения следует генерировать на нижних уровнях.<br/>
 
-```
+```java
 private static Trial getTrial(Scanner sc) {
                     	String csvLine = sc.nextLine();
                     	String[] values = csvLine.split(Constants.DELIMETER);   	
@@ -740,7 +740,7 @@ private static Trial getTrial(Scanner sc) {
 **Ответ.** 
 <br/>
 
-```
+```java
 public class CsvLineException extends Exception {
     private String csvLine;
 
@@ -802,7 +802,7 @@ return trials;
 1. 	Файл не найден.
 2. 	Ошибка в csv строке.
 
-```
+```java
 interface TrialProvidable {
 	boolean hasTrial();
 	Trial getTrial();
@@ -853,7 +853,7 @@ public class Runner {
 ```
 **Ответ.**
 
-```
+```java
  interface TrialProvidable {
 	boolean hasTrial();
 	Trial getTrial();
