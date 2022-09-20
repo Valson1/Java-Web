@@ -1,0 +1,35 @@
+package by.epam.lab.factories;
+
+import java.io.IOException;
+import java.sql.Date;
+
+import static by.epam.lab.utils.ConstantsUtility.*;
+
+import org.xml.sax.SAXException;
+
+import by.epam.lab.beans.DecimalResult;
+import by.epam.lab.beans.Result;
+import by.epam.lab.implementation.ResultImplXml;
+import by.epam.lab.interfaces.ResultDao;
+
+public class DecimalResultFactory extends ResultFactory{
+    @Override
+    public Result getResultFromFactory(String login, String test, Date date, int mark) {
+        return new DecimalResult(login, test, date, mark);
+    }
+    
+    @Override
+    public Result getResultFromFactory(String login, String test, String date, String mark) {
+        return new DecimalResult(login,test,date,mark);
+    }
+    
+    
+    public ResultDao getResultDaoFromFactory(String sourceName,ResultFactory resultFactory) throws IOException, SAXException {
+        return new ResultImplXml(sourceName);
+    }
+    
+    @Override
+    public String meanMarkFormat(double mark) {
+        return String.format(TWO_DIGITS_AFTER_POINT_FORMAT,mark / DECIMAL_DIVIDOR); 
+    }
+}
