@@ -1,13 +1,10 @@
 package by.epam.lab.beans;
 
-import java.text.SimpleDateFormat;
-
 import static by.epam.lab.utils.ConstantsUtility.*;
 
 import java.sql.Date;
 
 public class Result implements Comparable<Result> {
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     private final String login;
     private final String test;
@@ -45,11 +42,11 @@ public class Result implements Comparable<Result> {
     public String toString() {
 	return login + SEPARATOR + test + SEPARATOR + stringDate() + SEPARATOR + markFormat();
     }
-    
+
     protected String markFormat() {
 	return String.valueOf(mark);
     }
-    
+
     private String stringDate() {
 	return DATE_FORMAT.format(date);
     }

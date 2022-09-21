@@ -3,14 +3,11 @@ package by.epam.lab.services;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import static by.epam.lab.utils.DatabaseConstants.*;
 
 public class DatabaseConnection {
 
-    private final static String DB_URL = "jdbc:mysql://localhost:3306/results";
-    private final static String DB_PASSWORD = "Qwerty147258369";
-    private final static String DB_USER = "root";
-
-    private Connection connection;
+    private static Connection connection;
     private static DatabaseConnection instance;
 
     private DatabaseConnection() {
@@ -30,5 +27,13 @@ public class DatabaseConnection {
 	    instance = new DatabaseConnection();
 	}
 	return instance;
+    }
+    
+    public void close() {
+	try {
+	    connection.close();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
     }
 }

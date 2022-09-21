@@ -12,11 +12,6 @@ import by.epam.lab.interfaces.ResultDao;
 
 public class ResultImplCsv implements ResultDao {
 
-    private static final int LOGIN_LINE_ELEMENT = 0;
-    private static final int TEST_LINE_ELEMENT = 1;
-    private static final int DATE_LINE_ELEMENT = 2;
-    private static final int MARK_LINE_ELEMENT = 3;
-
     private final Scanner scanner;
     private final ResultFactory resultFactory;
 

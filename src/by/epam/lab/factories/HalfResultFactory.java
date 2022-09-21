@@ -21,11 +21,6 @@ public class HalfResultFactory extends ResultFactory{
     }
     
     @Override
-    public ResultDao getResultDaoFromFactory(String sourceName,ResultFactory resultFactory) throws IOException, SAXException {
-        return super.getResultDaoFromFactory(sourceName,resultFactory);
-    }
-    
-    @Override
     public String meanMarkFormat(double mark) {
         return String.format(TWO_DIGITS_AFTER_POINT_FORMAT,mark / HALF_DIVIDOR);
     }

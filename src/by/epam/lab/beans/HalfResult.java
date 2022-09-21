@@ -4,15 +4,13 @@ import java.sql.Date;
 import static by.epam.lab.utils.ConstantsUtility.*;
 
 public class HalfResult extends Result {
-    
-    private static final int HALF = 5;
-    
+
     public HalfResult(String login, String test, String date, String mark) {
-	super(login, test, Date.valueOf(date), (int) (Double.parseDouble(mark) * 2));
+	super(login, test, Date.valueOf(date), (int) (Double.parseDouble(mark) * HALF_DIVIDOR));
     }
-    
+
     public HalfResult(String login, String test, Date date, int mark) {
-	super(login,test,date,mark);
+	super(login, test, date, mark);
     }
 
     @Override

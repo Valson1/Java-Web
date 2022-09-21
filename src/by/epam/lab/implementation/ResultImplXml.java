@@ -1,6 +1,7 @@
 package by.epam.lab.implementation;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.xml.sax.SAXException;
@@ -11,32 +12,32 @@ import by.epam.lab.beans.Result;
 import by.epam.lab.interfaces.ResultDao;
 import by.epam.lab.services.ResultHandler;
 
-public class ResultImplXml implements ResultDao{
-    private final ResultHandler handler;
-    private final List<Result> results;
-    private int listCount = 0;
+public class ResultImplXml implements ResultDao {
+   
     
+    private Iterator<Result> iterator;
+
     public ResultImplXml(String sourceName) throws IOException, SAXException {
 	XMLReader reader = XMLReaderFactory.createXMLReader();
-	handler = new ResultHandler();
+	ResultHandler handler = new ResultHandler();
 	reader.setContentHandler(handler);
 	reader.parse(sourceName);
-	results = handler.getResults();
+	iterator = handler.getResults().iterator();
     }
-    
+
     @Override
     public void close() throws IOException {
-	
+	iterator = null;
     }
 
     @Override
     public Result nextResult() {
-	return results.get(listCount++);
+	return iterator.next();
     }
 
     @Override
     public boolean hasResult() {
-	return !results.isEmpty() && listCount < results.size();
+	return iterator.hasNext();
     }
-    
+
 }

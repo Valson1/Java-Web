@@ -2,7 +2,7 @@ package by.epam.lab.services;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import static by.epam.lab.utils.ConstantsUtility.*;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,10 +11,7 @@ import by.epam.lab.beans.DecimalResult;
 import by.epam.lab.beans.Result;
 
 public class ResultHandler extends DefaultHandler {
-    private static final int TEST_ATTRIBUTE = 0;
-    private static final int DATE_ATTRIBUTE = 1;
-    private static final int MARK_ATTRIBUTE = 2;
-    
+
     private ResultEnum currentEnum;
     private final List<Result> results = new ArrayList<>();
     private String login;
@@ -27,8 +24,8 @@ public class ResultHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 	currentEnum = ResultEnum.valueOf(localName.toUpperCase());
 	if (currentEnum == ResultEnum.TEST) {
-	    Result result = new DecimalResult(login, attributes.getValue(TEST_ATTRIBUTE), attributes.getValue(DATE_ATTRIBUTE),
-		    attributes.getValue(MARK_ATTRIBUTE));
+	    Result result = new DecimalResult(login, attributes.getValue(TEST_ATTRIBUTE),
+		    attributes.getValue(DATE_ATTRIBUTE), attributes.getValue(MARK_ATTRIBUTE));
 	    results.add(result);
 	}
     }

@@ -1,11 +1,10 @@
 import by.epam.lab.factories.ResultFactory;
+import static by.epam.lab.utils.ConstantsUtility.*;
 import by.epam.lab.services.RunnerLogic;
 
 public class RunnerInt {
-    private final static String SOURCE_NAME = "src/data/results1.txt";
 
     public static void main(String[] args) {
-	ResultFactory resultFactory = new ResultFactory();
-	RunnerLogic.execute(resultFactory, SOURCE_NAME);
+	RunnerLogic.execute(new ResultFactory(), RESULT_FILE_NAME);
     }
 }
