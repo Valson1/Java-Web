@@ -1,8 +1,12 @@
 package by.epam.lab.services;
 
+import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import by.epam.lab.exceptions.ConnectionException;
+
 import static by.epam.lab.utils.DatabaseConstants.*;
 
 public class DatabaseConnection {
@@ -10,11 +14,11 @@ public class DatabaseConnection {
     private static Connection connection;
     private static DatabaseConnection instance;
 
-    private DatabaseConnection() {
+    private DatabaseConnection() throws ConnectionException {
 	try {
 	    connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 	} catch (SQLException e) {
-	    e.printStackTrace();
+	    throw new ConnectionException(e.getMessage());
 	}
     }
 
@@ -22,18 +26,18 @@ public class DatabaseConnection {
 	return connection;
     }
 
-    public static DatabaseConnection getInstance() {
+    public static DatabaseConnection getInstance() throws ConnectionException {
 	if (instance == null) {
 	    instance = new DatabaseConnection();
 	}
 	return instance;
     }
     
-    public void close() {
+    public void close() throws ConnectionException {
 	try {
 	    connection.close();
 	} catch (SQLException e) {
-	    e.printStackTrace();
+	    throw new ConnectionException(e.getMessage());
 	}
     }
 }

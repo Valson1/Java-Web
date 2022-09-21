@@ -56,6 +56,8 @@ public class RunnerLogic {
 		Result result = listIterator.previous();
 		if (result.compareTo(lastResult) == 0) {
 		    System.out.println(result);
+		}else {
+		    break;
 		}
 	    }
 	}
@@ -87,7 +89,7 @@ public class RunnerLogic {
 		ResultSet rs = st.executeQuery(SELECT_MEAN_MARKS)) {
 	    System.out.println(MEAN_MARKS_MESSAGE);
 	    while (rs.next()) {
-		System.out.println(rs.getString(1) + SEPARATOR + resultFactory.meanMarkFormat(rs.getDouble(2)));
+		System.out.println(rs.getString(LOGIN_COLUMN) + SEPARATOR + resultFactory.meanMarkFormat(rs.getDouble(AVG_COLUMN)));
 	    }
 	}
     }

@@ -21,7 +21,8 @@ public class ResultsLoader {
 		PreparedStatement psInsertLogin = connection.prepareStatement(INSERT_LOGINS);
 		PreparedStatement psInsertTest = connection.prepareStatement(INSERT_TESTS);
 		PreparedStatement psInsertResults = connection.prepareStatement(INSERT_RESULTS);
-		Statement st = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+		Statement st = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+			ResultSet.CONCUR_UPDATABLE)) {
 	    st.executeUpdate(DELETE_TABLES);
 	    while (reader.hasResult()) {
 		Result result = reader.nextResult();
@@ -42,19 +43,16 @@ public class ResultsLoader {
 
     private static int getId(String element, PreparedStatement selectStatement, PreparedStatement insertStatement)
 	    throws SQLException {
-	selectStatement.setString(1, element);
+	int id = 0;
+	selectStatement.setString(NAME_COLUMN, element);
 	try (ResultSet rs = selectStatement.executeQuery()) {
 	    if (!rs.next()) {
 		insertStatement.setString(NAME_COLUMN, element);
-		insertStatement.executeUpdate();
-		ResultSet rs1 = selectStatement.executeQuery();
-		    rs1.next();
-		    return rs.getInt(NAME_COLUMN);
+		id = insertStatement.executeUpdate();
+	    } else {
+		id = rs.getInt(NAME_COLUMN);
 	    }
-	}
-	try (ResultSet rs = selectStatement.executeQuery()) {
-	    rs.next();
-	    return rs.getInt(NAME_COLUMN);
+	    return id;
 	}
     }
 }

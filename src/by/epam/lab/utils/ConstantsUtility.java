@@ -21,6 +21,9 @@ public class ConstantsUtility {
 
     public static final int NAME_COLUMN = 1;
     
+    public static final int LOGIN_COLUMN = 1;
+    public static final int AVG_COLUMN = 2;
+    
     public final static String DECIMAL_POINT = ".";
 
     public final static String TWO_DIGITS_AFTER_POINT_FORMAT = "%.2f";
