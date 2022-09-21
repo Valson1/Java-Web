@@ -8,13 +8,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 
 import by.epam.lab.beans.Result;
+import by.epam.lab.exceptions.ConnectionException;
+import by.epam.lab.exceptions.InitRuntimeException;
+import by.epam.lab.exceptions.LoadRuntimeException;
+import by.epam.lab.exceptions.ParseRuntimeException;
 import by.epam.lab.interfaces.ResultDao;
 
 public class ResultsLoader {
 
-    public static void loadResults(ResultDao reader) throws SQLException {
+    public static void loadResults(ResultDao reader) throws ConnectionException {
 	Connection connection = DatabaseConnection.getInstance().getConnection();
 	try (PreparedStatement psSelectLogin = connection.prepareStatement(SELECT_LOGINS_NAME);
 		PreparedStatement psSelectTest = connection.prepareStatement(SELECT_TESTS_NAME);
@@ -25,19 +30,26 @@ public class ResultsLoader {
 			ResultSet.CONCUR_UPDATABLE)) {
 	    st.executeUpdate(DELETE_TABLES);
 	    while (reader.hasResult()) {
-		Result result = reader.nextResult();
-		String login = result.getLogin();
-		String test = result.getTest();
-		Date date = result.getDate();
-		int mark = result.getMark();
-		int idLogin = getId(login, psSelectLogin, psInsertLogin);
-		int idTest = getId(test, psSelectTest, psInsertTest);
-		psInsertResults.setInt(RESULTS_LOGIN_COLUMN, idLogin);
-		psInsertResults.setInt(RESULTS_TEST_COLUMN, idTest);
-		psInsertResults.setDate(RESULTS_DATE_COLUMN, date);
-		psInsertResults.setInt(RESULTS_MARK_COLUMN, mark);
-		psInsertResults.executeUpdate();
+		try {
+		    Result result = reader.nextResult();
+		    String login = result.getLogin();
+		    String test = result.getTest();
+		    Date date = result.getDate();
+		    int mark = result.getMark();
+		    int idLogin = getId(login, psSelectLogin, psInsertLogin);
+		    int idTest = getId(test, psSelectTest, psInsertTest);
+		    psInsertResults.setInt(RESULTS_LOGIN_COLUMN, idLogin);
+		    psInsertResults.setInt(RESULTS_TEST_COLUMN, idTest);
+		    psInsertResults.setDate(RESULTS_DATE_COLUMN, date);
+		    psInsertResults.setInt(RESULTS_MARK_COLUMN, mark);
+		    psInsertResults.addBatch();
+		} catch (ParseRuntimeException e) {
+		    throw new LoadRuntimeException(ERROR_DATA_LOAD + SEPARATOR + e.getCause());
+		}
 	    }
+	    psInsertResults.executeBatch();
+	} catch (SQLException e) {
+	    throw new ConnectionException(e.getMessage());
 	}
     }
 
@@ -53,6 +65,8 @@ public class ResultsLoader {
 		id = rs.getInt(NAME_COLUMN);
 	    }
 	    return id;
+	} catch (SQLException e) {
+	    throw new ConnectionException(e.getMessage());
 	}
     }
 }

@@ -4,6 +4,8 @@ import static by.epam.lab.utils.ConstantsUtility.*;
 
 import java.sql.Date;
 
+import by.epam.lab.exceptions.InitRuntimeException;
+
 public class Result implements Comparable<Result> {
 
     private final String login;

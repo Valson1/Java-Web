@@ -37,5 +37,9 @@ public class ConstantsUtility {
     public final static String HALF_FILE_NAME = "src/data/results3.txt";
 
     public final static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-
+    
+    public final static String WRONG_FILE_NAME = "Wrong source name: ";
+    public final static String SAX_PARSING_ERROR = "Sax parsing error: ";
+    public final static String ERROR_DATA_LOAD= "Error load data into database";
+    
 }

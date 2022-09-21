@@ -3,31 +3,29 @@ package by.epam.lab.implementation;
 import java.io.FileNotFoundException;
 import static by.epam.lab.utils.ConstantsUtility.*;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Scanner;
 
 import by.epam.lab.beans.Result;
+import by.epam.lab.exceptions.SourceException;
 import by.epam.lab.factories.ResultFactory;
 import by.epam.lab.interfaces.ResultDao;
 
 public class ResultImplCsv implements ResultDao {
 
-    private final Scanner scanner;
+    private Scanner scanner;
     private final ResultFactory resultFactory;
 
-    public ResultImplCsv(String sourceName, ResultFactory resultFactory) {
-	Scanner scanner = null;
+    public ResultImplCsv(String sourceName, ResultFactory resultFactory) throws SourceException {
 	try {
-	    scanner = new Scanner(new FileReader(sourceName));
+	  scanner = new Scanner(new FileReader(sourceName));
 	} catch (FileNotFoundException e) {
-	    System.err.println(e.getMessage());
+	    throw new SourceException(WRONG_FILE_NAME + sourceName);
 	}
-	this.scanner = scanner;
 	this.resultFactory = resultFactory;
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() throws SourceException{
 	scanner.close();
     }
 

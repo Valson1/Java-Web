@@ -1,13 +1,12 @@
 package by.epam.lab.factories;
 
-import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
 
 import static by.epam.lab.utils.ConstantsUtility.*;
 
-import org.xml.sax.SAXException;
-
 import by.epam.lab.beans.Result;
+import by.epam.lab.exceptions.SourceException;
 import by.epam.lab.implementation.ResultImplCsv;
 import by.epam.lab.interfaces.ResultDao;
 
@@ -20,7 +19,7 @@ public class ResultFactory {
 	return new Result(login, test, date, mark);
     }
     
-    public ResultDao getResultDaoFromFactory(String sourceName,ResultFactory resultFactory) throws IOException, SAXException{
+    public ResultDao getResultDaoFromFactory(String sourceName,ResultFactory resultFactory) throws SourceException{
 	return new ResultImplCsv(sourceName,resultFactory);
     }
     public String meanMarkFormat(double mark) {

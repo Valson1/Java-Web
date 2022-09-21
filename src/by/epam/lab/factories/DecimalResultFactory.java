@@ -1,14 +1,12 @@
 package by.epam.lab.factories;
 
-import java.io.IOException;
 import java.sql.Date;
 
 import static by.epam.lab.utils.ConstantsUtility.*;
 
-import org.xml.sax.SAXException;
-
 import by.epam.lab.beans.DecimalResult;
 import by.epam.lab.beans.Result;
+import by.epam.lab.exceptions.SourceException;
 import by.epam.lab.implementation.ResultImplXml;
 import by.epam.lab.interfaces.ResultDao;
 
@@ -24,7 +22,7 @@ public class DecimalResultFactory extends ResultFactory{
     }
     
     
-    public ResultDao getResultDaoFromFactory(String sourceName,ResultFactory resultFactory) throws IOException, SAXException {
+    public ResultDao getResultDaoFromFactory(String sourceName,ResultFactory resultFactory) throws SourceException{
         return new ResultImplXml(sourceName);
     }
     
