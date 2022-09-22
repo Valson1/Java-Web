@@ -2,8 +2,8 @@ package by.epam.lab.utils;
 
 public class DatabaseConstants {
     public final static String DB_URL = "jdbc:mysql://localhost:3306/results";
-    public final static String DB_PASSWORD = "Qwerty147258369";
-    public final static String DB_USER = "root";
+    public final static String DB_PASSWORD = "jse";
+    public final static String DB_USER = "jse";
 
     public final static String SELECT_LOGINS_NAME = "SELECT idLogin FROM logins WHERE name = ?";
     public final static String SELECT_TESTS_NAME = "SELECT idTest FROM tests WHERE name = ?";

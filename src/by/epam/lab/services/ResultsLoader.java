@@ -8,11 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 
 import by.epam.lab.beans.Result;
 import by.epam.lab.exceptions.ConnectionException;
-import by.epam.lab.exceptions.InitRuntimeException;
 import by.epam.lab.exceptions.LoadRuntimeException;
 import by.epam.lab.exceptions.ParseRuntimeException;
 import by.epam.lab.interfaces.ResultDao;
