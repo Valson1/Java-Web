@@ -36,8 +36,9 @@ public class Runner {
 	List<Trial> unpassedTrials = trials.stream().filter(trial -> !trial.isTrialPass()).collect(Collectors.toList());
 	System.out.println(UNPASSED_TRIALS_HEADER);
 	unpassedTrials.forEach(trial -> {
-	    trial.clearMarks();
-	    System.out.println(trial);
+	    Trial clearTrial = trial.clearMarks();
+	    unpassedTrials.set(unpassedTrials.indexOf(trial), trial.clearMarks());
+	    System.out.println(clearTrial);
 	});
 	System.out.println(MARKS_CONDITION_MESSAGE + unpassedTrials.stream().allMatch(Trial::isClear));
 

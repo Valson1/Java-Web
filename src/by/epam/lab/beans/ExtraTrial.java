@@ -26,4 +26,8 @@ public class ExtraTrial extends Trial {
 	super.clearMarks();
 	mark3 = 0;
     }
+    @Override
+    public String toString() {
+        return super.toString() + SEPARATOR + mark3;
+    }
 }

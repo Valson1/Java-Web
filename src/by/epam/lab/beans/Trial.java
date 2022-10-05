@@ -7,7 +7,7 @@ public class Trial implements Comparable<Trial>{
     private final String account;
     private int mark1;
     private int mark2;
-
+    
     public Trial(String account, int firstMark, int secondMark) {
 	checkMarks(firstMark, secondMark);
 	this.account = account;
@@ -42,9 +42,8 @@ public class Trial implements Comparable<Trial>{
 	return sumMarks() >= TRIAL_PASS_MARK;
     }
     
-    public void clearMarks() {
-	mark1 = 0;
-	mark2 = 0;
+    public Trial clearMarks() {
+	return new Trial(this.account,0,0);
     }
     
     public boolean isClear() {
