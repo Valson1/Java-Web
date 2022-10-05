@@ -16,32 +16,35 @@ public class Runner {
 		new Trial("Trump", 40, 50), new LigthTrial("Sek", 60, 10), new LigthTrial("Kevin", 66, 67),
 		new StrongTrial("Sam", 70, 90), new StrongTrial("Kon", 44, 78), new ExtraTrial("Stone", 100, 90, 80),
 		new ExtraTrial("Serkan", 60, 60, 53)));
-	//print all trials
+	// print all trials
 	System.out.println(ALL_TRIALS_HEADER);
-	trials.forEach(System.out :: println);
-	
-	//print number of unpassed trials
+	trials.forEach(System.out::println);
+
+	// print number of unpassed trials
 	System.out.println(NUMBER_UNPASSED_TRIALS_HEADER);
-	System.out.println(trials.stream().filter(Trial :: isTrialPass).count());
-	
-	//create sum marks trials sorted list
+	System.out.println(trials.stream().filter(Trial::isTrialPass).count());
+
+	// create sum marks trials sorted list
 	List<Trial> sortedSumTrials = trials.stream().sorted().collect(Collectors.toList());
-	
-	//print sum marks of each trial
+
+	// print sum marks of each trial
 	System.out.println(ALL_TRIALS_MARKS_SUM_HEADER);
-	sortedSumTrials.stream().mapToInt(Trial :: sumMarks).forEach(System.out :: println);
-	
-	//create new list with unpassed trials and clear all marks(check all marks are equal 0) and print list
+	sortedSumTrials.stream().mapToInt(Trial::sumMarks).forEach(System.out::println);
+
+	// create new list with unpassed trials and clear all marks(check all marks are
+	// equal 0) and print list
 	List<Trial> unpassedTrials = trials.stream().filter(trial -> !trial.isTrialPass()).collect(Collectors.toList());
-	unpassedTrials.forEach(Trial :: clearMarks);
-	System.out.println(MARKS_CONDITION_MESSAGE + unpassedTrials.stream().allMatch(Trial :: isClear));
 	System.out.println(UNPASSED_TRIALS_HEADER);
-	unpassedTrials.forEach(System.out :: println);
-	
-	//create array of sum marks and output in determine format
-	int [] sumMarks = sortedSumTrials.stream().mapToInt(Trial :: sumMarks).toArray();
+	unpassedTrials.forEach(trial -> {
+	    trial.clearMarks();
+	    System.out.println(trial);
+	});
+	System.out.println(MARKS_CONDITION_MESSAGE + unpassedTrials.stream().allMatch(Trial::isClear));
+
+	// create array of sum marks and output in determine format
+	int[] sumMarks = sortedSumTrials.stream().mapToInt(Trial::sumMarks).toArray();
 	StringBuilder result = new StringBuilder();
-	Arrays.stream(sumMarks).sorted().forEach(trial -> result.append(trial + ","));
+	Arrays.stream(sumMarks).sorted().forEach(trial -> result.append(trial + ARRAY_SEPARATOR));
 	result.deleteCharAt(result.length() - 1);
 	System.out.println(result);
     }

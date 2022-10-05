@@ -3,6 +3,7 @@ package by.epam.lab.utils;
 public class ConstantUtils {
     public final static String WRONG_MARKS = "Wrong mark value";
     public final static String SEPARATOR = ";";
+    public final static String ARRAY_SEPARATOR = ",";        
     
     public final static String MARKS_CONDITION_MESSAGE= "Marks empty condition is :";
     public final static String ALL_TRIALS_HEADER = "All trials";    
@@ -14,4 +15,6 @@ public class ConstantUtils {
     public final static int MAX_CONDITION_MARK = 100;
     
     public final static int TRIAL_PASS_MARK = 100;
+    
+    
 }

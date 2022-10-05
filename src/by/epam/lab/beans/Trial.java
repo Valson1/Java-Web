@@ -5,18 +5,18 @@ import static by.epam.lab.utils.ConstantUtils.*;
 public class Trial implements Comparable<Trial>{
     
     private final String account;
-    private int firstMark;
-    private int secondMark;
+    private int mark1;
+    private int mark2;
 
     public Trial(String account, int firstMark, int secondMark) {
 	checkMarks(firstMark, secondMark);
 	this.account = account;
-	this.firstMark = firstMark;
-	this.secondMark = secondMark;
+	this.mark1 = firstMark;
+	this.mark2 = secondMark;
     }
 
-    private static void checkMarks(int firstMark, int secondMark) {
-	if ((firstMark < MIN_CONDITION_MARK || firstMark > MAX_CONDITION_MARK)
+    private static void checkMarks(int mark1, int secondMark) {
+	if ((mark1 < MIN_CONDITION_MARK || mark1 > MAX_CONDITION_MARK)
 		|| (secondMark < MIN_CONDITION_MARK || secondMark > MAX_CONDITION_MARK)) {
 	    throw new IllegalArgumentException(WRONG_MARKS);
 	}
@@ -27,15 +27,15 @@ public class Trial implements Comparable<Trial>{
     }
 
     public int getFirstMark() {
-	return firstMark;
+	return mark1;
     }
 
     public int getSecondMark() {
-	return secondMark;
+	return mark2;
     }
     
     public int sumMarks() {
-	return firstMark + secondMark;
+	return mark1 + mark2;
     }
 
     public boolean isTrialPass() {
@@ -43,17 +43,17 @@ public class Trial implements Comparable<Trial>{
     }
     
     public void clearMarks() {
-	firstMark = 0;
-	secondMark = 0;
+	mark1 = 0;
+	mark2 = 0;
     }
     
     public boolean isClear() {
-	return firstMark == 0 && secondMark == 0;
+	return mark1 == 0 && mark2 == 0;
     }
 
     @Override
     public String toString() {
-	return getClass().getSimpleName() + SEPARATOR + account + SEPARATOR + firstMark + SEPARATOR + secondMark;
+	return account + SEPARATOR + mark1 + SEPARATOR + mark2;
     }
 
     @Override
