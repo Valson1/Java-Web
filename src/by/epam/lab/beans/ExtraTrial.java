@@ -22,10 +22,15 @@ public class ExtraTrial extends Trial {
     }
 
     @Override
-    public void clearMarks() {
-	super.clearMarks();
-	mark3 = 0;
+    public Trial clearMarks() {
+	return new ExtraTrial(getAccount(),0,0,0);
     }
+    
+    @Override
+    public boolean isClear() {
+        return super.isClear() && mark3 == 0;
+    }
+    
     @Override
     public String toString() {
         return super.toString() + SEPARATOR + mark3;
