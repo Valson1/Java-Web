@@ -13,6 +13,7 @@ public class ConstantUtils {
     
     public final static int MIN_CONDITION_MARK = 0;
     public final static int MAX_CONDITION_MARK = 100;
+    public final static int HALF_DIVIDOR = 2;
     
     public final static int TRIAL_PASS_MARK = 100;
     

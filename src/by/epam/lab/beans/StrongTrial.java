@@ -10,6 +10,6 @@ public class StrongTrial extends Trial {
     
     @Override
     public boolean isTrialPass() {
-        return getFirstMark() / 2 + getSecondMark() >= TRIAL_PASS_MARK;
+        return getFirstMark() / HALF_DIVIDOR + getSecondMark() >= TRIAL_PASS_MARK;
     }
 }
