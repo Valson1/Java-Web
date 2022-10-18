@@ -15,6 +15,11 @@ public class ExtraTrial extends Trial {
 	}
 	this.mark3 = mark3;
     }
+    
+    private ExtraTrial(ExtraTrial trial) {
+	super(trial.getAccount(),trial.getFirstMark(),trial.getSecondMark());
+	mark3 = trial.mark3;
+    }
 
     @Override
     public boolean isTrialPass() {
@@ -22,8 +27,14 @@ public class ExtraTrial extends Trial {
     }
 
     @Override
-    public Trial clearMarks() {
-	return new ExtraTrial(getAccount(),0,0,0);
+    public void clearMarks() {
+	super.clearMarks();
+	mark3 = 0;
+    }
+    
+    @Override
+    public Trial getCopy() {
+        return new ExtraTrial(this);
     }
     
     @Override

@@ -21,6 +21,10 @@ public class Trial implements Comparable<Trial>{
 	    throw new IllegalArgumentException(WRONG_MARKS);
 	}
     }
+    
+    public Trial(Trial trial) {
+	this(trial.account,trial.mark1,trial.mark2);
+    }
 
     public String getAccount() {
 	return account;
@@ -34,7 +38,7 @@ public class Trial implements Comparable<Trial>{
 	return mark2;
     }
     
-    public int sumMarks() {
+    public final int sumMarks() {
 	return mark1 + mark2;
     }
 
@@ -42,8 +46,13 @@ public class Trial implements Comparable<Trial>{
 	return sumMarks() >= TRIAL_PASS_MARK;
     }
     
-    public Trial clearMarks() {
-	return new Trial(this.account,0,0);
+    public void clearMarks() {
+	mark1 = 0;
+	mark2 = 0;
+    }
+    
+    public Trial getCopy() {
+	return new Trial(this);
     }
     
     public boolean isClear() {

@@ -8,8 +8,14 @@ public class LigthTrial extends Trial {
 	super(account, firstMark, secondMark);
     }
     
+    private LigthTrial(LigthTrial trial) {
+   	super(trial.getAccount(),trial.getFirstMark(),trial.getSecondMark());
+       }
+    
     @Override
     public boolean isTrialPass() {
         return getFirstMark() >= LIGTH_TRIAL_PASS_MARK && getSecondMark() >= LIGTH_TRIAL_PASS_MARK; 
     }
+    
+    
 }

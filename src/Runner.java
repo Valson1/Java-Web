@@ -3,8 +3,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.ToIntBiFunction;
-import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 import by.epam.lab.beans.ExtraTrial;
@@ -29,22 +27,24 @@ public class Runner {
 	System.out.println(trials.stream().filter(Trial::isTrialPass).count());
 
 	// sort trials by sum marks in current list
-	trials.sort((trial,otherTrial) -> trial.compareTo(otherTrial));
+	Function<Trial,Integer> sumMarks = Trial::sumMarks;
+	trials.sort(Comparator.comparing(sumMarks));
 
 	// print sum marks of each trial
-	ToIntFunction<Trial> sumMarks = Trial::sumMarks;
 	System.out.println(ALL_TRIALS_MARKS_SUM_HEADER);
-	trials.stream().mapToInt(sumMarks).forEach(System.out::println);
+	trials.stream().map(sumMarks).forEach(System.out::println);
 
 	// create new list with unpassed trials and clear all marks(check all marks are
 	// equal 0) and print list
 	System.out.println(UNPASSED_TRIALS_HEADER);
-	List<Trial> unpassedTrials = trials.stream().filter(trial -> !trial.isTrialPass()).map(Trial :: clearMarks).peek(System.out :: println).collect(Collectors.toList());
+	List<Trial> unpassedTrials = trials.stream().filter(trial -> !trial.isTrialPass()).map(Trial::getCopy)
+		.peek(Trial::clearMarks).peek(System.out::println).collect(Collectors.toList());
 	System.out.println(MARKS_CONDITION_MESSAGE + unpassedTrials.stream().allMatch(Trial::isClear));
 
 	// create array of sum marks and output in determine format
-	int[] sumMarksArray = trials.stream().mapToInt(sumMarks).toArray();
-	StringBuilder result = Arrays.stream(sumMarksArray).parallel().collect(StringBuilder :: new, (str,sum) -> str.append(sum),(str,sum) -> str.append(ARRAY_SEPARATOR).append(sum));
+	int[] sumMarksArray = trials.stream().mapToInt(Trial :: sumMarks).toArray();
+	StringBuilder result = Arrays.stream(sumMarksArray).parallel().collect(StringBuilder::new,
+		StringBuilder :: append, (str, sum) -> str.append(ARRAY_SEPARATOR).append(sum));
 	System.out.println(result);
     }
 }
