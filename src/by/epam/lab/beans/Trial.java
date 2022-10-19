@@ -38,7 +38,7 @@ public class Trial implements Comparable<Trial>{
 	return mark2;
     }
     
-    public final int sumMarks() {
+    protected int sumMarks() {
 	return mark1 + mark2;
     }
 

@@ -14,10 +14,10 @@ import static by.epam.lab.utils.ConstantUtils.*;
 
 public class Runner {
     public static void main(String[] args) {
-	List<Trial> trials = new ArrayList<>(Arrays.asList(new Trial("Semen", 10, 90), new Trial("Gena", 60, 70),
+	List<Trial> trials = Arrays.asList(new Trial("Semen", 10, 90), new Trial("Gena", 60, 70),
 		new Trial("Trump", 40, 50), new LigthTrial("Sek", 60, 10), new LigthTrial("Kevin", 66, 67),
 		new StrongTrial("Sam", 70, 90), new StrongTrial("Kon", 44, 78), new ExtraTrial("Stone", 100, 90, 80),
-		new ExtraTrial("Serkan", 60, 60, 53)));
+		new ExtraTrial("Serkan", 60, 60, 53));
 	// print all trials
 	System.out.println(ALL_TRIALS_HEADER);
 	trials.forEach(System.out::println);
@@ -27,7 +27,7 @@ public class Runner {
 	System.out.println(trials.stream().filter(Trial::isTrialPass).count());
 
 	// sort trials by sum marks in current list
-	Function<Trial,Integer> sumMarks = Trial::sumMarks;
+	Function<Trial,Integer> sumMarks = trial -> trial.getFirstMark() + trial.getSecondMark();
 	trials.sort(Comparator.comparing(sumMarks));
 
 	// print sum marks of each trial
@@ -42,7 +42,7 @@ public class Runner {
 	System.out.println(MARKS_CONDITION_MESSAGE + unpassedTrials.stream().allMatch(Trial::isClear));
 
 	// create array of sum marks and output in determine format
-	int[] sumMarksArray = trials.stream().mapToInt(Trial :: sumMarks).toArray();
+	int[] sumMarksArray = trials.stream().mapToInt(trial -> trial.getFirstMark() + trial.getSecondMark()).toArray();
 	StringBuilder result = Arrays.stream(sumMarksArray).parallel().collect(StringBuilder::new,
 		StringBuilder :: append, (str, sum) -> str.append(ARRAY_SEPARATOR).append(sum));
 	System.out.println(result);
