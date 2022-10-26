@@ -36,19 +36,14 @@ public class Runner {
 	// create new list with unpassed trials and clear all marks(check all marks are
 	// equal 0) and print list
 	System.out.println(UNPASSED_TRIALS_HEADER);
-	List<Trial> unpassedTrials = trials.stream()
-		.filter(trial -> !trial.isTrialPass())
-		.map(Trial::getCopy)
-		.peek(Trial::clearMarks)
-		.peek(System.out::println)
-		.collect(Collectors.toList());
+	List<Trial> unpassedTrials = trials.stream().filter(trial -> !trial.isTrialPass()).map(Trial::getCopy)
+		.peek(Trial::clearMarks).peek(System.out::println).collect(Collectors.toList());
 	System.out.println(MARKS_CONDITION_MESSAGE + unpassedTrials.stream().allMatch(Trial::isClear));
 
 	// create array of sum marks and output in determine format
 	int[] sumMarksArray = trials.stream().mapToInt(sumMarks).toArray();
-	StringBuilder result = Arrays.stream(sumMarksArray)
-		.parallel()
-		.collect(StringBuilder::new,StringBuilder::append, (str, sum) -> str.append(ARRAY_SEPARATOR).append(sum));
+	String result = Arrays.stream(sumMarksArray).mapToObj(String::valueOf)
+		.collect(Collectors.joining(ARRAY_SEPARATOR));
 	System.out.println(result);
     }
 }
