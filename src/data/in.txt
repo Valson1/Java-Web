@@ -1,0 +1,3 @@
+cool;50;75
+clever;85;90
+killer;90;20
