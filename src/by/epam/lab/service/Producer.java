@@ -10,18 +10,18 @@ import static by.epam.lab.utils.Constants.*;
 
 public class Producer extends Thread {
     
-    private static final String FILE_NAME = "src/data/in.txt";
+    private static final String FILE_NAME = "src/data/in.csv";
     
-    private TakeOutputData data;
+    private TrialBuffer trialBuffer;
     
-    public Producer(TakeOutputData data) {
-	this.data = data;
+    public Producer(TrialBuffer trialBuffer) {
+	this.trialBuffer = trialBuffer;
     }
     @Override
     public void run() {
 	try(Scanner scanner = new Scanner(new FileReader(FILE_NAME))){
 	    while (scanner.hasNext()) {
-		data.getData(new Trial(scanner.nextLine().split(SEPARATOR)));
+		trialBuffer.take(new Trial(scanner.nextLine().split(SEPARATOR)));
 	    }
 	} catch (FileNotFoundException e) {
 	    System.err.println(FILE_IS_NOT_FOUND);

@@ -2,16 +2,16 @@ package by.epam.lab.service;
 
 public class Consumer extends Thread{
     
-    private TakeOutputData data;
+    private TrialBuffer trialBuffer;
     
-    public Consumer(TakeOutputData data) {
-	this.data = data;
+    public Consumer(TrialBuffer trialBuffer) {
+	this.trialBuffer = trialBuffer;
     }
     
     @Override
     public void run() {
-	while(data.isEmpty()) {
-	    data.outputData();
+	while(trialBuffer.isEmpty()) {
+	    trialBuffer.put();
 	}
     }
 }

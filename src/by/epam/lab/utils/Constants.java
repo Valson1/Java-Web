@@ -16,4 +16,7 @@ public class Constants {
     public static final int ACCOUNT_FIELD = 0;
     public static final int MARK2_FIELD = 1;
     public static final int MARK1_FIELD = 2;
+    
+    public static final int PASS_MARK = 100;
+    
 }

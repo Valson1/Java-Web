@@ -5,8 +5,8 @@ import static by.epam.lab.utils.Constants.*;
     public class Trial {
 
 	private final String account;
-	private int mark1;
-	private int mark2;
+	private final int mark1;
+	private final int mark2;
 
 	public Trial(String account, int firstMark, int secondMark) {
 	    checkMarks(firstMark, secondMark);
@@ -42,9 +42,14 @@ import static by.epam.lab.utils.Constants.*;
 	    return mark2;
 	}
 
+	private boolean isTrialPass() {
+	    return (mark1 + mark2) >= PASS_MARK;
+
+	}
+	
 	@Override
 	public String toString() {
-	    return account + SEPARATOR + mark1 + SEPARATOR + mark2;
+	    return account + SEPARATOR + mark1 + SEPARATOR + mark2 + SEPARATOR + isTrialPass();
 	}
 
 	
