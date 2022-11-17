@@ -14,7 +14,11 @@ public class TrialBuffer {
 	return empty;
     }
     
-    public synchronized void take(Trial trial) {
+    public Trial getTrial() {
+	return trial;
+    }
+    
+    public synchronized void put(Trial trial) {
 	while (!empty) {
 	    try {
 		wait();
@@ -28,7 +32,7 @@ public class TrialBuffer {
 	    notifyAll();
     }
 
-    public synchronized void put() {
+    public synchronized Trial take() {
 	while (empty) {
 	    try {
 		wait();
@@ -39,6 +43,6 @@ public class TrialBuffer {
 	empty = true;
 	System.out.println(CONSOLE_MESSAGE + trial); 
 	notifyAll();
-	
+	return trial;
     }
 }

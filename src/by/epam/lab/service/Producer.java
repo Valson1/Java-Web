@@ -10,21 +10,23 @@ import static by.epam.lab.utils.Constants.*;
 
 public class Producer extends Thread {
     
-    private static final String FILE_NAME = "src/data/in.csv";
+    private final TrialBuffer trialBuffer;
+    private final String path;
     
-    private TrialBuffer trialBuffer;
-    
-    public Producer(TrialBuffer trialBuffer) {
+    public Producer(TrialBuffer trialBuffer,String path) {
 	this.trialBuffer = trialBuffer;
+	this.path = path;
     }
     @Override
     public void run() {
-	try(Scanner scanner = new Scanner(new FileReader(FILE_NAME))){
+	try(Scanner scanner = new Scanner(new FileReader(path))){
 	    while (scanner.hasNext()) {
-		trialBuffer.take(new Trial(scanner.nextLine().split(SEPARATOR)));
+		trialBuffer.put(new Trial(scanner.nextLine().split(SEPARATOR)));
 	    }
 	} catch (FileNotFoundException e) {
 	    System.err.println(FILE_IS_NOT_FOUND);
+	}finally {
+	    trialBuffer.put(FAKE_TRIAL);
 	}
     }
     

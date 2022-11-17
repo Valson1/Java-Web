@@ -1,5 +1,8 @@
 package by.epam.lab.service;
 
+import by.epam.lab.beans.Trial;
+import static by.epam.lab.utils.Constants.*;
+
 public class Consumer extends Thread{
     
     private TrialBuffer trialBuffer;
@@ -10,8 +13,9 @@ public class Consumer extends Thread{
     
     @Override
     public void run() {
-	while(trialBuffer.isEmpty()) {
-	    trialBuffer.put();
+	Trial trial = trialBuffer.take();
+	while(!trial.equals(FAKE_TRIAL)) {
+	    trial = trialBuffer.take();
 	}
     }
 }
